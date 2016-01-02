@@ -3,49 +3,59 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	public float speed = 1;
+	public float moveSpeed = 1.3f;
+	public float rotationSpeed = 0.5f;
 
-	private Vector3 move;
+	private Vector3 moveDirection;
 	private float rotateY;
+	private float cameraOrientationX;
+	private float cameraOrientationZ;
 	private Rigidbody rigidBody;
-	private Camera camera;
+	private Camera eyeCamera;
 
 	// Use this for initialization
 	void Start () {
-		this.rigidBody = GetComponent<Rigidbody> ();
-		this.move = new Vector3 ();
-		this.camera = GetComponentInChildren<Camera> ();
-	}
-
-	// Update is called once per frame
-	void Update () {
-	
+		this.rigidBody = this.GetComponent<Rigidbody> ();
+		this.moveDirection = new Vector3 ();
+		this.rotateY = 0;
+		this.cameraOrientationX = 0;
+		this.cameraOrientationZ = 0;
+		this.eyeCamera = this.GetComponentInChildren<Camera> ();
 	}
 
 	void FixedUpdate () {
 		Move ();
 		Rotate ();
+		LookOrientation ();
 	}	
 
-	public void Move(float x, float y) {
-		this.move.x = x;
-		this.move.z = y;
+	public void Move(float deltaX, float deltaZ) {
+		this.moveDirection.x = deltaX;
+		this.moveDirection.z = deltaZ;
 	}
 
 	private void Move() {
-		Debug.Log (this.move);
-		Vector3 cameraDirection = this.camera.transform.forward;
-		cameraDirection.Normalize ();
-		cameraDirection.Scale (move * speed);
-		this.rigidBody.velocity = cameraDirection;
+		// Move forward in function of the rotation : modify the global move direction to the local direction
+		this.rigidBody.velocity = transform.TransformDirection(this.moveDirection) * moveSpeed;
 	}
 
-	public void Rotate(float x) {
-		this.rotateY = x;
+	public void Rotate(float deltaY) {
+		this.rotateY = deltaY;
 	}
 
 	private void Rotate() {
 		float angleY = this.rigidBody.rotation.eulerAngles.y;
-		this.rigidBody.rotation = Quaternion.Euler(0, angleY + this.rotateY, 0);
+		this.rigidBody.rotation = Quaternion.Euler(0, angleY + this.rotateY * this.rotationSpeed, 0);
+	}
+
+	public void LookOrientation(float deltaX, float deltaZ) {
+		this.cameraOrientationX = deltaX;
+		this.cameraOrientationZ = deltaZ;
+	}
+
+	private void LookOrientation() {
+		this.eyeCamera.transform.Rotate(new Vector3(this.cameraOrientationX * this.rotationSpeed,
+													0,
+													this.cameraOrientationZ * this.rotationSpeed));
 	}
 }

@@ -27,7 +27,8 @@ public class GameController : MonoBehaviour {
 		Vector3 mousePosition = Input.mousePosition;
 		float delta = mousePosition.x - lastMousePosition.x;
 		player.Rotate(delta);
+		delta = lastMousePosition.y - mousePosition.y;
+		player.LookOrientation (delta, 0.0f);
 		this.lastMousePosition = mousePosition;
-
 	}
 }
