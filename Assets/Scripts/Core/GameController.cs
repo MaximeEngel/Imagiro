@@ -4,17 +4,38 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 	private Vector3 lastMousePosition;
+	private GameObject Inventory;
+	private bool inGame;
+	private bool inInventory;
 
 	public Player player;
 
 	// Use this for initialization
 	void Start () {
+		this.inGame = true;
+		this.inInventory = false;
 		this.lastMousePosition = Input.mousePosition;
+		this.Inventory = GameObject.FindGameObjectWithTag ("Inventory");
+		this.Inventory.SetActive (false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		ManagePlayerInput ();
+		if (Input.GetKeyDown (KeyCode.I)) {
+			this.inGame = !this.inGame;
+			this.inInventory = !this.inInventory;
+			this.Inventory.SetActive (this.inInventory);
+		}
+		if (this.inGame) {
+			ManagePlayerInput ();
+		}
+		if (this.inInventory) {
+			ManageInventoryInput ();
+		}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Debug.Break ();
+			Application.Quit ();
+		}
 	}
 
 	private void ManagePlayerInput() {
@@ -34,5 +55,9 @@ public class GameController : MonoBehaviour {
 		if (Input.GetButtonUp ("Interact")) {
 			player.Interact ();
 		}
+	}
+
+	private void ManageInventoryInput() {
+		
 	}
 }
