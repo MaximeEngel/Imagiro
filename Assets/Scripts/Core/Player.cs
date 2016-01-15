@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
 
 	public float moveSpeed = 1.3f;
 	public float rotationSpeed = 0.5f;
+	public int inventorySize = 20;
 
 	private Vector3 moveDirection;
 	private float rotateY;
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour {
 	private float cameraOrientationZ;
 	private Rigidbody rigidBody;
 	private Camera eyeCamera;
+	private Inventory _inventory;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour {
 		this.cameraOrientationX = 0;
 		this.cameraOrientationZ = 0;
 		this.eyeCamera = this.GetComponentInChildren<Camera> ();
+		this._inventory = new Inventory (inventorySize, this);
 	}
 
 	void FixedUpdate () {
@@ -57,5 +60,11 @@ public class Player : MonoBehaviour {
 		this.eyeCamera.transform.Rotate(new Vector3(this.cameraOrientationX * this.rotationSpeed,
 													0,
 													this.cameraOrientationZ * this.rotationSpeed));
+	}
+
+	public Inventory inventory {
+		get {
+			return this._inventory;
+		}
 	}
 }
