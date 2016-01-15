@@ -104,6 +104,7 @@ public class Inventory {
 		if (this.selectableObjects.Count + this.assembleAreaObjects.Count < this.maxSize) {
 			this.selectableObjects.Add (origamiObject);
 			origamiObject.transform.parent = this.player.transform;
+			origamiObject.enabled = false;
 			return true;
 		}
 

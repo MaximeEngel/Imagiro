@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 	public float moveSpeed = 1.3f;
 	public float rotationSpeed = 0.5f;
 	public int inventorySize = 20;
+	public float interactionDistance = 0.5f;
 
 	private Vector3 moveDirection;
 	private float rotateY;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour {
 	private Rigidbody rigidBody;
 	private Camera eyeCamera;
 	private Inventory _inventory;
+	private bool interact;
 
 	// Use this for initialization
 	void Start () {
@@ -24,12 +26,25 @@ public class Player : MonoBehaviour {
 		this.cameraOrientationZ = 0;
 		this.eyeCamera = this.GetComponentInChildren<Camera> ();
 		this._inventory = new Inventory (inventorySize, this);
+		this.interact = false;
 	}
 
 	void FixedUpdate () {
 		Move ();
 		Rotate ();
 		LookOrientation ();
+		if (this.interact) {
+			RaycastHit hit;
+			if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.RayDistance())) {
+				Debug.Log (hit.collider.gameObject.tag);
+				if (hit.collider.gameObject.tag == "OrigamiObject") {
+					if(this._inventory.Collect (hit.collider.gameObject.GetComponent<OrigamiObject> ());) {
+						// Play sound
+					}
+				}
+			}
+			this.interact = false;
+		}
 	}	
 
 	public void Move(float deltaX, float deltaZ) {
@@ -66,5 +81,20 @@ public class Player : MonoBehaviour {
 		get {
 			return this._inventory;
 		}
+	}
+
+	public void Interact () {
+		this.interact = true;
+	}
+
+	public void OnDrawGizmos() {
+		if (this.eyeCamera) {
+			Gizmos.color = Color.red;
+			Gizmos.DrawRay (this.eyeCamera.transform.position, this.eyeCamera.transform.forward * this.RayDistance());
+		}
+	}
+
+	private float RayDistance() {
+		return this.interactionDistance;
 	}
 }
