@@ -33,18 +33,7 @@ public class Player : MonoBehaviour {
 		Move ();
 		Rotate ();
 		LookOrientation ();
-		if (this.interact) {
-			RaycastHit hit;
-			if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.RayDistance())) {
-				Debug.Log (hit.collider.gameObject.tag);
-				if (hit.collider.gameObject.tag == "OrigamiObject") {
-					if(this._inventory.Collect (hit.collider.gameObject.GetComponent<OrigamiObject> ());) {
-						// Play sound
-					}
-				}
-			}
-			this.interact = false;
-		}
+		InteractResolve ();
 	}	
 
 	public void Move(float deltaX, float deltaZ) {
@@ -84,17 +73,32 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Interact () {
+		// Interact must resolve during PhysicUpdate Step, the boolean memorize that an interaction is aksed.
 		this.interact = true;
 	}
 
-	public void OnDrawGizmos() {
-		if (this.eyeCamera) {
-			Gizmos.color = Color.red;
-			Gizmos.DrawRay (this.eyeCamera.transform.position, this.eyeCamera.transform.forward * this.RayDistance());
+	private void InteractResolve () {
+		if (this.interact) {
+			RaycastHit hit;
+			if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.interactionDistance)) {
+				if (hit.collider.gameObject.tag == "OrigamiObject") {
+					if(this._inventory.Collect (hit.collider.gameObject.GetComponent<OrigamiObject> ())) {
+						// Play sound
+					}
+				}
+			}
+			this.interact = false;
 		}
 	}
 
-	private float RayDistance() {
-		return this.interactionDistance;
+
+	/// <summary>
+	/// Draw the ray of interact action in the unity scene for debug purpose
+	/// </summary>
+	public void OnDrawGizmos() {
+		if (this.eyeCamera) {
+			Gizmos.color = Color.red;
+			Gizmos.DrawRay (this.eyeCamera.transform.position, this.eyeCamera.transform.forward * this.interactionDistance);
+		}
 	}
 }

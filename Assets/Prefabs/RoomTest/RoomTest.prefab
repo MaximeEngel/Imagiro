@@ -83,7 +83,7 @@ GameObject:
   - 114: {fileID: 11495606}
   m_Layer: 0
   m_Name: OrigamiObject1
-  m_TagString: Untagged
+  m_TagString: OrigamiObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.353, y: -4.048, z: 1.05}
+  m_LocalPosition: {x: -0.567, y: -4.359, z: 1.05}
   m_LocalScale: {x: 0.15, y: 0.06, z: 0.19}
   m_Children: []
   m_Father: {fileID: 494810}
@@ -203,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.81, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 485662}

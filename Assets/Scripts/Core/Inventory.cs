@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 public class Inventory {
 
@@ -9,7 +10,7 @@ public class Inventory {
 	private OrigamiObject _selectedObject;
 	private int selectedIndex;
 	// Objects collected which are selectable (so which are not in AssembleArea)
-	private List<OrigamiObject> selectableObjects;
+	private List<OrigamiObject> _selectableObjects;
 	// Objects in assemble area (can not be selected outside of the assemble mode)
 	private LinkedList<OrigamiObject> assembleAreaObjects;
 
@@ -18,7 +19,7 @@ public class Inventory {
 		this.maxSize = maxSize;
 		this._selectedObject = null;
 		this.selectedIndex = 0;
-		this.selectableObjects = new List<OrigamiObject> (maxSize);
+		this._selectableObjects = new List<OrigamiObject> (maxSize);
 		this.assembleAreaObjects = new LinkedList<OrigamiObject> ();
 	}
 
@@ -35,14 +36,20 @@ public class Inventory {
 		}
 	}
 
+	public ReadOnlyCollection<OrigamiObject> selectableObject {
+		get {
+			return this._selectableObjects.AsReadOnly ();
+		}
+	}
+
 	/// <summary>
 	/// Select the selected object by an index if it exists.
 	/// </summary>
 	/// <param name="index">Index.</param>
 	public void selectByIndex (int index) {
-		if (index >= 0 && index < this.selectableObjects.Count) {
+		if (index >= 0 && index < this._selectableObjects.Count) {
 			this.selectedIndex = index;
-			this.selectedObject = this.selectableObjects [index];
+			this.selectedObject = this._selectableObjects [index];
 		}
 	}
 
@@ -50,10 +57,10 @@ public class Inventory {
 	///  Select the next object.
 	/// </summary>
 	public void NextObject () {
-		if (++this.selectedIndex >= this.selectableObjects.Count) {
+		if (++this.selectedIndex >= this._selectableObjects.Count) {
 			this.selectedIndex = 0;
 		}
-		this.selectedObject = this.selectableObjects [this.selectedIndex];
+		this.selectedObject = this._selectableObjects [this.selectedIndex];
 	}
 
 	/// <summary>
@@ -61,9 +68,9 @@ public class Inventory {
 	/// </summary>
 	public void PreviousObject () {
 		if (--this.selectedIndex < 0) {
-			this.selectedIndex = this.selectableObjects.Count - 1;
+			this.selectedIndex = this._selectableObjects.Count - 1;
 		}
-		this.selectedObject = this.selectableObjects [this.selectedIndex];
+		this.selectedObject = this._selectableObjects [this.selectedIndex];
 	}
 
 	/// <summary>
@@ -71,7 +78,7 @@ public class Inventory {
 	/// </summary>
 	/// <param name="origamiObject">Origami object.</param>
 	public void MoveInAssembleArea (OrigamiObject origamiObject) {
-		this.selectableObjects.Remove (origamiObject);
+		this._selectableObjects.Remove (origamiObject);
 		this.assembleAreaObjects.AddLast (origamiObject);
 	}
 
@@ -81,7 +88,7 @@ public class Inventory {
 	/// <param name="origamiObject">Origami object.</param>
 	public void MoveInSelectableArea (OrigamiObject origamiObject) {
 		this.assembleAreaObjects.Remove (origamiObject);
-		this.selectableObjects.Add (origamiObject);
+		this._selectableObjects.Add (origamiObject);
 	}
 
 	/// <summary>
@@ -101,11 +108,10 @@ public class Inventory {
 	/// </summary>
 	/// <param name="origamiObject">Origami object.</param>
 	public bool Collect (OrigamiObject origamiObject) {
-		if (this.selectableObjects.Count + this.assembleAreaObjects.Count < this.maxSize) {
-			this.selectableObjects.Add (origamiObject);
+		if (this._selectableObjects.Count + this.assembleAreaObjects.Count < this.maxSize) {
+			this._selectableObjects.Add (origamiObject);
 			origamiObject.transform.parent = this.player.transform;
-			origamiObject.enabled = false;
-			return true;
+			origamiObject.gameObject.SetActive (false);
 		}
 
 		return false;
