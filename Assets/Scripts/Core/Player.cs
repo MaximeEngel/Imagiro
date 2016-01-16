@@ -34,7 +34,16 @@ public class Player : MonoBehaviour {
 		Rotate ();
 		LookOrientation ();
 		InteractResolve ();
-	}	
+	}
+
+	public void StayStill(){
+		//Resets all the character's speeds to 0, to make sur they don't move while the inventory or the pause menu is open
+		this.moveDirection.x = 0;
+		this.moveDirection.z = 0;
+		this.cameraOrientationX = 0;
+		this.cameraOrientationZ = 0;
+		this.rotateY = 0;
+	}
 
 	public void Move(float deltaX, float deltaZ) {
 		this.moveDirection.x = deltaX;

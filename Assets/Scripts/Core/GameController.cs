@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.I)) {
+		if (Input.GetButtonDown("Inventory")) {
 			this.inGame = !this.inGame;
 			this.inInventory = !this.inInventory;
 			this.Inventory.SetActive (this.inInventory);
@@ -30,9 +30,10 @@ public class GameController : MonoBehaviour {
 			ManagePlayerInput ();
 		}
 		if (this.inInventory) {
+			player.StayStill ();
 			ManageInventoryInput ();
 		}
-		if (Input.GetKeyDown (KeyCode.Escape)) {
+		if (Input.GetButtonDown("Escape")) {
 			Debug.Break ();
 			Application.Quit ();
 		}
