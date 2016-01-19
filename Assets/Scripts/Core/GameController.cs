@@ -4,7 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 	private Vector3 lastMousePosition;
-	private GameObject Inventory;
+	public InventoryGUI inventoryGUI;
 	private bool inGame;
 	private bool inInventory;
 
@@ -15,8 +15,7 @@ public class GameController : MonoBehaviour {
 		this.inGame = true;
 		this.inInventory = false;
 		this.lastMousePosition = Input.mousePosition;
-		this.Inventory = GameObject.FindGameObjectWithTag ("Inventory");
-		this.Inventory.SetActive (false);
+		this.inventoryGUI.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -24,7 +23,14 @@ public class GameController : MonoBehaviour {
 		if (Input.GetButtonDown("Inventory")) {
 			this.inGame = !this.inGame;
 			this.inInventory = !this.inInventory;
-			this.Inventory.SetActive (this.inInventory);
+			if (this.inInventory) {
+				this.inventoryGUI.gameObject.SetActive (true);
+				this.inventoryGUI.Open ();
+			}
+			else {
+				this.inventoryGUI.Close ();	
+				this.inventoryGUI.gameObject.SetActive (false);
+			}
 		}
 		if (this.inGame) {
 			ManagePlayerInput ();
