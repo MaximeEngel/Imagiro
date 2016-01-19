@@ -12,7 +12,7 @@ public class InventoryGUI : MonoBehaviour {
 	public GameObject slotPanel;
 	private List<Transform> inventorySlots;
 
-	void Start(){
+	void Awake(){
 		this.inventory = this.player.inventory;
 		this.inventorySlots = new List<Transform> (this.player.inventorySize);
 		foreach (Transform slot in this.slotPanel.transform) {
