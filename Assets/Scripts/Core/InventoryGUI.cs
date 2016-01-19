@@ -29,19 +29,24 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	void GatherObjects(){
-		int slotcount = 0;
-		foreach(Transform origamiObject in this.playerHand.transform){
-			if(origamiObject.gameObject.tag == "OrigamiObject"){
-				origamiObject.transform.parent = this.inventorySlots [slotcount];
-				origamiObject.gameObject.SetActive (true);
-				origamiObject.transform.localPosition = Vector3.zero;
+		int slotCount = 0;
+		List<GameObject> objectsToMove = new List<GameObject> (this.player.inventorySize);
+		foreach(Transform childObj in this.playerHand.transform){
+			if(childObj.gameObject.tag == "OrigamiObject"){
 
-				// TODO : make the object fit the slot
-				//origamiObject.transform.localScale = ;
-
-				origamiObject.gameObject.layer = (5);
-				slotcount++;
+				objectsToMove.Add(childObj.gameObject);
 			}
+		}
+		foreach (GameObject origamiObject in objectsToMove) {
+			origamiObject.transform.parent = this.inventorySlots [slotCount];
+			origamiObject.gameObject.SetActive (true);
+			origamiObject.transform.localPosition = Vector3.zero;
+
+			// TODO : make the object fit the slot
+			//origamiObject.transform.localScale = ;
+
+			origamiObject.gameObject.layer = (5);
+			slotCount++;
 		}
 	}
 
