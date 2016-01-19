@@ -37,7 +37,7 @@ public class InventoryGUI : MonoBehaviour {
 				origamiObject.transform.localPosition = Vector3.zero;
 
 				// TODO : make the object fit the slot
-				//origamiObject.transform.localScale *= 44;
+				//origamiObject.transform.localScale = ;
 
 				origamiObject.gameObject.layer = (5);
 				slotcount++;
@@ -51,7 +51,10 @@ public class InventoryGUI : MonoBehaviour {
 				Transform origamiObject = slot.GetChild (0);
 				origamiObject.transform.parent = this.playerHand.transform;
 				origamiObject.gameObject.SetActive (false);
-				//origamiObject.transform.localScale *= (float)1/(float)44;
+
+				// TODO : reset scale (maybe place every OrigamiObject into a empty GameObject)
+				//origamiObject.transform.localScale = ;
+
 				origamiObject.gameObject.layer = (0);
 
 			}
