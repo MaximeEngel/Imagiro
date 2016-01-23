@@ -1,0 +1,3 @@
+origamiObject1.anchor1-origamiObject2.anchor3
+origamiObject1.anchor2-origamiObject3.anchor1|origamiObject3.anchor3|origamiObject2.anchor1
+origamiObject4.anchor1&origamiObject4.anchor2-origamiObject5.anchor4&origamiObject6.anchor1

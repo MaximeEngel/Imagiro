@@ -14,7 +14,7 @@ public class AnchorValidator
 
 		string[] lines = anchorsFile.text.Split (new char[] { '\n' });
 		foreach (string line in lines) {
-			string[] entities = line.Split(new char[] {'-'});
+			string[] entities = line.Trim().Split(new char[] {'-'});
 			Assert.AreEqual(entities.Length, 2, "Line do not have - symbol");
 			if (entities [1].IndexOf ("|") >= 0) {
 				string[] parsedObject = parseObject (entities [0]);
@@ -41,20 +41,19 @@ public class AnchorValidator
 			}
 
 		}
-		printConnections ();
 	}
 
 	private void printConnections() {
 		string connect = "";
 		foreach(var obj in this.connections) {
-			connect += obj.Key + "\n";
+			connect += obj.Key + "_\n";
 			foreach (var anchors in obj.Value) {
-				connect += "____ " + anchors.Key + "\n";
+				connect += "____" + anchors.Key +"_\n";
 				foreach (var objAnchor in anchors.Value) {
 					if (objAnchor == null) {
-						connect += "____________ NULL \n";
+						connect += "____________NULL_\n";
 					} else {
-						connect += "____________ " + objAnchor +"\n";
+						connect += "____________" + objAnchor+"_\n";
 					}
 				}
 			}
@@ -104,6 +103,16 @@ public class AnchorValidator
 	}
 
 	public bool Validate(string object1, string anchor1, string object2Anchor2 = null) {
-		return false;
+		Dictionary<string, HashSet<string>> objectAnchors;
+		if (!this.connections.TryGetValue (object1, out objectAnchors)) {
+			return object2Anchor2 == null;
+		}
+
+		HashSet<string> validOtherObjectAnchor;
+		if (!objectAnchors.TryGetValue (anchor1, out validOtherObjectAnchor)) {
+			return object2Anchor2 == null;
+		}
+
+		return validOtherObjectAnchor.Contains (object2Anchor2);
 	}
 }
