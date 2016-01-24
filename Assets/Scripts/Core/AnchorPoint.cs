@@ -8,10 +8,15 @@ public class AnchorPoint : MonoBehaviour {
 
 	private AnchorPoint linkedTo;
 	private AnchorValidator anchorValidator;
+	private MeshRenderer meshRenderer;
+	private Collider collider;
 
 	void Start () {
 		this.linkedTo = null;
 		this.anchorValidator = AnchorValidator.Instance;
+		this.meshRenderer = this.GetComponent<MeshRenderer> ();
+		this.collider = this.GetComponent<Collider> ();
+		this.Hide ();
 	}
 
 	public void LinkTo(AnchorPoint anchorPoint) {
@@ -35,6 +40,16 @@ public class AnchorPoint : MonoBehaviour {
 
 	public bool isLinked() {
 		return this.linkedTo != null;
+	}
+
+	public void Show() {
+		this.meshRenderer.enabled = true;
+		this.collider.enabled = true;
+	}
+
+	public void Hide() {
+		this.meshRenderer.enabled = false;
+		this.collider.enabled = false;
 	}
 
 	public void OnDrawGizmos() {
