@@ -11,35 +11,50 @@ public class InventoryGUI : MonoBehaviour {
 	public float slotSize = 0.5f;
 	public Inventory inventory;
 	public GameObject slotPanel;
-	public GameObject AssembleWindow;
+	public GameObject assembleWindow;
+	public Camera inventoryCamera;
+	public Canvas inventoryCanvas;
 	private List<Transform> inventorySlots;
 	private bool isDragging;
-	private GameObject draggedObject;
+	private GameObject _draggedSlot;
 
-	void Awake(){
+	void Start(){
 		this.inventory = this.player.inventory;
 		this.inventorySlots = new List<Transform> (this.player.inventorySize);
 		this.isDragging = false;
-		this.draggedObject = null;
+		this._draggedSlot = null;
 		foreach (Transform slot in this.slotPanel.transform) {
 			// The list inventorySlots contains all the Scalers
 			inventorySlots.Add (slot.GetChild(0).GetChild(0));
 		}
 	}
 
+	public GameObject draggedSlot{
+		get{
+			return this._draggedSlot;
+		}
+		set{
+			if (this._draggedSlot == null) {
+				if (value != null) {
+					this._draggedSlot = value;
+					this.isDragging = true;
+				}
+			}
+		}
+	}
+
 	void Update(){
 		if (this.isDragging) {
 			// Interpolate screen coordinates to match world coordinates 
-			float xMouseToWorld = Mathf.Lerp (-8.0f, 8.0f, Input.mousePosition.x/Screen.width);
-			float yMouseToWorld = Mathf.Lerp (-4.5f, 4.5f, Input.mousePosition.y/Screen.height);
+			Vector3 worldPointer = this.inventoryCamera.ScreenToWorldPoint (new Vector3(Input.mousePosition.x,Input.mousePosition.y,inventoryCanvas.planeDistance));
 
-			this.draggedObject.transform.position = new Vector3 (xMouseToWorld,yMouseToWorld,0);
+			this._draggedSlot.transform.position = worldPointer;
 		}
 		if (Input.GetButtonUp ("Interact")) {
-			//TODO
+			//TODO but maybe in the game controller
 		}
 		if (Input.GetButtonDown ("Interact")) {
-			//TODO
+			//TODO but maybe in the game controller
 		}
 	}
 
@@ -52,48 +67,46 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	void GatherObjects(){
-		int slotCount = 0;
-		List<GameObject> objectsToMove = new List<GameObject> (this.player.inventorySize);
+		//Making sure the inventory is instanciated
+		if (this.inventory == null)
+			this.Start ();
+		
+		int slotIndex = 0;
 
-		// Find all the origamiObjects that the player has
-		foreach(Transform childObj in this.playerHand.transform){
-			if(childObj.gameObject.tag == "OrigamiObject"){
-				objectsToMove.Add(childObj.gameObject);
-			}
-		}
+		// Move all OrigamiObjects of the Inventory to their slot in the inventory
+		foreach (OrigamiObject origami in this.inventory.selectableObject) {
+			GameObject origamiGameObject = origami.gameObject;
+			Transform currentSlot = this.inventorySlots [slotIndex];
+			origamiGameObject.transform.parent = currentSlot;
+			origamiGameObject.gameObject.SetActive (true);
+			origamiGameObject.transform.localPosition = Vector3.zero;
+			origamiGameObject.transform.localRotation = Quaternion.identity;
 
-		// Move them all to their slot in the inventory
-		foreach (GameObject origamiObject in objectsToMove) {
-			Transform currentSlot = this.inventorySlots [slotCount];
-			origamiObject.transform.parent = currentSlot;
-			origamiObject.gameObject.SetActive (true);
-			origamiObject.transform.localPosition = Vector3.zero;
-			origamiObject.transform.localRotation = Quaternion.identity;
-
-			Vector3 origamiBounds = origamiObject.GetComponent<Renderer>().bounds.extents;
+			Vector3 origamiBounds = origamiGameObject.GetComponent<Renderer>().bounds.extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 			float scaleFactor = slotSize / maxBound;
 			currentSlot.localScale = scaleFactor*Vector3.one;
 
 			currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;
 
-			origamiObject.gameObject.layer = (5);
-			slotCount++;
+			origamiGameObject.gameObject.layer = (5);
+			slotIndex++;
 		}
 	}
 
 	void ReturnObjects(){
-		foreach (Transform slot in this.inventorySlots) {
-			if (slot.childCount > 0) {
-				slot.localScale = Vector3.one;
-				Transform origamiObject = slot.GetChild (0);
-				origamiObject.transform.parent = this.playerHand.transform;
-				origamiObject.gameObject.SetActive (false);
-				slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
+		foreach (OrigamiObject origami in this.inventory.selectableObject) {
+			GameObject origamiGameObject = origami.gameObject;
+			//Reset the slot's state to its default
+			Transform slot = origamiGameObject.transform.parent;
+			slot.localScale = Vector3.one;
+			slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
 
-				origamiObject.gameObject.layer = (0);
+			//Move the OrigamiObject to the player's hand
+			origamiGameObject.transform.parent = this.playerHand.transform;
+			origamiGameObject.SetActive (false);
+			origamiGameObject.layer = (0);
 
-			}
 		}
 	}
 }

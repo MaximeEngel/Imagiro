@@ -20,23 +20,13 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown("Inventory")) {
-			this.inGame = !this.inGame;
-			this.inInventory = !this.inInventory;
-			if (this.inInventory) {
-				this.inventoryGUI.gameObject.SetActive (true);
-				this.inventoryGUI.Open ();
-			}
-			else {
-				this.inventoryGUI.Close ();	
-				this.inventoryGUI.gameObject.SetActive (false);
-			}
+		if (Input.GetButtonDown ("Inventory")) {
+			this.ToggleInventory ();
 		}
 		if (this.inGame) {
 			ManagePlayerInput ();
 		}
 		if (this.inInventory) {
-			player.StayStill ();
 			ManageInventoryInput ();
 		}
 		if (Input.GetButtonDown("Escape")) {
@@ -61,6 +51,21 @@ public class GameController : MonoBehaviour {
 
 		if (Input.GetButtonUp ("Interact")) {
 			player.Interact ();
+		}
+	}
+
+	private void ToggleInventory(){
+		this.inGame = !this.inGame;
+		this.inInventory = !this.inInventory;
+		if (this.inInventory) {
+			this.inventoryGUI.gameObject.SetActive (true);
+			this.inventoryGUI.Open ();
+			this.player.StayStill ();
+		}
+		else {
+			this.inventoryGUI.Close ();	
+			this.inventoryGUI.gameObject.SetActive (false);
+			this.lastMousePosition = Input.mousePosition;
 		}
 	}
 
