@@ -72,9 +72,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 152840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad816ad5e826ed47a3e577dcdd68a21, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f34b7236e2efde4f921e0ce5e4c236f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normal: {x: 0.5, y: 0, z: 0.5}
+  directionUp: {x: 0, y: 1, z: 0}
 --- !u!135 &13528822
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -2,17 +2,26 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 using System.Collections;
+using System.IO;
+using System.Text;
 
 public class AnchorValidator
 {
 	private static AnchorValidator anchorValidator;
+	// Hashset contains null value only for a | connections. If the only good connections is no connection the dico must not have the connection.
 	private Dictionary <string, Dictionary <string, HashSet<string>>> connections;
 
 	private AnchorValidator() {
-		TextAsset anchorsFile = Resources.Load ("Anchors") as TextAsset	;
+
 		this.connections = new Dictionary <string, Dictionary <string, HashSet<string>>> ();
 
-		string[] lines = anchorsFile.text.Split (new char[] { '\n' });
+		// Must be put in a proper file
+		string[] lines = new string[] {
+			"origamiObject7.anchor1-origamiObject8.anchor3",
+			"OrigamiObject2.anchor1-OrigamiObject1.anchor1|origamiObject1.anchor2",
+			"origamiObject4.anchor1&origamiObject4.anchor2-origamiObject5.anchor4&origamiObject6.anchor1"
+		};
+			
 		foreach (string line in lines) {
 			string[] entities = line.Trim().Split(new char[] {'-'});
 			Assert.AreEqual(entities.Length, 2, "Line do not have - symbol");
@@ -39,8 +48,8 @@ public class AnchorValidator
 				Add(parseObject (entities [0]), entities[1]);
 				Add(parseObject (entities [1]), entities[0]);
 			}
-
 		}
+		printConnections ();
 	}
 
 	private void printConnections() {
@@ -108,11 +117,44 @@ public class AnchorValidator
 			return object2Anchor2 == null;
 		}
 
-		HashSet<string> validOtherObjectAnchor;
-		if (!objectAnchors.TryGetValue (anchor1, out validOtherObjectAnchor)) {
+		HashSet<string> validOtherObjectAnchors;
+		if (!objectAnchors.TryGetValue (anchor1, out validOtherObjectAnchors)) {
 			return object2Anchor2 == null;
 		}
 
-		return validOtherObjectAnchor.Contains (object2Anchor2);
+		bool res = validOtherObjectAnchors.Contains (object2Anchor2);
+		// In case of | connection, be linked to null is not necessary valid, we have to check other connections anf found one valid and not null.
+		if (res && object2Anchor2 == null) {
+			res = NullOrConnectionValidation (validOtherObjectAnchors);
+		}
+		return res;
+	}
+
+	private bool NullOrConnectionValidation (HashSet<string> validOtherObjectAnchors)
+	{
+		bool res = false;
+
+		foreach (string obj in validOtherObjectAnchors) {
+			if (obj != null) {
+				AnchorPoint verified = null;
+				GameObject gameObject = GameObject.Find (obj.Replace (".", "/"));
+				if (gameObject != null) {
+					verified = gameObject.GetComponent<AnchorPoint> ();
+				}
+
+				if (verified != null) {
+					string[] obj1 = parseObject (obj);
+					if (verified.linkedTo != null) {
+						res = Validate (obj1 [0], obj1 [1], verified.linkedTo.transform.parent.name + "." + verified.linkedTo.name);
+						if (res) {
+							break;
+						}
+					}
+				}
+
+			}
+		}
+
+		return res;
 	}
 }
