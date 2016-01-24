@@ -3,8 +3,8 @@ using System.Collections;
 
 public class AnchorPoint : MonoBehaviour {
 
-	public Vector3 normal;
-	public Vector3 directionUp;
+	public Vector3 normal = new Vector3(0.5f, 0f, 0.5f);
+	public Vector3 directionUp = new Vector3(0.0f, 1.0f, 0.0f);
 
 	private AnchorPoint linkedTo;
 	private AnchorValidator anchorValidator;
@@ -37,5 +37,12 @@ public class AnchorPoint : MonoBehaviour {
 		return this.linkedTo != null;
 	}
 
-
+	public void OnDrawGizmos() {
+		var start = this.transform.position;
+		float lengthFacotr = 0.05f;
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine (start, start + this.normal.normalized * lengthFacotr);
+		Gizmos.color = Color.green;
+		Gizmos.DrawLine (start, start + this.directionUp.normalized * lengthFacotr);
+	}
 }
