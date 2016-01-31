@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.3
-  rotationSpeed: 0.5
+  rotationSpeed: 2
   inventorySize: 20
   interactionDistance: 0.5
 --- !u!124 &12414782

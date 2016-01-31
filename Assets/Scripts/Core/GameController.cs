@@ -3,17 +3,14 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	private Vector3 lastMousePosition;
-
 	public Player player;
 	public bool VRMode = false;
 
 	// Use this for initialization
 	void Start () {
-		this.lastMousePosition = Input.mousePosition;
 		if (this.VRMode) {
 			GameObject c = GameObject.FindGameObjectWithTag ("MainCamera");
-			StereoController stC = c.AddComponent <StereoController>() as StereoController;
+			c.AddComponent <StereoController>();
 		}
 	}
 	
@@ -30,11 +27,7 @@ public class GameController : MonoBehaviour {
 
 		if (!this.VRMode) {
 			// Rotation Orientation
-			Vector3 mousePosition = Input.mousePosition;
-			float deltaY = mousePosition.x - lastMousePosition.x;
-			float deltaX = lastMousePosition.y - mousePosition.y;
-			player.Rotate (deltaX, deltaY, 0);
-			this.lastMousePosition = mousePosition;
+			player.Rotate (-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0);
 		}
 
 		if (Input.GetButtonUp ("Interact")) {
