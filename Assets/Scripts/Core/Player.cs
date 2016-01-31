@@ -9,30 +9,27 @@ public class Player : MonoBehaviour {
 	public float interactionDistance = 0.5f;
 
 	private Vector3 moveDirection;
-	private float rotateY;
-	private float cameraOrientationX;
-	private float cameraOrientationZ;
 	private Rigidbody rigidBody;
 	private Camera eyeCamera;
 	private Inventory _inventory;
 	private bool interact;
+	private float maxOrientationX = 190;
+	private float minOrientationX = 80;
+	private float midOrientationX;
 
 	// Use this for initialization
 	void Start () {
 		this.rigidBody = this.GetComponent<Rigidbody> ();
 		this.moveDirection = new Vector3 ();
-		this.rotateY = 0;
-		this.cameraOrientationX = 0;
-		this.cameraOrientationZ = 0;
 		this.eyeCamera = this.GetComponentInChildren<Camera> ();
 		this._inventory = new Inventory (inventorySize, this);
 		this.interact = false;
+
+		this.midOrientationX = (this.maxOrientationX + this.minOrientationX) / 2;
 	}
 
 	void FixedUpdate () {
 		Move ();
-		Rotate ();
-		LookOrientation ();
 		InteractResolve ();
 	}	
 
@@ -42,28 +39,28 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Move() {
-		// Move forward in function of the rotation : modify the global move direction to the local direction
-		this.rigidBody.velocity = transform.TransformDirection(this.moveDirection) * moveSpeed;
+		Vector3 rot = this.eyeCamera.transform.rotation.eulerAngles;
+		rot.x = 0; 
+		Vector3 direction = Quaternion.Euler(rot) * this.moveDirection;
+		if (direction.magnitude > 1) {
+			direction.Normalize ();
+		}
+		this.rigidBody.velocity = direction * moveSpeed;
 	}
 
-	public void Rotate(float deltaY) {
-		this.rotateY = deltaY;
-	}
 
-	private void Rotate() {
-		float angleY = this.rigidBody.rotation.eulerAngles.y;
-		this.rigidBody.rotation = Quaternion.Euler(0, angleY + this.rotateY * this.rotationSpeed, 0);
-	}
+	public void Rotate(float deltaX, float deltaY, float deltaZ) {
+		Vector3 oldAngle = this.eyeCamera.transform.rotation.eulerAngles;
 
-	public void LookOrientation(float deltaX, float deltaZ) {
-		this.cameraOrientationX = deltaX;
-		this.cameraOrientationZ = deltaZ;
-	}
+		// Lock the min and max x orientation
+		float x = (oldAngle.x + deltaX * this.rotationSpeed);
+		if (x < this.maxOrientationX && x > this.minOrientationX) {
+			x = x >= this.midOrientationX ? this.maxOrientationX : this.minOrientationX;
+		}
 
-	private void LookOrientation() {
-		this.eyeCamera.transform.Rotate(new Vector3(this.cameraOrientationX * this.rotationSpeed,
-													0,
-													this.cameraOrientationZ * this.rotationSpeed));
+		Vector3 rot = new Vector3(x, oldAngle.y + deltaY * this.rotationSpeed,
+								  oldAngle.z + deltaZ * this.rotationSpeed);
+		this.eyeCamera.transform.rotation = Quaternion.Euler (rot);
 	}
 
 	public Inventory inventory {
