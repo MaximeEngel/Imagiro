@@ -6,10 +6,15 @@ public class GameController : MonoBehaviour {
 	private Vector3 lastMousePosition;
 
 	public Player player;
+	public bool VRMode = false;
 
 	// Use this for initialization
 	void Start () {
 		this.lastMousePosition = Input.mousePosition;
+		if (this.VRMode) {
+			GameObject c = GameObject.FindGameObjectWithTag ("MainCamera");
+			StereoController stC = c.AddComponent <StereoController>() as StereoController;
+		}
 	}
 	
 	// Update is called once per frame
@@ -23,13 +28,14 @@ public class GameController : MonoBehaviour {
 		float y = Input.GetAxis ("Vertical");
 		player.Move (x, y);
 
-		// Rotation Orientation
-		Vector3 mousePosition = Input.mousePosition;
-		float delta = mousePosition.x - lastMousePosition.x;
-		player.Rotate(delta);
-		delta = lastMousePosition.y - mousePosition.y;
-		player.LookOrientation (delta, 0.0f);
-		this.lastMousePosition = mousePosition;
+		if (!this.VRMode) {
+			// Rotation Orientation
+			Vector3 mousePosition = Input.mousePosition;
+			float deltaY = mousePosition.x - lastMousePosition.x;
+			float deltaX = lastMousePosition.y - mousePosition.y;
+			player.Rotate (deltaX, deltaY, 0);
+			this.lastMousePosition = mousePosition;
+		}
 
 		if (Input.GetButtonUp ("Interact")) {
 			player.Interact ();
