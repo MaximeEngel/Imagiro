@@ -5,6 +5,7 @@ public class InventoryIdleAnimation : MonoBehaviour {
 
 	public float returnSpeed = 4;
 	public bool isRotating = false;
+	public bool isDragged = false;
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,6 +26,7 @@ public class InventoryIdleAnimation : MonoBehaviour {
 	}
 
 	public void ResumeRotation(){
-		this.isRotating = true;
+		if(!this.isDragged)
+			this.isRotating = true;
 	}
 }

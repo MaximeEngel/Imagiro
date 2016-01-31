@@ -18,6 +18,8 @@ public class InventoryGUI : MonoBehaviour {
 	private bool isDragging;
 	private GameObject _draggedSlot;
 
+	public GameObject assembleRotater;
+
 	void Start(){
 		this.inventory = this.player.inventory;
 		this.inventorySlots = new List<Transform> (this.player.inventorySize);
@@ -50,12 +52,6 @@ public class InventoryGUI : MonoBehaviour {
 
 			this._draggedSlot.transform.position = worldPointer;
 		}
-		if (Input.GetButtonUp ("Interact")) {
-			//TODO but maybe in the game controller
-		}
-		if (Input.GetButtonDown ("Interact")) {
-			//TODO but maybe in the game controller
-		}
 	}
 
 	public void Open(){
@@ -64,6 +60,41 @@ public class InventoryGUI : MonoBehaviour {
 
 	public void Close(){
 		this.ReturnObjects ();
+	}
+
+	public void ReleaseObjectInAssembleWindow(){
+		if (this.isDragging) {
+			this.isDragging = false;
+
+			// Reset the scaler's scale
+			this._draggedSlot.transform.GetChild(0).localScale = Vector3.one;
+
+			// Tell the inventory the object has moved
+			this.inventory.MoveInAssembleArea (this._draggedSlot.transform.GetChild(0).GetChild(0).GetComponent<OrigamiObject>());
+
+			// Create a rotater
+			GameObject newRotater = (GameObject) Instantiate(this.assembleRotater);
+			newRotater.transform.SetParent(this.assembleWindow.transform,false);
+			newRotater.transform.position = this._draggedSlot.transform.GetChild (0).GetChild (0).position;
+
+			// Put the object in this rotater
+			this._draggedSlot.transform.GetChild (0).GetChild (0).localPosition = Vector3.zero;
+			this._draggedSlot.transform.GetChild (0).GetChild (0).SetParent(newRotater.transform,false);
+
+			// Put the slot back to it's position
+			this._draggedSlot.transform.localPosition = Vector3.zero;
+			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation>().isDragged = false;
+			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().ResumeRotation ();
+			this._draggedSlot = null;
+		}
+	}
+
+	public void ReleaseObjectNowhere(){
+		this.isDragging = false;
+		this._draggedSlot.transform.localPosition = Vector3.zero;
+		this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation>().isDragged = false;
+		this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().ResumeRotation ();
+		this._draggedSlot = null;
 	}
 
 	void GatherObjects(){

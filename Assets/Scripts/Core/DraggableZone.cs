@@ -10,6 +10,7 @@ public class DraggableZone : MonoBehaviour {
 	}
 
 	public void Select(){
+		this.transform.GetChild (0).GetComponent<InventoryIdleAnimation>().isDragged = true;
 		this.inventory.draggedSlot = this.gameObject;
 	}
 }
