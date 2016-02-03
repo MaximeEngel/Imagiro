@@ -9,12 +9,15 @@ public class InventoryGUI : MonoBehaviour {
 	public GameObject playerHand;
 
 	public float slotSize = 0.5f;
+	public float assembleSize = 4f;
+	private float assembleObjScale;
 	public Inventory inventory;
 	public GameObject slotPanel;
 	public GameObject assembleWindow;
 	public Camera inventoryCamera;
 	public Canvas inventoryCanvas;
 	private List<Transform> inventorySlots;
+	private LinkedList<Transform> assembleObjs;
 	private bool isDragging;
 	private GameObject _draggedSlot;
 
@@ -23,6 +26,7 @@ public class InventoryGUI : MonoBehaviour {
 	void Start(){
 		this.inventory = this.player.inventory;
 		this.inventorySlots = new List<Transform> (this.player.inventorySize);
+		this.assembleObjs = new LinkedList<Transform> ();
 		this.isDragging = false;
 		this._draggedSlot = null;
 		foreach (Transform slot in this.slotPanel.transform) {
@@ -66,26 +70,48 @@ public class InventoryGUI : MonoBehaviour {
 		if (this.isDragging) {
 			this.isDragging = false;
 
+			Transform origamiObj = this._draggedSlot.transform.GetChild(0).GetChild(0);
+
 			// Reset the scaler's scale
 			this._draggedSlot.transform.GetChild(0).localScale = Vector3.one;
 
 			// Tell the inventory the object has moved
-			this.inventory.MoveInAssembleArea (this._draggedSlot.transform.GetChild(0).GetChild(0).GetComponent<OrigamiObject>());
+			this.inventory.MoveInAssembleArea (origamiObj.GetComponent<OrigamiObject>());
 
 			// Create a rotater
 			GameObject newRotater = (GameObject) Instantiate(this.assembleRotater);
 			newRotater.transform.SetParent(this.assembleWindow.transform,false);
-			newRotater.transform.position = this._draggedSlot.transform.GetChild (0).GetChild (0).position;
+			newRotater.transform.position = origamiObj.position;
 
 			// Put the object in this rotater
-			this._draggedSlot.transform.GetChild (0).GetChild (0).localPosition = Vector3.zero;
-			this._draggedSlot.transform.GetChild (0).GetChild (0).SetParent(newRotater.transform,false);
+			origamiObj.localPosition = Vector3.zero;
+			origamiObj.SetParent(newRotater.transform,false);
 
+			//Resize the rotater
+			Vector3 origamiBounds = origamiObj.GetComponent<Renderer>().bounds.extents;
+			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+			float scaleFactor = this.assembleSize / maxBound;
+
+			if(this.inventory.NumberAssembleAreaObjects()==1){
+				this.assembleObjScale = scaleFactor;
+			} else if(scaleFactor < this.assembleObjScale) {
+				this.assembleObjScale = scaleFactor;
+				this.UpdateAssembleObjScale();
+			}
+			newRotater.transform.localScale = this.assembleObjScale*Vector3.one;
+			this.assembleObjs.AddLast(newRotater.transform);
+			
 			// Put the slot back to it's position
 			this._draggedSlot.transform.localPosition = Vector3.zero;
 			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation>().isDragged = false;
 			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().ResumeRotation ();
 			this._draggedSlot = null;
+		}
+	}
+
+	private void UpdateAssembleObjScale(){
+		foreach (Transform t in assembleObjs) {
+			t.localScale = this.assembleObjScale * Vector3.one;
 		}
 	}
 
@@ -115,7 +141,7 @@ public class InventoryGUI : MonoBehaviour {
 
 			Vector3 origamiBounds = origamiGameObject.GetComponent<Renderer>().bounds.extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
-			float scaleFactor = slotSize / maxBound;
+			float scaleFactor = this.slotSize / maxBound;
 			currentSlot.localScale = scaleFactor*Vector3.one;
 
 			currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;

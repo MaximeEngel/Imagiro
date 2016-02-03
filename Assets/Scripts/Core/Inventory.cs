@@ -12,7 +12,7 @@ public class Inventory {
 	// Objects collected which are selectable (so which are not in AssembleArea)
 	private List<OrigamiObject> _selectableObjects;
 	// Objects in assemble area (can not be selected outside of the assemble mode)
-	private LinkedList<OrigamiObject> assembleAreaObjects;
+	private LinkedList<OrigamiObject> _assembleAreaObjects;
 
 	public Inventory (int maxSize, Player player) {
 		this.player = player;
@@ -20,7 +20,7 @@ public class Inventory {
 		this._selectedObject = null;
 		this.selectedIndex = 0;
 		this._selectableObjects = new List<OrigamiObject> (maxSize);
-		this.assembleAreaObjects = new LinkedList<OrigamiObject> ();
+		this._assembleAreaObjects = new LinkedList<OrigamiObject> ();
 	}
 
 	public OrigamiObject selectedObject {
@@ -40,6 +40,10 @@ public class Inventory {
 		get {
 			return this._selectableObjects.AsReadOnly ();
 		}
+	}
+
+	public int NumberAssembleAreaObjects() {
+		return this._assembleAreaObjects.Count;
 	}
 
 	/// <summary>
@@ -79,7 +83,7 @@ public class Inventory {
 	/// <param name="origamiObject">Origami object.</param>
 	public void MoveInAssembleArea (OrigamiObject origamiObject) {
 		this._selectableObjects.Remove (origamiObject);
-		this.assembleAreaObjects.AddLast (origamiObject);
+		this._assembleAreaObjects.AddLast (origamiObject);
 	}
 
 	/// <summary>
@@ -87,7 +91,7 @@ public class Inventory {
 	/// </summary>
 	/// <param name="origamiObject">Origami object.</param>
 	public void MoveInSelectableArea (OrigamiObject origamiObject) {
-		this.assembleAreaObjects.Remove (origamiObject);
+		this._assembleAreaObjects.Remove (origamiObject);
 		this._selectableObjects.Add (origamiObject);
 	}
 
@@ -97,9 +101,9 @@ public class Inventory {
 	/// <param name="replacedOrigamiObjects">LinkedList of replaced origami objects.</param>
 	/// <param name="newOrigamiObject">New origami object</param>
 	public void ReplaceInSelectableArea (LinkedListNode<OrigamiObject> replacedOrigamiObjects, OrigamiObject newOrigamiObject=null) {
-		this.assembleAreaObjects.Remove (replacedOrigamiObjects);
+		this._assembleAreaObjects.Remove (replacedOrigamiObjects);
 		if (newOrigamiObject != null) {
-			this.assembleAreaObjects.AddLast (newOrigamiObject);
+			this._assembleAreaObjects.AddLast (newOrigamiObject);
 		}
 	}
 
@@ -108,7 +112,7 @@ public class Inventory {
 	/// </summary>
 	/// <param name="origamiObject">Origami object.</param>
 	public bool Collect (OrigamiObject origamiObject) {
-		if (this._selectableObjects.Count + this.assembleAreaObjects.Count < this.maxSize) {
+		if (this._selectableObjects.Count + this._assembleAreaObjects.Count < this.maxSize) {
 			this._selectableObjects.Add (origamiObject);
 			origamiObject.transform.parent = this.player.transform;
 			origamiObject.gameObject.SetActive (false);
