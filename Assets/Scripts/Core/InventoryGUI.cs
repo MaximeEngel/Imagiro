@@ -166,4 +166,8 @@ public class InventoryGUI : MonoBehaviour {
 
 		}
 	}
+
+	public void RemoveFromAssemble() {
+		// TODO ray blabla (penser au fait que la souris on l'a pas avec manette
+	}
 }
