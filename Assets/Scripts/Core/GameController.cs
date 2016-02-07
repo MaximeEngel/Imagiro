@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour {
 
 	private void ManageInventoryInput() {
 		if (Input.GetButtonUp ("Secondary")) {
-			this.inventoryGUI.RemoveFromAssemble();
+			this.inventoryGUI.RemovePointedObjectOfAssembleArea();
 		}
 	}
 }

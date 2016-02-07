@@ -3,6 +3,8 @@ using System.Collections;
 
 public class RotateByDragging : MonoBehaviour {
 
+	public float maxScale;
+
 	// Use this for initialization
 	void Start () {
 	

@@ -91,6 +91,7 @@ public class InventoryGUI : MonoBehaviour {
 			Vector3 origamiBounds = origamiObj.GetComponent<Renderer>().bounds.extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 			float scaleFactor = this.assembleSize / maxBound;
+			newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 
 			if(this.inventory.NumberAssembleAreaObjects()==1){
 				this.assembleObjScale = scaleFactor;
@@ -110,7 +111,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	private void UpdateAssembleObjScale(){
-		foreach (Transform t in assembleObjs) {
+		foreach (Transform t in this.assembleObjs) {
 			t.localScale = this.assembleObjScale * Vector3.one;
 		}
 	}
@@ -132,23 +133,27 @@ public class InventoryGUI : MonoBehaviour {
 
 		// Move all OrigamiObjects of the Inventory to their slot in the inventory
 		foreach (OrigamiObject origami in this.inventory.selectableObject) {
-			GameObject origamiGameObject = origami.gameObject;
-			Transform currentSlot = this.inventorySlots [slotIndex];
-			origamiGameObject.transform.parent = currentSlot;
-			origamiGameObject.gameObject.SetActive (true);
-			origamiGameObject.transform.localPosition = Vector3.zero;
-			origamiGameObject.transform.localRotation = Quaternion.identity;
-
-			Vector3 origamiBounds = origamiGameObject.GetComponent<Renderer>().bounds.extents;
-			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
-			float scaleFactor = this.slotSize / maxBound;
-			currentSlot.localScale = scaleFactor*Vector3.one;
-
-			currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;
-
-			origamiGameObject.gameObject.layer = (5);
+			AddObjectToInventorySlot (origami,slotIndex);
 			slotIndex++;
 		}
+	}
+
+	void AddObjectToInventorySlot(OrigamiObject origami, int slotIndex){
+		GameObject origamiGameObject = origami.gameObject;
+		Transform currentSlot = this.inventorySlots [slotIndex];
+		origamiGameObject.transform.parent = currentSlot;
+		origamiGameObject.gameObject.SetActive (true);
+		origamiGameObject.transform.localPosition = Vector3.zero;
+		origamiGameObject.transform.localRotation = Quaternion.identity;
+
+		Vector3 origamiBounds = origamiGameObject.GetComponent<Renderer>().bounds.extents;
+		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+		float scaleFactor = this.slotSize / maxBound;
+		currentSlot.localScale = scaleFactor*Vector3.one;
+
+		currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;
+
+		origamiGameObject.gameObject.layer = (5);
 	}
 
 	void ReturnObjects(){
@@ -167,7 +172,54 @@ public class InventoryGUI : MonoBehaviour {
 		}
 	}
 
-	public void RemoveFromAssemble() {
-		// TODO ray blabla (penser au fait que la souris on l'a pas avec manette
+	public void RemovePointedObjectOfAssembleArea(){
+		Vector3 point = this.inventoryCamera.ScreenToWorldPoint (new Vector3(Input.mousePosition.x,Input.mousePosition.y,inventoryCanvas.planeDistance));
+		GameObject objToRemove = null;
+		foreach (Transform t in this.assembleObjs) {
+			if (t.GetChild(0).GetComponent<Collider> ().bounds.Contains (point)) {
+				objToRemove = t.gameObject;
+				break;
+			}
+		}
+		if (objToRemove != null) {
+			this.RemoveOfAssembleArea (objToRemove);
+		}
+	}
+
+	void RemoveOfAssembleArea(GameObject objToRemove){
+		int slotIndex=0;
+		bool done = false;
+		while (!done && slotIndex < this.player.inventorySize) {
+			if (this.inventorySlots [slotIndex].childCount == 0) {
+				objToRemove.transform.localScale = Vector3.one;
+				this.assembleObjs.Remove (objToRemove.transform);
+
+				// Check if the object to remove is the biggest of the assemble window to resize the remaining objects
+				if (objToRemove.GetComponent<RotateByDragging> ().maxScale <= this.assembleObjScale) {
+					float newAssembleScale = 0;
+					foreach (Transform t in assembleObjs) {
+						if (t.GetComponent<RotateByDragging> ().maxScale > newAssembleScale) {
+							newAssembleScale = t.GetComponent<RotateByDragging> ().maxScale;
+						}
+					}
+					this.assembleObjScale = newAssembleScale;
+				}
+
+				this.inventory.MoveInSelectableArea (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>());
+				AddObjectToInventorySlot (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
+				done = true;
+			}
+			else {
+				slotIndex++;
+			}
+		}
+		if (!done) {
+			// If all the slots are occupied when trying to remove an object from the assemble window (shouldn't happen)
+			Debug.Log ("ERROR - NO MORE SLOTS");
+		}
+		else{
+			Destroy (objToRemove.gameObject);
+			this.UpdateAssembleObjScale ();
+		}
 	}
 }
