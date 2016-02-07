@@ -814,11 +814,12 @@ MonoBehaviour:
   playerHand: {fileID: 926229674}
   slotSize: 0.15
   assembleSize: 1
+  assembleObjScale: 0
   slotPanel: {fileID: 1500353953}
-  assembleWindow: {fileID: 1218191881}
+  assembleArea: {fileID: 1218191881}
   inventoryCamera: {fileID: 1872181717}
   inventoryCanvas: {fileID: 737731128}
-  assembleRotater: {fileID: 115732, guid: dff34861c337b4f4c89079fca37014ad, type: 2}
+  assembleRotater: {fileID: 123762, guid: dff34861c337b4f4c89079fca37014ad, type: 2}
 --- !u!1 &646817555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,7 +1426,7 @@ GameObject:
   - 114: {fileID: 1218191883}
   - 114: {fileID: 1218191885}
   m_Layer: 5
-  m_Name: AssembleWindow
+  m_Name: AssembleArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1501,6 +1502,40 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 632873534}
           m_MethodName: ReleaseObjectInAssembleWindow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 632873534}
+          m_MethodName: StartRotating
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 632873534}
+          m_MethodName: StopRotating
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

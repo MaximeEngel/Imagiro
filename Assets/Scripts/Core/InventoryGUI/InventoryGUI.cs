@@ -10,7 +10,7 @@ public class InventoryGUI : MonoBehaviour {
 
 	public float slotSize = 0.5f;
 	public float assembleSize = 4f;
-	private float assembleObjScale;
+	public float assembleObjScale;
 	public Inventory inventory;
 	public GameObject slotPanel;
 	public GameObject assembleArea;
@@ -97,10 +97,9 @@ public class InventoryGUI : MonoBehaviour {
 				this.assembleObjScale = scaleFactor;
 			} else if(scaleFactor < this.assembleObjScale) {
 				this.assembleObjScale = scaleFactor;
-				this.UpdateAssembleObjScale();
 			}
-			newRotater.transform.localScale = this.assembleObjScale*Vector3.one;
 			this.assembleObjs.AddLast(newRotater.transform);
+			this.UpdateAssembleObjScale();
 			
 			// Put the slot back to it's position
 			this._draggedSlot.transform.localPosition = Vector3.zero;
@@ -112,14 +111,16 @@ public class InventoryGUI : MonoBehaviour {
 
 	private void UpdateAssembleObjScale(){
 		foreach (Transform t in this.assembleObjs) {
-			t.localScale = this.assembleObjScale * Vector3.one;
+			//t.localScale = this.assembleObjScale * Vector3.one;
+			t.GetComponent<RotateByDragging>().goalScale = this.assembleObjScale;
 		}
 	}
 
 	public void ReleaseObjectNowhere(){
 		if (this.isDragging) {
 			this.isDragging = false;
-			this._draggedSlot.transform.localPosition = Vector3.zero;
+			//this._draggedSlot.transform.localPosition = Vector3.zero;
+			this._draggedSlot.GetComponent<DraggableZone>().selected = false;
 			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().isDragged = false;
 			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().ResumeRotation ();
 			this._draggedSlot = null;

@@ -4,8 +4,10 @@ using System.Collections;
 public class RotateByDragging : MonoBehaviour {
 
 	public float maxScale;
+	public float goalScale;
 	private bool _dragging;
-	public float speed;
+	public float rotateSpeed;
+	public float rescaleSpeed;
 
 	public void setDrag(bool drag){
 		this._dragging = drag;
@@ -13,16 +15,21 @@ public class RotateByDragging : MonoBehaviour {
 
 	void Update () {
 		if (this._dragging) {
-			float h = this.speed * Input.GetAxis ("Mouse X");
-			float v = this.speed * Input.GetAxis ("Mouse Y");
-
-			//this.transform.Rotate (v,-h,0);
-
-			//this.transform.rotation*= Quaternion.AngleAxis(h,Vector3.up);
-			//this.transform.rotation*= Quaternion.AngleAxis(v,Vector3.right);
+			float h = this.rotateSpeed * Input.GetAxis ("Mouse X");
+			float v = this.rotateSpeed * Input.GetAxis ("Mouse Y");
 
 			this.transform.RotateAround (this.transform.position,Vector3.up,-h);
 			this.transform.RotateAround (this.transform.position,Vector3.right,v);
+		}
+		float currentScale = this.transform.localScale.x;
+		if (currentScale != this.goalScale) {
+			if (Mathf.Abs (currentScale - this.goalScale) < 0.01f*this.goalScale) {
+				currentScale = this.goalScale;
+			}
+			else {
+				currentScale = Mathf.Lerp (currentScale, this.goalScale, Time.deltaTime * this.rescaleSpeed);
+			}
+			this.transform.localScale = Vector3.one * currentScale;
 		}
 	}
 
