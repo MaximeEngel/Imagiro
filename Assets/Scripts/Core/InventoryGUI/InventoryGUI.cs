@@ -117,11 +117,13 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void ReleaseObjectNowhere(){
-		this.isDragging = false;
-		this._draggedSlot.transform.localPosition = Vector3.zero;
-		this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation>().isDragged = false;
-		this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().ResumeRotation ();
-		this._draggedSlot = null;
+		if (this.isDragging) {
+			this.isDragging = false;
+			this._draggedSlot.transform.localPosition = Vector3.zero;
+			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().isDragged = false;
+			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().ResumeRotation ();
+			this._draggedSlot = null;
+		}
 	}
 
 	void GatherObjects(){
