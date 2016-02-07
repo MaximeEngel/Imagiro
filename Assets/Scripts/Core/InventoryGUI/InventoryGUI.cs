@@ -13,7 +13,7 @@ public class InventoryGUI : MonoBehaviour {
 	private float assembleObjScale;
 	public Inventory inventory;
 	public GameObject slotPanel;
-	public GameObject assembleWindow;
+	public GameObject assembleArea;
 	public Camera inventoryCamera;
 	public Canvas inventoryCanvas;
 	private List<Transform> inventorySlots;
@@ -80,7 +80,7 @@ public class InventoryGUI : MonoBehaviour {
 
 			// Create a rotater
 			GameObject newRotater = (GameObject) Instantiate(this.assembleRotater);
-			newRotater.transform.SetParent(this.assembleWindow.transform,false);
+			newRotater.transform.SetParent(this.assembleArea.transform,false);
 			newRotater.transform.position = origamiObj.position;
 
 			// Put the object in this rotater
@@ -220,8 +220,21 @@ public class InventoryGUI : MonoBehaviour {
 			Debug.Log ("ERROR - NO MORE SLOTS");
 		}
 		else{
-			Destroy (objToRemove.gameObject);
+			Destroy (objToRemove);
 			this.UpdateAssembleObjScale ();
+		}
+	}
+
+	public void StartRotating(){
+		RaycastHit hit;
+		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
+			hit.collider.transform.parent.GetComponent<RotateByDragging> ().setDrag (true);
+		}
+	}
+
+	public void StopRotating(){
+		foreach(Transform t in this.assembleObjs){
+			t.GetComponent<RotateByDragging> ().setDrag (false);
 		}
 	}
 }

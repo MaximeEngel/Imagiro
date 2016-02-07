@@ -70,6 +70,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void ManageInventoryInput() {
+		if(this.inventoryGUI)
 		if (Input.GetButtonUp ("Secondary")) {
 			this.inventoryGUI.RemovePointedObjectOfAssembleArea();
 		}
