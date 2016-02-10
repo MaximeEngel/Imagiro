@@ -229,7 +229,8 @@ public class InventoryGUI : MonoBehaviour {
 	public void StartRotating(){
 		RaycastHit hit;
 		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
-			hit.collider.transform.parent.GetComponent<RotateByDragging> ().setDrag (true);
+			if(hit.collider.transform.parent.GetComponent<RotateByDragging> ())
+				hit.collider.transform.parent.GetComponent<RotateByDragging> ().setDrag (true);
 		}
 	}
 
