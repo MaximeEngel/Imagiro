@@ -175,6 +175,15 @@ public class InventoryGUI : MonoBehaviour {
 		}
 	}
 
+	public void DeselectAllBut(InventorySlot slotToKeep){
+		foreach(Transform slot in inventorySlots){
+			InventorySlot realSlot = slot.parent.parent.GetComponent<InventorySlot>();
+			if(realSlot != slotToKeep){
+				realSlot.Deselect ();
+			}
+		}
+	}
+
 	public void RemovePointedObjectOfAssembleArea(){
 		Vector3 point = this.inventoryCamera.ScreenToWorldPoint (new Vector3(Input.mousePosition.x,Input.mousePosition.y,inventoryCanvas.planeDistance));
 		GameObject objToRemove = null;
