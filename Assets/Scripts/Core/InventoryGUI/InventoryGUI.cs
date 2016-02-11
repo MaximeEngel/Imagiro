@@ -136,7 +136,9 @@ public class InventoryGUI : MonoBehaviour {
 
 		// Move all OrigamiObjects of the Inventory to their slot in the inventory
 		foreach (OrigamiObject origami in this.inventory.selectableObject) {
-			AddObjectToInventorySlot (origami,slotIndex);
+			if (origami != null) {
+				AddObjectToInventorySlot (origami, slotIndex);
+			}
 			slotIndex++;
 		}
 	}
@@ -161,17 +163,18 @@ public class InventoryGUI : MonoBehaviour {
 
 	void ReturnObjects(){
 		foreach (OrigamiObject origami in this.inventory.selectableObject) {
-			GameObject origamiGameObject = origami.gameObject;
-			//Reset the slot's state to its default
-			Transform slot = origamiGameObject.transform.parent;
-			slot.localScale = Vector3.one;
-			slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
+			if (origami != null) {
+				GameObject origamiGameObject = origami.gameObject;
+				//Reset the slot's state to its default
+				Transform slot = origamiGameObject.transform.parent;
+				slot.localScale = Vector3.one;
+				slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
 
-			//Move the OrigamiObject to the player's hand
-			origamiGameObject.transform.parent = this.playerHand.transform;
-			origamiGameObject.SetActive (false);
-			origamiGameObject.layer = (0);
-
+				//Move the OrigamiObject to the player's hand
+				origamiGameObject.transform.parent = this.playerHand.transform;
+				origamiGameObject.SetActive (false);
+				origamiGameObject.layer = (0);
+			}
 		}
 	}
 
@@ -217,7 +220,7 @@ public class InventoryGUI : MonoBehaviour {
 					this.assembleObjScale = newAssembleScale;
 				}
 
-				this.inventory.MoveInSelectableArea (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>());
+				this.inventory.MoveInSelectableArea (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				AddObjectToInventorySlot (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				done = true;
 			}
