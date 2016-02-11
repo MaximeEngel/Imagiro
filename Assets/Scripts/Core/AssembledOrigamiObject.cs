@@ -43,7 +43,13 @@ public class AssembledOrigamiObject : OrigamiObject {
 
 	public override AnchorPoint GetBaseAnchorPoint ()
 	{
-		return base.GetBaseAnchorPoint ();
+		foreach (OrigamiObject origamiObject in this.origamiObjects) {
+			AnchorPoint baseAnchor = origamiObject.GetBaseAnchorPoint ();
+			if (baseAnchor != null) {
+				return baseAnchor;
+			}
+		}
+		return null;
 	}
 
 	private void ComputeNewCollider() {

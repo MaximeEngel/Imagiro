@@ -8,7 +8,7 @@ public class OrigamiObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.anchorPoints = this.gameObject.GetComponentInChildren<AnchorPoint> ();
+		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
 	}
 	
 	// Update is called once per frame
@@ -16,9 +16,9 @@ public class OrigamiObject : MonoBehaviour {
 
 	}
 	
-	public virtual bool IsFinalObject() {
+	public virtual bool IsFinalObject () {
 		foreach (AnchorPoint anchorPoint in this.anchorPoints) {
-			if(!anchorPoint.isWellLinked ();) {
+			if(!anchorPoint.isWellLinked ()) {
 				return false;
 			}
 		}

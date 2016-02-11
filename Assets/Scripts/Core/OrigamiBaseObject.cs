@@ -3,9 +3,13 @@ using System.Collections;
 
 public class OrigamiBaseObject : OrigamiObject {
 
+	public AnchorPoint baseAnchorPoint;
+
 	// Use this for initialization
 	void Start () {
-	
+		if (baseAnchorPoint == null) {
+			throw new MissingReferenceException ("base anchor point must not be null for " + this.gameObject.name);
+		}
 	}
 	
 	// Update is called once per frame
@@ -15,6 +19,6 @@ public class OrigamiBaseObject : OrigamiObject {
 
 	public override AnchorPoint GetBaseAnchorPoint ()
 	{
-		return base.GetBaseAnchorPoint ();
+		return this.baseAnchorPoint;
 	}
 }
