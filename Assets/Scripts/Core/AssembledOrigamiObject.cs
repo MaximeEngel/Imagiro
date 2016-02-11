@@ -26,14 +26,17 @@ public class AssembledOrigamiObject : OrigamiObject {
 		return true;
 	}
 
-	public override AssembledOrigamiObject Add (OrigamiObject OrigamiObject)
+	public override OrigamiObject Add (OrigamiObject OrigamiObject)
 	{
 		return base.Add (OrigamiObject);
 	}
 
-	public override System.Collections.Generic.LinkedList<OrigamiObject> Disassemble ()
+	public override LinkedList<OrigamiObject> Disassemble ()
 	{
-		return base.Disassemble ();
+		foreach (OrigamiObject origamiObject in this.origamiObjects) {
+			origamiObject.transform.parent = this.gameObject.transform.parent;
+		}
+		return this.origamiObjects;
 	}
 
 	public override void SetFinalMaterial ()

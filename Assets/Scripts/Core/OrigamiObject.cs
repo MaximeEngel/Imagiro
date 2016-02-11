@@ -29,10 +29,14 @@ public class OrigamiObject : MonoBehaviour {
 		
 	}
 
-	public virtual AssembledOrigamiObject Add(OrigamiObject OrigamiObject) {
+	public virtual OrigamiObject Add(OrigamiObject OrigamiObject) {
 		return null;
 	}
 
+	/// <summary>
+	/// Disassemble this instance. Return null if the object is a unique object and can not be disassemble.
+	/// The parent of the disassembled objects is the parent of the composed object.
+	/// </summary>
 	public virtual LinkedList<OrigamiObject> Disassemble() {
 		return null;
 	}
