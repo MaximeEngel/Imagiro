@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AssembledOrigamiObject : OrigamiObject {
 
+	private LinkedList<OrigamiObject> origamiObjects;
+
 	// Use this for initialization
 	void Start () {
-	
+		this.origamiObjects = new LinkedList<OrigamiObject> ();
 	}
 	
 	// Update is called once per frame
@@ -15,7 +18,12 @@ public class AssembledOrigamiObject : OrigamiObject {
 
 	public override bool IsFinalObject ()
 	{
-		return base.IsFinalObject ();
+		foreach (OrigamiObject origamiObject in this.origamiObjects) {
+			if (!origamiObject.IsFinalObject ()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public override AssembledOrigamiObject Add (OrigamiObject OrigamiObject)

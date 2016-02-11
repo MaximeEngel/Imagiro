@@ -4,18 +4,25 @@ using System.Collections.Generic;
 
 public class OrigamiObject : MonoBehaviour {
 
+	private AnchorPoint[] anchorPoints;
+
 	// Use this for initialization
 	void Start () {
-	
+		this.anchorPoints = this.gameObject.GetComponentInChildren<AnchorPoint> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 	
 	public virtual bool IsFinalObject() {
-		return false;
+		foreach (AnchorPoint anchorPoint in this.anchorPoints) {
+			if(!anchorPoint.isWellLinked ();) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public virtual void SetFinalMaterial () {
