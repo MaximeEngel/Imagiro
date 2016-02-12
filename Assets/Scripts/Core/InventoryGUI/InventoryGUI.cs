@@ -66,6 +66,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void Open(){
+		this.player.ReleaseHeldObject ();
 		this.GatherObjects ();
 	}
 
@@ -197,6 +198,8 @@ public class InventoryGUI : MonoBehaviour {
 		// Deal with the case of moving the selected object
 		if (this._draggedSlot.transform.parent.GetComponent<InventorySlot> () == selectedSlot) {
 			this.inventorySlots[slotIndex].transform.parent.parent.GetComponent<InventorySlot>().Select();
+			this.inventory.SwitchPositionInSelectableArea (draggedIndex, slotIndex);
+			this.inventory.selectByIndex (slotIndex);
 		}
 
 		// Put the slot back to it's position
@@ -215,10 +218,15 @@ public class InventoryGUI : MonoBehaviour {
 				slot.localScale = Vector3.one;
 				slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
 
-				//Move the OrigamiObject to the player's hand
-				origamiGameObject.transform.parent = this.playerHand.transform;
-				origamiGameObject.SetActive (false);
 				origamiGameObject.layer = (0);
+
+				if (origami.transform.parent.parent.parent.GetComponent<InventorySlot> () == this.selectedSlot) {
+					this.player.SetHeldObject (origami);
+				} else {
+					//Move the OrigamiObject to the player's hand
+					origamiGameObject.transform.parent = this.playerHand.transform;
+					origamiGameObject.SetActive (false);
+				}
 			}
 		}
 	}

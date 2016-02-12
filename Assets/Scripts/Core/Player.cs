@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 	private Camera eyeCamera;
 	private Inventory _inventory;
 	private bool interact;
+	private OrigamiObject heldObject;
 
 	// Use this for initialization
 	void Start () {
@@ -100,6 +101,21 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	public void SetHeldObject(OrigamiObject origami){
+		this.heldObject = origami;
+		origami.transform.parent = this.eyeCamera.transform;
+		origami.gameObject.SetActive (true);
+		origami.transform.localPosition = new Vector3(0.1f,-0.3f,0.48f);
+		origami.transform.parent = this.transform;
+	}
+
+	public void ReleaseHeldObject(){
+		if(this.heldObject){
+			this.heldObject.transform.parent = this.transform;
+			this.heldObject.gameObject.SetActive (false);
+			this.heldObject = null;
+		}
+	}
 
 	/// <summary>
 	/// Draw the ray of interact action in the unity scene for debug purpose
