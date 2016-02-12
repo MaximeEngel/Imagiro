@@ -20,6 +20,7 @@ public class InventoryGUI : MonoBehaviour {
 	private LinkedList<Transform> assembleObjs;
 	private bool isDragging;
 	private GameObject _draggedSlot;
+	public InventorySlot selectedSlot;
 
 	public GameObject assembleRotater;
 
@@ -29,9 +30,15 @@ public class InventoryGUI : MonoBehaviour {
 		this.assembleObjs = new LinkedList<Transform> ();
 		this.isDragging = false;
 		this._draggedSlot = null;
+		int slotIndex = 0;
 		foreach (Transform slot in this.slotPanel.transform) {
 			// The list inventorySlots contains all the Scalers
 			inventorySlots.Add (slot.GetChild(0).GetChild(0));
+			slot.GetComponent<InventorySlot> ().slotIndex = slotIndex;
+			slotIndex++;
+
+			// Very dirty but I haven't found something else yet
+			slot.GetComponent<InventorySlot> ().Start();
 		}
 	}
 
@@ -70,37 +77,43 @@ public class InventoryGUI : MonoBehaviour {
 		if (this.isDragging) {
 			this.isDragging = false;
 
-			Transform origamiObj = this._draggedSlot.transform.GetChild(0).GetChild(0);
+			Transform origamiObj = this._draggedSlot.transform.GetChild (0).GetChild (0);
 
 			// Reset the scaler's scale
-			this._draggedSlot.transform.GetChild(0).localScale = Vector3.one;
+			this._draggedSlot.transform.GetChild (0).localScale = Vector3.one;
 
 			// Tell the inventory the object has moved
-			this.inventory.MoveInAssembleArea (origamiObj.GetComponent<OrigamiObject>());
+			this.inventory.MoveInAssembleArea (origamiObj.GetComponent<OrigamiObject> ());
 
 			// Create a rotater
-			GameObject newRotater = (GameObject) Instantiate(this.assembleRotater);
-			newRotater.transform.SetParent(this.assembleArea.transform,false);
+			GameObject newRotater = (GameObject)Instantiate (this.assembleRotater);
+			newRotater.transform.SetParent (this.assembleArea.transform, false);
 			newRotater.transform.position = origamiObj.position;
 
 			// Put the object in this rotater
 			origamiObj.localPosition = Vector3.zero;
-			origamiObj.SetParent(newRotater.transform,false);
+			origamiObj.SetParent (newRotater.transform, false);
 
 			//Resize the rotater
-			Vector3 origamiBounds = origamiObj.GetComponent<Renderer>().bounds.extents;
+			Vector3 origamiBounds = origamiObj.GetComponent<Renderer> ().bounds.extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 			float scaleFactor = this.assembleSize / maxBound;
 			newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 
-			if(this.inventory.NumberAssembleAreaObjects()==1){
+			if (this.inventory.NumberAssembleAreaObjects () == 1) {
 				this.assembleObjScale = scaleFactor;
-			} else if(scaleFactor < this.assembleObjScale) {
+			} else if (scaleFactor < this.assembleObjScale) {
 				this.assembleObjScale = scaleFactor;
 			}
-			this.assembleObjs.AddLast(newRotater.transform);
-			this.UpdateAssembleObjScale();
-			
+			this.assembleObjs.AddLast (newRotater.transform);
+			this.UpdateAssembleObjScale ();
+
+			//Deselect slot
+			if(this._draggedSlot.GetComponentInParent<InventorySlot>() == selectedSlot){
+				this.selectedSlot.Deselect ();
+				this.selectedSlot = null;
+			}
+
 			// Put the slot back to it's position
 			this._draggedSlot.transform.localPosition = Vector3.zero;
 			this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation>().isDragged = false;
@@ -143,12 +156,22 @@ public class InventoryGUI : MonoBehaviour {
 		}
 	}
 
-	void AddObjectToInventorySlot(OrigamiObject origami, int slotIndex){
+	void RemoveObjectFormInventorySlot(int slotIndex){
+		Transform slot = this.inventorySlots[slotIndex];
+		slot.GetChild(0).parent = slot.parent;
+		//Reset the slot's state to its default
+		slot.localScale = Vector3.one;
+		slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
+	}
+
+	void AddObjectToInventorySlot(OrigamiObject origami, int slotIndex, bool resetPosition = true){
 		GameObject origamiGameObject = origami.gameObject;
 		Transform currentSlot = this.inventorySlots [slotIndex];
 		origamiGameObject.transform.parent = currentSlot;
 		origamiGameObject.gameObject.SetActive (true);
-		origamiGameObject.transform.localPosition = Vector3.zero;
+		if (resetPosition) {
+			origamiGameObject.transform.localPosition = Vector3.zero;
+		}
 		origamiGameObject.transform.localRotation = Quaternion.identity;
 
 		Vector3 origamiBounds = origamiGameObject.GetComponent<Renderer>().bounds.extents;
@@ -159,6 +182,28 @@ public class InventoryGUI : MonoBehaviour {
 		currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;
 
 		origamiGameObject.gameObject.layer = (5);
+	}
+
+	public void MoveDraggedObjectToSlot(int slotIndex){
+		int draggedIndex = this._draggedSlot.transform.parent.GetComponent<InventorySlot> ().slotIndex;
+		OrigamiObject origamiToMove = this._draggedSlot.GetComponentInChildren<OrigamiObject> ();
+		this.RemoveObjectFormInventorySlot (draggedIndex);
+		this.AddObjectToInventorySlot (origamiToMove,slotIndex, false);
+		this._draggedSlot.GetComponent<DraggableZone> ().selected = false;
+		this.isDragging = false;
+		this.inventorySlots [slotIndex].GetComponent<InventoryIdleAnimation> ().StopRotation ();
+		this.inventorySlots [slotIndex].GetComponent<InventoryIdleAnimation> ().inPlace = false;
+
+		// Deal with the case of moving the selected object
+		if (this._draggedSlot.transform.parent.GetComponent<InventorySlot> () == selectedSlot) {
+			this.inventorySlots[slotIndex].transform.parent.parent.GetComponent<InventorySlot>().Select();
+		}
+
+		// Put the slot back to it's position
+		this._draggedSlot.transform.localPosition = Vector3.zero;
+		this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation>().isDragged = false;
+		this._draggedSlot.transform.GetChild (0).GetComponent<InventoryIdleAnimation> ().ResumeRotation ();
+		this._draggedSlot = null;
 	}
 
 	void ReturnObjects(){
@@ -184,6 +229,19 @@ public class InventoryGUI : MonoBehaviour {
 			if(realSlot != slotToKeep){
 				realSlot.Deselect ();
 			}
+		}
+	}
+
+	public void Select(InventorySlot slot){
+		if (this.selectedSlot != null) {
+			this.selectedSlot.Deselect ();
+			this.selectedSlot.selected = false;
+		}
+		if (this.selectedSlot != slot) {
+			this.selectedSlot = slot;
+			this.selectedSlot.selected = true;
+		} else {
+			this.selectedSlot = null;
 		}
 	}
 
