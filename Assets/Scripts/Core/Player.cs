@@ -106,7 +106,7 @@ public class Player : MonoBehaviour {
 		origami.transform.parent = this.eyeCamera.transform;
 		origami.gameObject.SetActive (true);
 		origami.transform.localPosition = new Vector3(0.1f,-0.3f,0.48f);
-		origami.transform.parent = this.transform;
+		//origami.transform.parent = this.transform;
 	}
 
 	public void ReleaseHeldObject(){

@@ -159,9 +159,9 @@ public class InventoryGUI : MonoBehaviour {
 
 	void RemoveObjectFormInventorySlot(int slotIndex){
 		Transform slot = this.inventorySlots[slotIndex];
-		slot.GetChild(0).parent = slot.parent;
-		//Reset the slot's state to its default
 		slot.localScale = Vector3.one;
+		slot.GetChild(0).parent = this.playerHand.transform;
+		//Reset the slot's state to its default
 		slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
 	}
 
