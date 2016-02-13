@@ -8,6 +8,8 @@ public class InventoryGUI : MonoBehaviour {
 	// Where the object are stored when the inventory is closed
 	public GameObject playerHand;
 
+	public Transform heldObjectContainer;
+
 	public float slotSize = 0.5f;
 	public float assembleSize = 4f;
 	public float assembleObjScale;
@@ -66,7 +68,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void Open(){
-		this.player.ReleaseHeldObject ();
+		this.ReleaseHeldObject ();
 		this.GatherObjects ();
 	}
 
@@ -221,7 +223,7 @@ public class InventoryGUI : MonoBehaviour {
 				origamiGameObject.layer = (0);
 
 				if (origami.transform.parent.parent.parent.GetComponent<InventorySlot> () == this.selectedSlot) {
-					this.player.SetHeldObject (origami);
+					this.SetHeldObject (origamiGameObject);
 				} else {
 					//Move the OrigamiObject to the player's hand
 					origamiGameObject.transform.parent = this.playerHand.transform;
@@ -251,6 +253,18 @@ public class InventoryGUI : MonoBehaviour {
 		} else {
 			this.selectedSlot = null;
 		}
+	}
+
+	void SetHeldObject(GameObject origami){
+		origami.transform.parent = this.heldObjectContainer;
+		origami.transform.localPosition = Vector3.zero;
+		origami.transform.localRotation = Quaternion.identity;
+		origami.layer = (5);
+	}
+
+	void ReleaseHeldObject(){
+		//if(this.heldObjectContainer.childCount > 0)
+			
 	}
 
 	public void RemovePointedObjectOfAssembleArea(){

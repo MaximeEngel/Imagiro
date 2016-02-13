@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
 		this.inGame = true;
 		this.inInventory = false;
 		this.lastMousePosition = Input.mousePosition;
-		this.inventoryGUI.gameObject.SetActive (false);
+		this.inventoryGUI.transform.Find("Canvas").gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -58,13 +58,13 @@ public class GameController : MonoBehaviour {
 		this.inGame = !this.inGame;
 		this.inInventory = !this.inInventory;
 		if (this.inInventory) {
-			this.inventoryGUI.gameObject.SetActive (true);
+			this.inventoryGUI.transform.Find("Canvas").gameObject.SetActive (true);
 			this.inventoryGUI.Open ();
 			this.player.StayStill ();
 		}
 		else {
 			this.inventoryGUI.Close ();	
-			this.inventoryGUI.gameObject.SetActive (false);
+			this.inventoryGUI.transform.Find("Canvas").gameObject.SetActive (false);
 			this.lastMousePosition = Input.mousePosition;
 		}
 	}
