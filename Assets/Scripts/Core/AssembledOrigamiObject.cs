@@ -53,7 +53,9 @@ public class AssembledOrigamiObject : OrigamiObject {
 
 	public override void SetFinalMaterial ()
 	{
-		base.SetFinalMaterial ();
+		foreach (OrigamiObject origamiObject in origamiObjects) {
+			origamiObject.SetFinalMaterial ();
+		}
 	}
 
 	public override AnchorPoint GetBaseAnchorPoint ()
@@ -76,7 +78,7 @@ public class AssembledOrigamiObject : OrigamiObject {
 	}
 
 	private void ComputeNewCollider() {
-
+		// Finally maybe it is useless. Must test inventory before.
 	}
 
 

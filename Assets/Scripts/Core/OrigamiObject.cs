@@ -5,10 +5,14 @@ using System.Collections.Generic;
 public class OrigamiObject : MonoBehaviour {
 
 	private AnchorPoint[] anchorPoints;
+	public Color color = new Color(1.0F, 0.0F, 0.0F);
+
+	private Material material;
 
 	// Use this for initialization
 	void Start () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
+		this.material = this.GetComponent<Material> () as Material;
 	}
 	
 	// Update is called once per frame
@@ -26,7 +30,7 @@ public class OrigamiObject : MonoBehaviour {
 	}
 
 	public virtual void SetFinalMaterial () {
-		
+		this.material.color = this.color;
 	}
 
 	public virtual OrigamiObject Add(OrigamiObject origamiObject) {
