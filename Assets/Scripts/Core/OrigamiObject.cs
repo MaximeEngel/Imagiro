@@ -8,11 +8,13 @@ public class OrigamiObject : MonoBehaviour {
 	public Color color = new Color(1.0F, 0.0F, 0.0F);
 
 	private Material material;
+	private Renderer origamiRenderer;
 
 	// Use this for initialization
 	void Start () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
-		this.material = this.GetComponent<Material> () as Material;
+		this.material = this.GetComponent<Material> ();
+		this.origamiRenderer = this.GetComponent<Renderer> ();
 	}
 	
 	// Update is called once per frame
@@ -66,5 +68,9 @@ public class OrigamiObject : MonoBehaviour {
 		foreach (AnchorPoint anchorPoint in anchorPoints) {
 			anchorPoint.Hide ();
 		}
+	}
+
+	public virtual Vector3 GetBounds () {
+		return this.origamiRenderer.bounds.extents;
 	}
 }

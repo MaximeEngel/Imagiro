@@ -77,9 +77,18 @@ public class AssembledOrigamiObject : OrigamiObject {
 		}
 	}
 
-	private void ComputeNewCollider() {
-		// Finally maybe it is useless. Must test inventory before.
+	public override Vector3 GetBounds ()
+	{
+		Vector3 bounds = new Vector3 ();
+		// Just for example, it is not the correctly algo i think ;)
+		foreach (OrigamiObject origamiObject in origamiObjects) {
+			bounds += origamiObject.GetBounds ();
+		}
+		return bounds;
 	}
 
+	private void ComputeNewCollider() {
+		// Finally maybe it is useless, make a good get bounds and call it
+	}
 
 }

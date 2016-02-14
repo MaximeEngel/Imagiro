@@ -177,7 +177,7 @@ public class InventoryGUI : MonoBehaviour {
 		}
 		origamiGameObject.transform.localRotation = Quaternion.identity;
 
-		Vector3 origamiBounds = origamiGameObject.GetComponent<Renderer>().bounds.extents;
+		Vector3 origamiBounds = origami.GetBounds();
 		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 		float scaleFactor = this.slotSize / maxBound;
 		currentSlot.localScale = scaleFactor*Vector3.one;

@@ -174,6 +174,7 @@ public class Inventory {
 			this.nbObjects++;
 			return true;
 
+
 		}
 
 		return false;
