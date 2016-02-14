@@ -112,6 +112,10 @@ public class Inventory {
 			this._selectableObjects.Add (origamiObject);
 			origamiObject.transform.parent = this.player.transform;
 			origamiObject.gameObject.SetActive (false);
+
+			if (this._selectableObjects.Count == 2) {
+				this._selectableObjects [0].Add (this._selectableObjects [1]);
+			}
 		}
 
 		return false;
