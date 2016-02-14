@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 	private float maxOrientationX = 190;
 	private float minOrientationX = 80;
 	private float midOrientationX;
+	private OrigamiObject heldObject;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +32,16 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		Move ();
 		InteractResolve ();
-	}	
+	}
+
+	public void StayStill(){
+		//Resets all the character's speeds to 0, to make sur they don't move while the inventory or the pause menu is open
+		this.moveDirection.x = 0;
+		this.moveDirection.z = 0;
+		//this.cameraOrientationX = 0;
+		//this.cameraOrientationZ = 0;
+		//this.rotateY = 0;
+	}
 
 	public void Move(float deltaX, float deltaZ) {
 		this.moveDirection.x = deltaX;
@@ -87,7 +97,6 @@ public class Player : MonoBehaviour {
 			this.interact = false;
 		}
 	}
-
 
 	/// <summary>
 	/// Draw the ray of interact action in the unity scene for debug purpose
