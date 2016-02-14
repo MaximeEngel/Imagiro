@@ -61,6 +61,20 @@ public class AssembledOrigamiObject : OrigamiObject {
 		return this.origamiBaseObject.GetBaseAnchorPoint ();
 	}
 
+	public override void ShowAnchorPoints ()
+	{
+		foreach (OrigamiObject origamiObject in origamiObjects) {
+			origamiObject.ShowAnchorPoints ();
+		}
+	}
+
+	public override void HideAnchorPoints ()
+	{
+		foreach (OrigamiObject origamiObject in origamiObjects) {
+			origamiObject.HideAnchorPoints ();
+		}
+	}
+
 	private void ComputeNewCollider() {
 
 	}

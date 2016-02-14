@@ -53,10 +53,14 @@ public class OrigamiObject : MonoBehaviour {
 	}
 
 	public virtual void ShowAnchorPoints() {
-
+		foreach (AnchorPoint anchorPoint in anchorPoints) {
+			anchorPoint.Show ();
+		}
 	}
 
 	public virtual void HideAnchorPoints() {
-
+		foreach (AnchorPoint anchorPoint in anchorPoints) {
+			anchorPoint.Hide ();
+		}
 	}
 }
