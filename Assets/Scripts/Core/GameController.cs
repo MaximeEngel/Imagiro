@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour {
 
@@ -17,6 +18,11 @@ public class GameController : MonoBehaviour {
 		if (this.VRMode) {
 			GameObject c = GameObject.FindGameObjectWithTag ("MainCamera");
 			c.AddComponent <StereoController>();
+			c = GameObject.Find ("InventoryCamera");
+			c.AddComponent <StereoController>();
+			GameObject eventSystem = GameObject.Find ("EventSystem");
+			eventSystem.GetComponent<StandaloneInputModule> ().enabled = false;
+			eventSystem.AddComponent<GazeInputModule> ();
 		}
 
 		this.inGame = true;
