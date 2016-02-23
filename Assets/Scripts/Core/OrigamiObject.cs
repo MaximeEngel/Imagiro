@@ -5,15 +5,19 @@ using System.Collections.Generic;
 public class OrigamiObject : MonoBehaviour {
 
 	private AnchorPoint[] anchorPoints;
-	public Color color = new Color(1.0F, 0.0F, 0.0F);
+	public Material uncoloredMaterial;
 
-	private Material material;
+	private Material finalMaterial;
 	private Renderer origamiRenderer;
 
 	// Use this for initialization
 	void Start () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
-		this.material = this.GetComponent<Material> ();
+
+		MeshRenderer meshRenderer = this.GetComponent<MeshRenderer> ();
+		this.finalMaterial = meshRenderer.material;
+		meshRenderer.material = this.uncoloredMaterial;
+
 		this.origamiRenderer = this.GetComponent<Renderer> ();
 	}
 	
@@ -32,7 +36,7 @@ public class OrigamiObject : MonoBehaviour {
 	}
 
 	public virtual void SetFinalMaterial () {
-		this.material.color = this.color;
+		this.GetComponent<MeshRenderer> ().material = this.finalMaterial;
 	}
 
 	public virtual OrigamiObject Add(OrigamiObject origamiObject) {

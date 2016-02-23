@@ -60,7 +60,7 @@ public class AnchorPoint : MonoBehaviour {
 
 	public void OnDrawGizmos() {
 		var start = this.transform.position;
-		float lengthFacotr = 0.05f;
+		float lengthFacotr = 0.5f;
 		Gizmos.color = Color.red;
 		Gizmos.DrawLine (start, start + this.normal.normalized * lengthFacotr);
 		Gizmos.color = Color.green;

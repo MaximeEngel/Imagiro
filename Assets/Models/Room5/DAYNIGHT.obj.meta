@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 3b0251ca7ae1eb443b3461e7e85e9e8f
+timeCreated: 1455616223
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Control_Box
+    100002: Control_Pipe
+    100004: //RootNode
+    100006: Door
+    100008: Entry_Rock
+    100010: Floor
+    100012: Lampion_Aerer
+    100014: Lampion_Bottom
+    100016: lampion_Hat
+    100018: Lampion_Heart
+    100020: Lampion_Top
+    100022: Lever_Bowl
+    100024: Lever_Handle
+    100026: Platform
+    100028: Rail1
+    100030: Rail2
+    100032: Sign_Box
+    400000: Control_Box
+    400002: Control_Pipe
+    400004: //RootNode
+    400006: Door
+    400008: Entry_Rock
+    400010: Floor
+    400012: Lampion_Aerer
+    400014: Lampion_Bottom
+    400016: lampion_Hat
+    400018: Lampion_Heart
+    400020: Lampion_Top
+    400022: Lever_Bowl
+    400024: Lever_Handle
+    400026: Platform
+    400028: Rail1
+    400030: Rail2
+    400032: Sign_Box
+    2300000: Control_Box
+    2300002: Control_Pipe
+    2300004: Door
+    2300006: Entry_Rock
+    2300008: Floor
+    2300010: Lampion_Aerer
+    2300012: Lampion_Bottom
+    2300014: lampion_Hat
+    2300016: Lampion_Heart
+    2300018: Lampion_Top
+    2300020: Lever_Bowl
+    2300022: Lever_Handle
+    2300024: Platform
+    2300026: Rail1
+    2300028: Rail2
+    2300030: Sign_Box
+    3300000: Control_Box
+    3300002: Control_Pipe
+    3300004: Door
+    3300006: Entry_Rock
+    3300008: Floor
+    3300010: Lampion_Aerer
+    3300012: Lampion_Bottom
+    3300014: lampion_Hat
+    3300016: Lampion_Heart
+    3300018: Lampion_Top
+    3300020: Lever_Bowl
+    3300022: Lever_Handle
+    3300024: Platform
+    3300026: Rail1
+    3300028: Rail2
+    3300030: Sign_Box
+    4300000: Control_Box
+    4300002: Control_Pipe
+    4300004: Door
+    4300006: Entry_Rock
+    4300008: Floor
+    4300010: Lampion_Aerer
+    4300012: Lampion_Bottom
+    4300014: lampion_Hat
+    4300016: Lampion_Heart
+    4300018: Lampion_Top
+    4300020: Lever_Bowl
+    4300022: Lever_Handle
+    4300024: Platform
+    4300026: Rail1
+    4300028: Rail2
+    4300030: Sign_Box
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
