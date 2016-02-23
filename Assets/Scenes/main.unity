@@ -1016,6 +1016,10 @@ Prefab:
       propertyPath: inventoryGUI
       value: 
       objectReference: {fileID: 632873534}
+    - target: {fileID: 11473644, guid: 6ee09614f92e31e40b77e07f767d22eb, type: 2}
+      propertyPath: VRMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ee09614f92e31e40b77e07f767d22eb, type: 2}
   m_IsPrefabParent: 0
@@ -2363,6 +2367,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5420108, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
       propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11482866, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
+      propertyPath: swim
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420108, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
+      propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
