@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	public float rotationSpeed = 0.5f;
 	public int inventorySize = 20;
 	public float interactionDistance = 0.5f;
+	public bool swim = false;
 
 	private Vector3 moveDirection;
 	private Rigidbody rigidBody;
@@ -50,12 +51,18 @@ public class Player : MonoBehaviour {
 
 	private void Move() {
 		Vector3 rot = this.eyeCamera.transform.rotation.eulerAngles;
-		rot.x = 0; 
+		if (!swim) {
+			rot.x = 0; 
+		}
 		Vector3 direction = Quaternion.Euler(rot) * this.moveDirection;
 		if (direction.magnitude > 1) {
 			direction.Normalize ();
 		}
-		this.rigidBody.velocity = direction * moveSpeed;
+		Vector3 vel = direction * moveSpeed;
+		if (!swim) {
+			vel.y = this.rigidBody.velocity.y;
+		}
+		this.rigidBody.velocity = vel;
 	}
 
 
