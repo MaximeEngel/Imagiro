@@ -97,6 +97,9 @@ public class InventoryGUI : MonoBehaviour {
 			origamiObj.localPosition = Vector3.zero;
 			origamiObj.SetParent (newRotater.transform, false);
 
+			// Show the anchors
+			origamiObj.GetComponent<OrigamiObject>().ShowAnchorPoints();
+
 			//Resize the rotater
 			Vector3 origamiBounds = origamiObj.GetComponent<Renderer> ().bounds.extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
@@ -184,7 +187,8 @@ public class InventoryGUI : MonoBehaviour {
 
 		currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;
 
-		origamiGameObject.gameObject.layer = (5);
+		//origamiGameObject.gameObject.layer = (5);
+		SetLayerRecursively (origamiGameObject, 5);
 	}
 
 	public void MoveDraggedObjectToSlot(int slotIndex){
@@ -220,7 +224,8 @@ public class InventoryGUI : MonoBehaviour {
 				slot.localScale = Vector3.one;
 				slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
 
-				origamiGameObject.layer = (0);
+				//origamiGameObject.layer = (0);
+				SetLayerRecursively(origamiGameObject,0);
 
 				if (origami.transform.parent.parent.parent.GetComponent<InventorySlot> () == this.selectedSlot) {
 					this.SetHeldObject (origamiGameObject);
@@ -259,7 +264,8 @@ public class InventoryGUI : MonoBehaviour {
 		origami.transform.parent = this.heldObjectContainer;
 		origami.transform.localPosition = Vector3.zero;
 		origami.transform.localRotation = Quaternion.identity;
-		origami.layer = (5);
+		//origami.layer = (5);
+		SetLayerRecursively (origami,5);
 	}
 
 	void ReleaseHeldObject(){
@@ -299,7 +305,7 @@ public class InventoryGUI : MonoBehaviour {
 					}
 					this.assembleObjScale = newAssembleScale;
 				}
-
+				objToRemove.transform.GetChild (0).GetComponent<OrigamiObject> ().HideAnchorPoints ();
 				this.inventory.MoveInSelectableArea (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				AddObjectToInventorySlot (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				done = true;
@@ -329,6 +335,12 @@ public class InventoryGUI : MonoBehaviour {
 	public void StopRotating(){
 		foreach(Transform t in this.assembleObjs){
 			t.GetComponent<RotateByDragging> ().setDrag (false);
+		}
+	}
+
+	private void SetLayerRecursively(GameObject go, int layer){
+		foreach(Transform child in go.GetComponentsInChildren<Transform>(true)){
+			child.gameObject.layer = layer;
 		}
 	}
 }
