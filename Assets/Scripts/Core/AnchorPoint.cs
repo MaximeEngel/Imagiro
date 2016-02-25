@@ -58,12 +58,12 @@ public class AnchorPoint : MonoBehaviour {
 		this._collider.enabled = false;
 	}
 
-	public void OnDrawGizmos() {
-		var start = this.transform.position;
-		float lengthFacotr = 0.5f;
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine (start, start + this.normal.normalized * lengthFacotr);
-		Gizmos.color = Color.green;
-		Gizmos.DrawLine (start, start + this.directionUp.normalized * lengthFacotr);
-	}
+//	public void OnDrawGizmos() {
+//		var start = this.transform.position;
+//		float lengthFacotr = 0.5f;
+//		Gizmos.color = Color.red;
+//		Gizmos.DrawLine (start, start + this.normal.normalized * lengthFacotr);
+//		Gizmos.color = Color.green;
+//		Gizmos.DrawLine (start, start + this.directionUp.normalized * lengthFacotr);
+//	}
 }
