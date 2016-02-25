@@ -11,7 +11,7 @@ public class OrigamiObject : MonoBehaviour {
 	private Renderer origamiRenderer;
 
 	// Use this for initialization
-	void Start () {
+	public virtual void Start () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
 
 		MeshRenderer meshRenderer = this.GetComponent<MeshRenderer> ();
