@@ -6,7 +6,8 @@ public class OrigamiBaseObject : OrigamiObject {
 	public AnchorPoint baseAnchorPoint;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+		base.Start ();
 		if (baseAnchorPoint == null) {
 			throw new MissingReferenceException ("base anchor point must not be null for " + this.gameObject.name);
 		}

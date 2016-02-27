@@ -10,12 +10,15 @@ public class AnchorPoint : MonoBehaviour {
 	private AnchorValidator anchorValidator;
 	private MeshRenderer meshRenderer;
 	private Collider _collider;
+	private Color originalColor;
+	public Color selectedColor = Color.blue;
 
 	void Start () {
 		this._linkedTo = null;
 		this.anchorValidator = AnchorValidator.Instance;
 		this.meshRenderer = this.GetComponent<MeshRenderer> ();
 		this._collider = this.GetComponent<Collider> ();
+		this.originalColor = this.meshRenderer.material.color;
 		this.Hide ();
 	}
 
@@ -46,6 +49,14 @@ public class AnchorPoint : MonoBehaviour {
 
 	public bool isLinked() {
 		return this._linkedTo != null;
+	}
+
+	public void Select(){
+		this.meshRenderer.material.color = this.selectedColor;
+	}
+
+	public void Deselect(){
+		this.meshRenderer.material.color = this.originalColor;
 	}
 
 	public void Show() {

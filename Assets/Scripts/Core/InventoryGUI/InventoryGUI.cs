@@ -23,6 +23,7 @@ public class InventoryGUI : MonoBehaviour {
 	private bool isDragging;
 	private GameObject _draggedSlot;
 	public InventorySlot selectedSlot;
+	private AnchorPoint selectedAnchor;
 
 	public GameObject assembleRotater;
 
@@ -32,6 +33,7 @@ public class InventoryGUI : MonoBehaviour {
 		this.assembleObjs = new LinkedList<Transform> ();
 		this.isDragging = false;
 		this._draggedSlot = null;
+		this.selectedAnchor = null;
 		int slotIndex = 0;
 		foreach (Transform slot in this.slotPanel.transform) {
 			// The list inventorySlots contains all the Scalers
@@ -306,6 +308,15 @@ public class InventoryGUI : MonoBehaviour {
 					this.assembleObjScale = newAssembleScale;
 				}
 				objToRemove.transform.GetChild (0).GetComponent<OrigamiObject> ().HideAnchorPoints ();
+
+				// Check if the object to remove has an anchorpoint selected
+				if(this.selectedAnchor){
+					if (this.selectedAnchor.transform.parent == objToRemove.transform.GetChild (0)) {
+						this.selectedAnchor.Deselect ();
+						this.selectedAnchor = null;
+					}
+				}
+					
 				this.inventory.MoveInSelectableArea (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				AddObjectToInventorySlot (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				done = true;
@@ -336,6 +347,67 @@ public class InventoryGUI : MonoBehaviour {
 		foreach(Transform t in this.assembleObjs){
 			t.GetComponent<RotateByDragging> ().setDrag (false);
 		}
+	}
+
+	public void SelectAnchorPoint(){
+		RaycastHit hit;
+		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
+			if (hit.collider.GetComponent<AnchorPoint> ()) {
+				AnchorPoint pointedAnchor = hit.collider.GetComponent<AnchorPoint> ();
+				if (this.selectedAnchor == null) {
+					this.selectedAnchor = pointedAnchor;
+					pointedAnchor.Select ();
+					return;
+				}
+				if (this.selectedAnchor.Equals(pointedAnchor)){
+					this.selectedAnchor = null;
+					pointedAnchor.Deselect ();
+					return;
+				}
+				if (this.selectedAnchor.transform.parent.Equals (pointedAnchor.transform.parent)) {
+					this.selectedAnchor.Deselect ();
+					this.selectedAnchor = pointedAnchor;
+					pointedAnchor.Select ();
+					return;
+				}
+				this.ConnectAnchors (pointedAnchor);
+			}
+		}
+	}
+
+	public void ConnectAnchors(AnchorPoint anchor){
+		if (anchor == null || this.selectedAnchor == null || this.selectedAnchor.transform.parent.Equals (anchor.transform.parent))
+			return;
+		Transform object1 = this.selectedAnchor.transform.parent;
+		Transform object2 = anchor.transform.parent;
+
+		Matrix4x4 rotation1 = Matrix4x4.TRS (Vector3.zero, object1.rotation, Vector3.one);
+		Matrix4x4 rotation2 = Matrix4x4.TRS (Vector3.zero, object2.rotation, Vector3.one);
+
+		Vector3 realNormal1 = rotation1.MultiplyPoint3x4 (this.selectedAnchor.normal.normalized);
+		Vector3 realNormal2 = rotation2.MultiplyPoint3x4 (anchor.normal.normalized);
+
+		object1.parent.rotation = Quaternion.FromToRotation (this.selectedAnchor.normal.normalized,-realNormal2);
+
+		rotation1 = Matrix4x4.TRS (Vector3.zero, object1.rotation, Vector3.one);
+		rotation2 = Matrix4x4.TRS (Vector3.zero, object2.rotation, Vector3.one);
+
+		Vector3 realUp1 = rotation1.MultiplyPoint3x4 (this.selectedAnchor.directionUp.normalized);
+		Vector3 realUp2 = rotation2.MultiplyPoint3x4 (anchor.directionUp.normalized);
+
+		object1.parent.rotation *= Quaternion.FromToRotation (realUp1, realUp2);
+
+		rotation1 = Matrix4x4.TRS (Vector3.zero, object1.parent.localRotation, object1.localScale*this.assembleObjScale);
+		rotation2 = Matrix4x4.TRS (Vector3.zero, object2.parent.localRotation, object2.localScale*this.assembleObjScale);
+
+		Vector3 realAnchorPos1 = rotation1.MultiplyPoint3x4 (this.selectedAnchor.transform.localPosition);
+		Vector3 realAnchorPos2 = rotation2.MultiplyPoint3x4 (anchor.transform.localPosition);
+
+		object1.parent.localPosition = object2.parent.localPosition + realAnchorPos2 - realAnchorPos1;
+
+		//this.selectedAnchor.LinkTo (anchor);
+
+		//TODO : Assemble them hierarchically
 	}
 
 	private void SetLayerRecursively(GameObject go, int layer){

@@ -11,8 +11,10 @@ public class OrigamiObject : MonoBehaviour {
 	private Renderer origamiRenderer;
 
 	// Use this for initialization
-	void Start () {
+	public virtual void Start () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
+
+		this.CheckErrorsInAnchorPoints ();
 
 		MeshRenderer meshRenderer = this.GetComponent<MeshRenderer> ();
 		this.finalMaterial = meshRenderer.material;
@@ -76,6 +78,17 @@ public class OrigamiObject : MonoBehaviour {
 
 	public virtual Vector3 GetBounds () {
 		return this.origamiRenderer.bounds.extents;
+	}
+
+	private bool CheckErrorsInAnchorPoints(){
+		bool valid = true;
+		foreach(AnchorPoint anchor in this.anchorPoints){
+			if (Vector3.Dot (anchor.normal, anchor.directionUp) != 0) {
+				Debug.Log ("Les directions du point d'abncrage "+anchor.gameObject.name+ " dans " + anchor.transform.parent.name + " ne sont pas perpendiculaires.");
+				valid = false;
+			}
+		}
+		return valid;
 	}
 
 	public void OnDrawGizmos() {
