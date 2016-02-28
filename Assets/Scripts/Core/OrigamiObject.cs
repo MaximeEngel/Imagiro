@@ -40,14 +40,22 @@ public class OrigamiObject : MonoBehaviour {
 	}
 
 	public virtual OrigamiObject Add(OrigamiObject origamiObject) {
-		Object obj = Resources.Load ("AssembledOrigamiObject", typeof(GameObject));
+		if (origamiObject != null) {
+			if (origamiObject.GetType () == typeof(AssembledOrigamiObject)) {
+				return origamiObject.Add (this);
+			} else {				
 
-		GameObject gameObject = Instantiate (obj) as GameObject;
-		AssembledOrigamiObject assembledOrigamiObject = gameObject.GetComponent<AssembledOrigamiObject> ();
-		assembledOrigamiObject.transform.parent = this.transform.parent;
-		assembledOrigamiObject.Add (this);
-		assembledOrigamiObject.Add (origamiObject);
-		return assembledOrigamiObject;
+				Object obj = Resources.Load ("AssembledOrigamiObject", typeof(GameObject));
+
+				GameObject gameObject = Instantiate (obj) as GameObject;
+				AssembledOrigamiObject assembledOrigamiObject = gameObject.GetComponent<AssembledOrigamiObject> ();
+				assembledOrigamiObject.transform.parent = this.transform.parent;
+				assembledOrigamiObject.Add (this);
+				assembledOrigamiObject.Add (origamiObject);
+				return assembledOrigamiObject;
+			}
+		}
+		return null;
 	}
 
 	/// <summary>
