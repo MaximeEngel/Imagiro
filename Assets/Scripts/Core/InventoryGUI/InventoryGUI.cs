@@ -395,7 +395,7 @@ public class InventoryGUI : MonoBehaviour {
 		Vector3 realUp1 = rotation1.MultiplyPoint3x4 (this.selectedAnchor.directionUp.normalized);
 		Vector3 realUp2 = rotation2.MultiplyPoint3x4 (anchor.directionUp.normalized);
 
-		object1.parent.rotation *= Quaternion.FromToRotation (realUp1, realUp2);
+		object1.parent.rotation = Quaternion.FromToRotation (realUp1, realUp2) * object1.parent.rotation;
 
 		rotation1 = Matrix4x4.TRS (Vector3.zero, object1.parent.localRotation, object1.localScale*this.assembleObjScale);
 		rotation2 = Matrix4x4.TRS (Vector3.zero, object2.parent.localRotation, object2.localScale*this.assembleObjScale);
