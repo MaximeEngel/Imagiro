@@ -5,6 +5,8 @@ using System;
 
 public class Inventory {
 
+	private Transform heldObjectContainer;
+
 	private Player player;
 	private int maxSize;
 	// Object in the hand of the player, can be null !
@@ -25,6 +27,7 @@ public class Inventory {
 		this.selectedIndex = 0;
 		this._selectableObjects = new OrigamiObject[maxSize];
 		this._assembleAreaObjects = new LinkedList<OrigamiObject> ();
+		this.heldObjectContainer = GameObject.Find ("HeldObjectContiner").transform;
 	}
 
 	public OrigamiObject selectedObject {
@@ -39,6 +42,10 @@ public class Inventory {
 			this._selectedObject = value;
 			if (this._selectedObject != null) {
 				this._selectedObject.enabled = true;
+				this._selectedObject.transform.parent = this.heldObjectContainer;
+				this._selectedObject.transform.localPosition = Vector3.zero;
+				this._selectedObject.transform.localRotation = Quaternion.identity;
+				this._selectedObject.gameObject.layer = (5);
 			}
 		}
 	}
@@ -178,5 +185,14 @@ public class Inventory {
 		}
 
 		return false;
+	}
+
+	public void DropSelected() {
+		if (this.selectedObject != null) {
+			int idx = Array.IndexOf(this._selectableObjects, this.selectedObject);
+			this._selectableObjects[idx] = null;
+			this.selectedObject = null;
+			this.NextObject ();
+		}
 	}
 }

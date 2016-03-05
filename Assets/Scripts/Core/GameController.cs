@@ -55,6 +55,9 @@ public class GameController : MonoBehaviour {
 		if (Input.GetButtonUp ("Interact")) {
 			player.Interact ();
 		}
+		if (Input.GetButtonUp ("Secondary")) {
+			player.Drop ();
+		}
 	}
 
 	private void ToggleInventory(){
