@@ -1,19 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectState : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-	public void Action () {
-		Debug.Log ("Action !!");
-	}
+public abstract class ObjectState : MonoBehaviour
+{
+	public abstract void Action ();
+	public abstract void InstantAction ();
 }

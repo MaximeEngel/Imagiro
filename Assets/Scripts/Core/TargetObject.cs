@@ -27,7 +27,6 @@ public class TargetObject : MonoBehaviour {
 
 	public bool Put(OrigamiObject origamiObject){
 		AnchorPoint baseAnchorPoint = origamiObject.GetBaseAnchorPoint ();
-		Debug.Log (validBaseObject + "    " + origamiObject);
 		if (baseAnchorPoint != null && validBaseObject == origamiObject) {
 			this._isActivated = true;
 			if (action != null) {

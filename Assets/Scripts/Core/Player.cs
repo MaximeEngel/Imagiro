@@ -114,7 +114,6 @@ public class Player : MonoBehaviour {
 
 	private void DropResolve () {
 		if (this.drop) {
-			Debug.Log ("drop");
 			this.drop = false;
 			OrigamiObject selectedObject = this._inventory.selectedObject;
 			if (selectedObject == null) {
@@ -123,7 +122,6 @@ public class Player : MonoBehaviour {
 
 			if (!selectedObject.IsFinalObject ()) {
 				// Disolve object here
-				Debug.Log("Bad assemble !");
 			} else {
 				RaycastHit hit;
 				if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.interactionDistance)) {
