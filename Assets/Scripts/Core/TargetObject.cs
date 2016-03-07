@@ -30,7 +30,7 @@ public class TargetObject : MonoBehaviour {
 		if (baseAnchorPoint != null && validBaseObject == origamiObject) {
 			this._isActivated = true;
 			if (action != null) {
-				action.Action ();
+				action.Action (1);
 			}
 			// Avoid collect
 			origamiObject.tag = "ValidatedOrigamiObject";

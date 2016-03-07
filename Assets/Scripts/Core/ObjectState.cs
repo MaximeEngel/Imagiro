@@ -3,6 +3,6 @@ using System.Collections;
 
 public abstract class ObjectState : MonoBehaviour
 {
-	public abstract void Action ();
-	public abstract void InstantAction ();
+	public abstract void Action (int numState);
+	public abstract void InstantAction (int numState);
 }

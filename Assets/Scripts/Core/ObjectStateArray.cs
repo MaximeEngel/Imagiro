@@ -6,9 +6,9 @@ public class ObjectStateArray {
 
 	public ObjectState[] objectStates;
 
-	public void ActionAll() {
+	public void ActionAll(int numState) {
 		for (int i = 0; i < objectStates.Length; ++i) {
-			this.objectStates [i].Action ();
+			this.objectStates [i].Action (numState);
 		}
 	}
 }

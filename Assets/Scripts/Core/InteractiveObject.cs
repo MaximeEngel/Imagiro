@@ -28,11 +28,11 @@ public class InteractiveObject : MonoBehaviour {
 			}
 		}
 		this.state = Mathf.Clamp (this.state + this.step, 0, this.nbState - 1);
-		this.objectStates[this.state].ActionAll ();
+		this.objectStates[this.state].ActionAll (this.state);
 	}
 
 	public void LoadState ()
 	{
-		this.objectStates[this.state].ActionAll ();
+		this.objectStates[this.state].ActionAll (this.state);
 	}
 }
