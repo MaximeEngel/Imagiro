@@ -20,6 +20,9 @@ public class InteractiveObject : MonoBehaviour {
 
 	public void InteractOn ()
 	{
+		if (objectStates.Length < 1) {
+			return;
+		}
 		if (this.state == this.nbState - 1 && this.step > 0 || this.state == 0 && this.step < 0) {
 			if (this.loop) { 
 				this.step *= -1;

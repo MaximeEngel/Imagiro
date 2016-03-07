@@ -8,6 +8,7 @@ TagManager:
   - OrigamiObject
   - TargetObject
   - ValidatedOrigamiObject
+  - InteractiveObject
   layers:
   - Default
   - TransparentFX

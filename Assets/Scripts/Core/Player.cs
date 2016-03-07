@@ -106,6 +106,8 @@ public class Player : MonoBehaviour {
 					if(this._inventory.Collect (hit.collider.gameObject.GetComponent<OrigamiObject> ())) {
 						// Play sound
 					}
+				} else if (hit.collider.gameObject.tag == "InteractiveObject") {
+					hit.collider.gameObject.GetComponent<InteractiveObject> ().InteractOn ();
 				}
 			}
 			this.interact = false;

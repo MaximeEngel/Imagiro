@@ -5,7 +5,7 @@ public class TargetObject : MonoBehaviour {
 
 	public AnchorPoint targetPoint;
 	public OrigamiBaseObject validBaseObject;
-	public ObjectState action;
+	public ObjectState[] actions;
 
 	private bool _isActivated = false;
 
@@ -29,8 +29,11 @@ public class TargetObject : MonoBehaviour {
 		AnchorPoint baseAnchorPoint = origamiObject.GetBaseAnchorPoint ();
 		if (baseAnchorPoint != null && validBaseObject == origamiObject) {
 			this._isActivated = true;
-			if (action != null) {
-				action.Action (1);
+			for (int i = 0; i < actions.Length; ++i) {
+				ObjectState action = actions [i];
+				if (action != null) {
+					action.Action (1);
+				}
 			}
 			// Avoid collect
 			origamiObject.tag = "ValidatedOrigamiObject";
