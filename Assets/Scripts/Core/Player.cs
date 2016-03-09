@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
 	private Camera eyeCamera;
 	private Inventory _inventory;
 	private bool interact;
+	private bool drop;
 	private float maxOrientationX = 190;
 	private float minOrientationX = 80;
 	private float midOrientationX;
@@ -26,13 +27,15 @@ public class Player : MonoBehaviour {
 		this.eyeCamera = this.GetComponentInChildren<Camera> ();
 		this._inventory = new Inventory (inventorySize, this);
 		this.interact = false;
+		this.drop = false;
 
 		this.midOrientationX = (this.maxOrientationX + this.minOrientationX) / 2;
 	}
 
 	void FixedUpdate () {
-		Move ();
-		InteractResolve ();
+		this.Move ();
+		this.InteractResolve ();
+		this.DropResolve ();
 	}
 
 	public void StayStill(){
@@ -91,6 +94,10 @@ public class Player : MonoBehaviour {
 		this.interact = true;
 	}
 
+	public void Drop () {
+		this.drop = true;
+	}
+
 	private void InteractResolve () {
 		if (this.interact) {
 			RaycastHit hit;
@@ -99,9 +106,36 @@ public class Player : MonoBehaviour {
 					if(this._inventory.Collect (hit.collider.gameObject.GetComponent<OrigamiObject> ())) {
 						// Play sound
 					}
+				} else if (hit.collider.gameObject.tag == "InteractiveObject") {
+					hit.collider.gameObject.GetComponent<InteractiveObject> ().InteractOn ();
 				}
 			}
 			this.interact = false;
+		}
+	}
+
+	private void DropResolve () {
+		if (this.drop) {
+			this.drop = false;
+			OrigamiObject selectedObject = this._inventory.selectedObject;
+			if (selectedObject == null) {
+				return;
+			}
+
+			if (!selectedObject.IsFinalObject ()) {
+				// Disolve object here
+			} else {
+				RaycastHit hit;
+				if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.interactionDistance)) {
+					if (hit.collider.gameObject.tag == "TargetObject") {
+						TargetObject targetObject = hit.collider.gameObject.GetComponent<TargetObject> ();
+						if (targetObject.Put (selectedObject)) {
+							this._inventory.DropSelected ();
+						}
+					}
+				}
+			}		
+
 		}
 	}
 

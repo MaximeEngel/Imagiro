@@ -218,12 +218,12 @@ public class InventoryGUI : MonoBehaviour {
 				//Reset the slot's state to its default
 				Transform slot = origamiGameObject.transform.parent;
 				slot.localScale = Vector3.one;
-				slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
+//				slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
 
 				origamiGameObject.layer = (0);
 
 				if (origami.transform.parent.parent.parent.GetComponent<InventorySlot> () == this.selectedSlot) {
-					this.SetHeldObject (origamiGameObject);
+					this.inventory.selectByIndex (this.selectedSlot.slotIndex);
 				} else {
 					//Move the OrigamiObject to the player's hand
 					origamiGameObject.transform.parent = this.playerHand.transform;

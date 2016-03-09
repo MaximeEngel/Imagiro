@@ -34,7 +34,6 @@ public class InventorySlot : MonoBehaviour {
 	public void Select(){
 		if (this.transform.GetChild (0).GetChild (0).childCount != 0) {
 			this.GetComponent<Image> ().color = Color.white;
-			this.inventory.selectByIndex (this.slotIndex);
 			this.inventoryGUI.Select (this);
 		}
 	}
