@@ -360,6 +360,10 @@ Prefab:
       propertyPath: directionUp.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 492080, guid: 7fe5494c9ce952f4693e7dfd499d703e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7fe5494c9ce952f4693e7dfd499d703e, type: 2}
   m_IsPrefabParent: 0

@@ -76,8 +76,8 @@ public class OrigamiObject : MonoBehaviour {
 		}
 	}
 
-	public virtual Vector3 GetBounds () {
-		return this.origamiRenderer.bounds.extents;
+	public virtual Bounds GetBounds () {
+		return this.origamiRenderer.bounds;
 	}
 
 	private bool CheckErrorsInAnchorPoints(){
@@ -91,7 +91,7 @@ public class OrigamiObject : MonoBehaviour {
 		return valid;
 	}
 
-	public void OnDrawGizmos() {
+	public virtual void OnDrawGizmos() {
 //		foreach (AnchorPoint anchor in this.anchorPoints) {
 //			var start = anchor.transform.position;
 //			float lengthFacotr = 0.5f;
@@ -101,14 +101,16 @@ public class OrigamiObject : MonoBehaviour {
 //			Gizmos.color = Color.green;
 //			Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4(anchor.directionUp.normalized) * lengthFacotr);
 //		}
-		foreach (AnchorPoint anchor in this.GetComponentsInChildren<AnchorPoint>()) {
-			var start = anchor.transform.position;
-			float lengthFacotr = 0.5f;
-			Matrix4x4 rotation = Matrix4x4.TRS (Vector3.zero, this.transform.rotation, Vector3.one);
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4(anchor.normal.normalized) * lengthFacotr);
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4(anchor.directionUp.normalized) * lengthFacotr);
+		if (!(this is AssembledOrigamiObject)) {
+			foreach (AnchorPoint anchor in this.GetComponentsInChildren<AnchorPoint>()) {
+				var start = anchor.transform.position;
+				float lengthFacotr = 0.5f;
+				Matrix4x4 rotation = Matrix4x4.TRS (Vector3.zero, this.transform.rotation, Vector3.one);
+				Gizmos.color = Color.red;
+				Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4 (anchor.normal.normalized) * lengthFacotr);
+				Gizmos.color = Color.green;
+				Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4 (anchor.directionUp.normalized) * lengthFacotr);
+			}
 		}
 	}
 }
