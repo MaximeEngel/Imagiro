@@ -385,6 +385,9 @@ public class InventoryGUI : MonoBehaviour {
 		bool object1Assembled = false;
 		bool object2Assembled = false;
 
+		object1.GetComponent<OrigamiObject> ().connectedAnchors.AddLast (anchor);
+		object2.GetComponent<OrigamiObject> ().connectedAnchors.AddLast (this.selectedAnchor);
+
 		if (object1.GetComponentInParent<AssembledOrigamiObject> ()) {
 			object1 = object1.GetComponentInParent<AssembledOrigamiObject> ().transform;
 			Debug.Log ("1 is assembled");
@@ -415,21 +418,6 @@ public class InventoryGUI : MonoBehaviour {
 		Vector3 realUp2 = transforMatrix2.MultiplyPoint3x4 (anchor.directionUp.normalized);
 
 		object1.parent.rotation = Quaternion.FromToRotation (realUp1, realUp2) * object1.parent.rotation;
-
-//		if (object1Assembled) {
-//			transforMatrix1 = Matrix4x4.TRS (object1.localPosition + simpleObject1.localPosition, object1.parent.localRotation * object1.localRotation * simpleObject1.localRotation, object1.parent.localScale * object1.localScale.x *simpleObject1.localScale.x * this.assembleObjScale);
-//		}
-//		else{
-//			transforMatrix1 = Matrix4x4.TRS (Vector3.zero, object1.parent.localRotation, object1.localScale*this.assembleObjScale);
-//		}
-//		if (object2Assembled) {
-//			transforMatrix2 = Matrix4x4.TRS (object1.localPosition + simpleObject2.localPosition, object2.parent.localRotation * object2.localRotation * simpleObject2.localRotation, object1.parent.localScale * object2.localScale * simpleObject2.localScale.x * this.assembleObjScale);
-//		}
-//		else {
-//			transforMatrix2 = Matrix4x4.TRS (Vector3.zero, object2.parent.localRotation, object2.localScale*this.assembleObjScale);
-//		}
-//		Vector3 realAnchorPos1 = transforMatrix1.MultiplyPoint3x4 (this.selectedAnchor.transform.localPosition);
-//		Vector3 realAnchorPos2 = transforMatrix2.MultiplyPoint3x4 (anchor.transform.localPosition);
 
 		Vector3 realAnchorPos1 = (this.selectedAnchor.transform.position - object1.parent.position);
 		Vector3 realAnchorPos2 = (anchor.transform.position - object2.parent.position);
@@ -472,6 +460,54 @@ public class InventoryGUI : MonoBehaviour {
 
 		this.UpdateAssembleObjScale ();
 
+	}
+
+	public void DetachAllAssembled(){
+		foreach (AssembledOrigamiObject assembled in this.GetComponentsInChildren<AssembledOrigamiObject>()) {
+			RotateByDragging oldRotater = assembled.GetComponentInParent<RotateByDragging> ();
+			LinkedList<OrigamiObject> disassembled = assembled.Disassemble ();
+			this.inventory.DisassembleReplaceInAssembleArea (disassembled, assembled);
+
+			oldRotater.transform.localScale = Vector3.one;
+			foreach (OrigamiObject origami in disassembled) {
+				// Create a rotater
+				GameObject newRotater = (GameObject)Instantiate (this.assembleRotater);
+				newRotater.transform.SetParent (this.assembleArea.transform, false);
+				newRotater.transform.position = origami.transform.position;
+
+				// Put the object in this rotater
+				//origami.transform.localPosition = Vector3.zero;
+				origami.transform.SetParent (newRotater.transform, true);
+
+				// Show the anchors
+				origami.ShowAnchorPoints();
+
+				//Resize the rotater
+				Vector3 origamiBounds = origami.GetBounds().extents;
+				float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+				float scaleFactor = this.assembleSize / maxBound;
+				newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
+
+				foreach (AnchorPoint anchor in origami.connectedAnchors) {
+					Matrix4x4 transforMatrix = Matrix4x4.TRS (Vector3.zero, origami.transform.rotation, Vector3.one);
+					Vector3 realNormal = transforMatrix.MultiplyPoint3x4 (anchor.normal.normalized);
+
+					newRotater.transform.position -= realNormal;
+				}
+				origami.connectedAnchors.Clear ();
+
+				this.assembleObjs.AddLast (newRotater.transform);
+
+				if (this.inventory.NumberAssembleAreaObjects () == 1) {
+					this.assembleObjScale = scaleFactor;
+				} else if (scaleFactor < this.assembleObjScale) {
+					this.assembleObjScale = scaleFactor;
+				}
+				this.UpdateAssembleObjScale ();
+			}
+			this.assembleObjs.Remove (oldRotater.transform);
+			Destroy (oldRotater.gameObject);
+		}
 	}
 
 	private void SetLayerRecursively(GameObject go, int layer){

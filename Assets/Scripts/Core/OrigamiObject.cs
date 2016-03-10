@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class OrigamiObject : MonoBehaviour {
 
 	private AnchorPoint[] anchorPoints;
+	public LinkedList<AnchorPoint> connectedAnchors;
 	public Material uncoloredMaterial;
 
 	private Material finalMaterial;
@@ -13,6 +14,7 @@ public class OrigamiObject : MonoBehaviour {
 	// Use this for initialization
 	public virtual void Start () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
+		this.connectedAnchors = new LinkedList<AnchorPoint> ();
 
 		this.CheckErrorsInAnchorPoints ();
 
