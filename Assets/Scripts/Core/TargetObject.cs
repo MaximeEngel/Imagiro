@@ -5,7 +5,8 @@ public class TargetObject : MonoBehaviour {
 
 	public AnchorPoint targetPoint;
 	public OrigamiBaseObject validBaseObject;
-	public ObjectState[] actions;
+	public ObjectAction[] actions;
+	public bool makeInteractive = false;
 
 	private bool _isActivated = false;
 
@@ -30,12 +31,15 @@ public class TargetObject : MonoBehaviour {
 		if (baseAnchorPoint != null && validBaseObject == origamiObject) {
 			this._isActivated = true;
 			for (int i = 0; i < actions.Length; ++i) {
-				ObjectState action = actions [i];
+				ObjectAction action = actions [i];
 				if (action != null) {
 					action.Action (1);
 				}
 			}
 			// Avoid collect
+			if (this.makeInteractive) {
+				this.gameObject.tag = "InteractiveObject";
+			} 
 			origamiObject.tag = "ValidatedOrigamiObject";
 
 			// Code here the animation to "assemble" targetPoint and anchorPoint

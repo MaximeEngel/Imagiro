@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TestAction : ObjectState {
+public class TestAction : ObjectAction {
 	public override void Action (int numState)
 	{
 		Debug.Log ("Yeah it works !!!");

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AnimationObjectState : ObjectState {
+public class AnimationObjectState : ObjectAction {
 
 	public Animator animatorC;
 
