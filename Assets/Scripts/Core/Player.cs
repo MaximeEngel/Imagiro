@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	public float rotationSpeed = 0.5f;
 	public int inventorySize = 20;
 	public float interactionDistance = 0.5f;
+	public float crouchFactor = 0.5f;
 	public bool swim = false;
 
 	private Vector3 moveDirection;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour {
 	private float minOrientationX = 80;
 	private float midOrientationX;
 	private OrigamiObject heldObject;
+	private bool crouch;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour {
 		this._inventory = new Inventory (inventorySize, this);
 		this.interact = false;
 		this.drop = false;
+		this.crouch = false;
 
 		this.midOrientationX = (this.maxOrientationX + this.minOrientationX) / 2;
 	}
@@ -48,8 +51,10 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Move(float deltaX, float deltaZ) {
-		this.moveDirection.x = deltaX;
-		this.moveDirection.z = deltaZ;
+		if (!this.crouch) {
+			this.moveDirection.x = deltaX;
+			this.moveDirection.z = deltaZ;
+		}
 	}
 
 	private void Move() {
@@ -147,5 +152,19 @@ public class Player : MonoBehaviour {
 			Gizmos.color = Color.red;
 			Gizmos.DrawRay (this.eyeCamera.transform.position, this.eyeCamera.transform.forward * this.interactionDistance);
 		}
+	}
+
+	public void Crouch() {
+		Vector3 scale = this.transform.localScale;
+		scale.y *= crouchFactor;
+		this.transform.localScale = scale;
+		this.crouch = true;
+	}
+
+	public void StandUp() {
+		Vector3 scale = this.transform.localScale;
+		scale.y /= crouchFactor;
+		this.transform.localScale = scale;
+		this.crouch = false;
 	}
 }

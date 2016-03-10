@@ -686,6 +686,10 @@ Prefab:
       propertyPath: interactionDistance
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 13679610, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
   m_IsPrefabParent: 0
