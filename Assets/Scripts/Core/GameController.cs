@@ -11,6 +11,10 @@ public class GameController : MonoBehaviour {
 	
 	private bool inGame;
 	private bool inInventory;
+	private Transform canvasInventoryTransform;
+	private GameObject canvasContainer;
+	private GameObject inventoryCamera;
+	private Vector3 initialCanvasPos;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +31,10 @@ public class GameController : MonoBehaviour {
 
 		this.inGame = true;
 		this.inInventory = false;
-		this.inventoryGUI.transform.Find("Canvas").gameObject.SetActive (false);
+		this.canvasInventoryTransform = GameObject.Find("Canvas").transform;
+		this.initialCanvasPos = this.canvasInventoryTransform.position;
+		this.canvasInventoryTransform.gameObject.SetActive (false);
+		this.inventoryCamera = GameObject.Find ("InventoryCamera");
 	}
 	
 	// Update is called once per frame
@@ -67,13 +74,29 @@ public class GameController : MonoBehaviour {
 		this.inGame = !this.inGame;
 		this.inInventory = !this.inInventory;
 		if (this.inInventory) {
-			this.inventoryGUI.transform.Find("Canvas").gameObject.SetActive (true);
+			this.canvasInventoryTransform.gameObject.SetActive (true);
 			this.inventoryGUI.Open ();
 			this.player.StayStill ();
+			if (this.VRMode) {
+				float r = Vector3.Distance (this.inventoryCamera.transform.position, this.canvasInventoryTransform.position);
+				float alpha = Mathf.Deg2Rad * this.inventoryCamera.transform.rotation.eulerAngles.y;
+				float x, y, z;
+				x = this.inventoryCamera.transform.position.x + r * Mathf.Sin (alpha);
+				z = this.inventoryCamera.transform.position.z + r * Mathf.Cos (alpha);
+				y = this.inventoryCamera.transform.position.y;
+				Vector3 newPos = new Vector3 (x, y, z);
+				this.canvasInventoryTransform.position = newPos;
+				this.canvasInventoryTransform.rotation = Quaternion.AngleAxis (this.inventoryCamera.transform.rotation.eulerAngles.y, new Vector3 (0, 1, 0));
+			}
 		}
 		else {
 			this.inventoryGUI.Close ();	
-			this.inventoryGUI.transform.Find("Canvas").gameObject.SetActive (false);
+			if (this.VRMode) {
+				this.canvasInventoryTransform.position = this.initialCanvasPos;
+				this.canvasInventoryTransform.rotation = Quaternion.AngleAxis (0, new Vector3 (0, 1, 0));
+			}
+			this.canvasInventoryTransform.gameObject.SetActive (false);
+
 		}
 	}
 
