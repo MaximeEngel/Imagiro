@@ -10,12 +10,15 @@ public class AnchorPoint : MonoBehaviour {
 	private AnchorValidator anchorValidator;
 	private MeshRenderer meshRenderer;
 	private Collider _collider;
+	private Color originalColor;
+	public Color selectedColor = Color.blue;
 
 	void Start () {
 		this._linkedTo = null;
 		this.anchorValidator = AnchorValidator.Instance;
 		this.meshRenderer = this.GetComponent<MeshRenderer> ();
 		this._collider = this.GetComponent<Collider> ();
+		this.originalColor = this.meshRenderer.material.color;
 		this.Hide ();
 	}
 
@@ -48,6 +51,14 @@ public class AnchorPoint : MonoBehaviour {
 		return this._linkedTo != null;
 	}
 
+	public void Select(){
+		this.meshRenderer.material.color = this.selectedColor;
+	}
+
+	public void Deselect(){
+		this.meshRenderer.material.color = this.originalColor;
+	}
+
 	public void Show() {
 		this.meshRenderer.enabled = true;
 		this._collider.enabled = true;
@@ -58,12 +69,12 @@ public class AnchorPoint : MonoBehaviour {
 		this._collider.enabled = false;
 	}
 
-	public void OnDrawGizmos() {
-		var start = this.transform.position;
-		float lengthFacotr = 0.5f;
-		Gizmos.color = Color.red;
-		Gizmos.DrawLine (start, start + this.normal.normalized * lengthFacotr);
-		Gizmos.color = Color.green;
-		Gizmos.DrawLine (start, start + this.directionUp.normalized * lengthFacotr);
-	}
+//	public void OnDrawGizmos() {
+//		var start = this.transform.position;
+//		float lengthFacotr = 0.5f;
+//		Gizmos.color = Color.red;
+//		Gizmos.DrawLine (start, start + this.normal.normalized * lengthFacotr);
+//		Gizmos.color = Color.green;
+//		Gizmos.DrawLine (start, start + this.directionUp.normalized * lengthFacotr);
+//	}
 }

@@ -23,6 +23,7 @@ public class InventoryGUI : MonoBehaviour {
 	private bool isDragging;
 	private GameObject _draggedSlot;
 	public InventorySlot selectedSlot;
+	private AnchorPoint selectedAnchor;
 
 	public GameObject assembleRotater;
 
@@ -32,6 +33,7 @@ public class InventoryGUI : MonoBehaviour {
 		this.assembleObjs = new LinkedList<Transform> ();
 		this.isDragging = false;
 		this._draggedSlot = null;
+		this.selectedAnchor = null;
 		int slotIndex = 0;
 		foreach (Transform slot in this.slotPanel.transform) {
 			// The list inventorySlots contains all the Scalers
@@ -97,8 +99,11 @@ public class InventoryGUI : MonoBehaviour {
 			origamiObj.localPosition = Vector3.zero;
 			origamiObj.SetParent (newRotater.transform, false);
 
+			// Show the anchors
+			origamiObj.GetComponent<OrigamiObject>().ShowAnchorPoints();
+
 			//Resize the rotater
-			Vector3 origamiBounds = origamiObj.GetComponent<Renderer> ().bounds.extents;
+			Vector3 origamiBounds = origamiObj.GetComponent<OrigamiObject> ().GetBounds().extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 			float scaleFactor = this.assembleSize / maxBound;
 			newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
@@ -177,14 +182,15 @@ public class InventoryGUI : MonoBehaviour {
 		}
 		origamiGameObject.transform.localRotation = Quaternion.identity;
 
-		Vector3 origamiBounds = origami.GetBounds();
+		Vector3 origamiBounds = origami.GetBounds().extents;
 		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 		float scaleFactor = this.slotSize / maxBound;
 		currentSlot.localScale = scaleFactor*Vector3.one;
 
 		currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;
 
-		origamiGameObject.gameObject.layer = (5);
+		//origamiGameObject.gameObject.layer = (5);
+		SetLayerRecursively (origamiGameObject, 5);
 	}
 
 	public void MoveDraggedObjectToSlot(int slotIndex){
@@ -220,7 +226,8 @@ public class InventoryGUI : MonoBehaviour {
 				slot.localScale = Vector3.one;
 //				slot.GetComponent<InventoryIdleAnimation> ().isRotating = false;
 
-				origamiGameObject.layer = (0);
+				//origamiGameObject.layer = (0);
+				SetLayerRecursively(origamiGameObject,0);
 
 				if (origami.transform.parent.parent.parent.GetComponent<InventorySlot> () == this.selectedSlot) {
 					this.inventory.selectByIndex (this.selectedSlot.slotIndex);
@@ -259,7 +266,8 @@ public class InventoryGUI : MonoBehaviour {
 		origami.transform.parent = this.heldObjectContainer;
 		origami.transform.localPosition = Vector3.zero;
 		origami.transform.localRotation = Quaternion.identity;
-		origami.layer = (5);
+		//origami.layer = (5);
+		SetLayerRecursively (origami,5);
 	}
 
 	void ReleaseHeldObject(){
@@ -268,16 +276,15 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void RemovePointedObjectOfAssembleArea(){
-		Vector3 point = this.inventoryCamera.ScreenToWorldPoint (new Vector3(Input.mousePosition.x,Input.mousePosition.y,inventoryCanvas.planeDistance));
 		GameObject objToRemove = null;
-		foreach (Transform t in this.assembleObjs) {
-			if (t.GetChild(0).GetComponent<Collider> ().bounds.Contains (point)) {
-				objToRemove = t.gameObject;
-				break;
+		RaycastHit hit;
+		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
+			if (hit.collider.transform.GetComponentInParent<RotateByDragging> ()) {
+				objToRemove = hit.collider.transform.GetComponentInParent<RotateByDragging> ().gameObject;
 			}
-		}
-		if (objToRemove != null) {
-			this.RemoveOfAssembleArea (objToRemove);
+			if (objToRemove != null) {
+				this.RemoveOfAssembleArea (objToRemove);
+			}
 		}
 	}
 
@@ -299,7 +306,16 @@ public class InventoryGUI : MonoBehaviour {
 					}
 					this.assembleObjScale = newAssembleScale;
 				}
+				objToRemove.transform.GetChild (0).GetComponent<OrigamiObject> ().HideAnchorPoints ();
 
+				// Check if the object to remove has an anchorpoint selected
+				if(this.selectedAnchor){
+					if (this.selectedAnchor.transform.parent == objToRemove.transform.GetChild (0)) {
+						this.selectedAnchor.Deselect ();
+						this.selectedAnchor = null;
+					}
+				}
+					
 				this.inventory.MoveInSelectableArea (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				AddObjectToInventorySlot (objToRemove.transform.GetChild (0).GetComponent<OrigamiObject>(), slotIndex);
 				done = true;
@@ -321,14 +337,182 @@ public class InventoryGUI : MonoBehaviour {
 	public void StartRotating(){
 		RaycastHit hit;
 		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
-			if(hit.collider.transform.parent.GetComponent<RotateByDragging> ())
-				hit.collider.transform.parent.GetComponent<RotateByDragging> ().setDrag (true);
+			if(hit.collider.transform.GetComponentInParent<RotateByDragging> ())
+				hit.collider.transform.parent.GetComponentInParent<RotateByDragging> ().setDrag (true);
 		}
 	}
 
 	public void StopRotating(){
 		foreach(Transform t in this.assembleObjs){
 			t.GetComponent<RotateByDragging> ().setDrag (false);
+		}
+	}
+
+	public void SelectAnchorPoint(){
+		RaycastHit hit;
+		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
+			if (hit.collider.GetComponent<AnchorPoint> ()) {
+				AnchorPoint pointedAnchor = hit.collider.GetComponent<AnchorPoint> ();
+				if (this.selectedAnchor == null) {
+					this.selectedAnchor = pointedAnchor;
+					pointedAnchor.Select ();
+					return;
+				}
+				if (this.selectedAnchor.Equals(pointedAnchor)){
+					this.selectedAnchor = null;
+					pointedAnchor.Deselect ();
+					return;
+				}
+				//if (this.selectedAnchor.transform.parent.Equals (pointedAnchor.transform.parent)) {
+				if (this.selectedAnchor.GetComponentInParent<RotateByDragging>().Equals (pointedAnchor.GetComponentInParent<RotateByDragging>())) {
+					this.selectedAnchor.Deselect ();
+					this.selectedAnchor = pointedAnchor;
+					pointedAnchor.Select ();
+					return;
+				}
+				this.ConnectAnchors (pointedAnchor);
+			}
+		}
+	}
+
+	public void ConnectAnchors(AnchorPoint anchor){
+		if (anchor == null || this.selectedAnchor == null || this.selectedAnchor.GetComponentInParent<RotateByDragging>().Equals (anchor.GetComponentInParent<RotateByDragging>()))
+			return;
+		Transform object1 = this.selectedAnchor.transform.parent;
+		Transform object2 = anchor.transform.parent;
+		Transform simpleObject1 = object1;
+		Transform simpleObject2 = object2;
+		bool object1Assembled = false;
+		bool object2Assembled = false;
+
+		object1.GetComponent<OrigamiObject> ().connectedAnchors.AddLast (anchor);
+		object2.GetComponent<OrigamiObject> ().connectedAnchors.AddLast (this.selectedAnchor);
+
+		if (object1.GetComponentInParent<AssembledOrigamiObject> ()) {
+			object1 = object1.GetComponentInParent<AssembledOrigamiObject> ().transform;
+			Debug.Log ("1 is assembled");
+			object1Assembled = true;
+		}
+		if (object2.GetComponentInParent<AssembledOrigamiObject> ()) {
+			object1 = object2.GetComponentInParent<AssembledOrigamiObject> ().transform;
+			Debug.Log ("2 is assembled");
+			object2Assembled = true;
+		}
+			
+		Matrix4x4 transforMatrix1 = Matrix4x4.TRS (Vector3.zero, simpleObject1.rotation, Vector3.one);
+		Matrix4x4 transforMatrix2 = Matrix4x4.TRS (Vector3.zero, simpleObject2.rotation, Vector3.one);
+
+		Vector3 realNormal1 = transforMatrix1.MultiplyPoint3x4 (this.selectedAnchor.normal.normalized);
+		Vector3 realNormal2 = transforMatrix2.MultiplyPoint3x4 (anchor.normal.normalized);
+
+		if (object1Assembled) {
+			object1.parent.rotation = Quaternion.FromToRotation (realNormal1, -realNormal2) * object1.parent.rotation;
+		} else {
+			object1.parent.rotation = Quaternion.FromToRotation (this.selectedAnchor.normal.normalized, -realNormal2);
+		}
+
+		transforMatrix1 = Matrix4x4.TRS (Vector3.zero, simpleObject1.rotation, Vector3.one);
+		transforMatrix2 = Matrix4x4.TRS (Vector3.zero, simpleObject2.rotation, Vector3.one);
+
+		Vector3 realUp1 = transforMatrix1.MultiplyPoint3x4 (this.selectedAnchor.directionUp.normalized);
+		Vector3 realUp2 = transforMatrix2.MultiplyPoint3x4 (anchor.directionUp.normalized);
+
+		object1.parent.rotation = Quaternion.FromToRotation (realUp1, realUp2) * object1.parent.rotation;
+
+		Vector3 realAnchorPos1 = (this.selectedAnchor.transform.position - object1.parent.position);
+		Vector3 realAnchorPos2 = (anchor.transform.position - object2.parent.position);
+
+		object1.parent.position = object2.parent.position + realAnchorPos2 - realAnchorPos1;
+			
+		GameObject oldRotater = object2.GetComponentInParent<RotateByDragging>().gameObject;
+
+		this.selectedAnchor.LinkTo (anchor);
+		OrigamiObject assembled = object1.GetComponent<OrigamiObject> ().Add (object2.GetComponent<OrigamiObject> ());
+		this.inventory.AssembleReplaceInAssembleArea(object1.GetComponent<OrigamiObject> (), object2.GetComponent<OrigamiObject> (), assembled);
+		AssembledOrigamiObject realAssembled = (AssembledOrigamiObject)assembled;
+		this.assembleObjs.Remove (oldRotater.transform);
+		Destroy (oldRotater);
+		this.selectedAnchor.Deselect ();
+		this.selectedAnchor = null;
+
+		Vector3[] oldPositions = new Vector3[assembled.transform.childCount];
+		for(int i = 0 ; i< assembled.transform.childCount ; ++i){
+			oldPositions [i] = assembled.transform.GetChild (i).position;
+		}
+		assembled.transform.localPosition = Vector3.zero;
+		for(int i = 0 ; i< assembled.transform.childCount ; ++i){
+			assembled.transform.GetChild (i).position = oldPositions [i];
+		}
+
+		realAssembled.ComputeNewBounds ();
+
+		//Resize the rotater
+		Vector3 origamiBounds = assembled.GetComponent<OrigamiObject> ().GetBounds().extents;
+		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+		float scaleFactor = this.assembleSize / maxBound;
+		assembled.transform.parent.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
+
+		if (this.inventory.NumberAssembleAreaObjects () == 1) {
+			this.assembleObjScale = scaleFactor;
+		} else if (scaleFactor < this.assembleObjScale) {
+			this.assembleObjScale = scaleFactor;
+		}
+
+		this.UpdateAssembleObjScale ();
+
+	}
+
+	public void DetachAllAssembled(){
+		foreach (AssembledOrigamiObject assembled in this.GetComponentsInChildren<AssembledOrigamiObject>()) {
+			RotateByDragging oldRotater = assembled.GetComponentInParent<RotateByDragging> ();
+			LinkedList<OrigamiObject> disassembled = assembled.Disassemble ();
+			this.inventory.DisassembleReplaceInAssembleArea (disassembled, assembled);
+
+			oldRotater.transform.localScale = Vector3.one;
+			foreach (OrigamiObject origami in disassembled) {
+				// Create a rotater
+				GameObject newRotater = (GameObject)Instantiate (this.assembleRotater);
+				newRotater.transform.SetParent (this.assembleArea.transform, false);
+				newRotater.transform.position = origami.transform.position;
+
+				// Put the object in this rotater
+				//origami.transform.localPosition = Vector3.zero;
+				origami.transform.SetParent (newRotater.transform, true);
+
+				// Show the anchors
+				origami.ShowAnchorPoints();
+
+				//Resize the rotater
+				Vector3 origamiBounds = origami.GetBounds().extents;
+				float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+				float scaleFactor = this.assembleSize / maxBound;
+				newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
+
+				foreach (AnchorPoint anchor in origami.connectedAnchors) {
+					Matrix4x4 transforMatrix = Matrix4x4.TRS (Vector3.zero, origami.transform.rotation, Vector3.one);
+					Vector3 realNormal = transforMatrix.MultiplyPoint3x4 (anchor.normal.normalized);
+
+					newRotater.transform.position -= realNormal;
+				}
+				origami.connectedAnchors.Clear ();
+
+				this.assembleObjs.AddLast (newRotater.transform);
+
+				if (this.inventory.NumberAssembleAreaObjects () == 1) {
+					this.assembleObjScale = scaleFactor;
+				} else if (scaleFactor < this.assembleObjScale) {
+					this.assembleObjScale = scaleFactor;
+				}
+				this.UpdateAssembleObjScale ();
+			}
+			this.assembleObjs.Remove (oldRotater.transform);
+			Destroy (oldRotater.gameObject);
+		}
+	}
+
+	private void SetLayerRecursively(GameObject go, int layer){
+		foreach(Transform child in go.GetComponentsInChildren<Transform>(true)){
+			child.gameObject.layer = layer;
 		}
 	}
 }

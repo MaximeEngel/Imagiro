@@ -137,7 +137,7 @@ public class Inventory {
 	/// </summary>
 	/// <param name="replacedOrigamiObjects">LinkedListNode of replaced origami objects.</param>
 	/// <param name="newOrigamiObject">New origami object</param>
-	public void AssembleReplaceInSelectableArea (LinkedList<OrigamiObject> replacedOrigamiObjects, OrigamiObject newOrigamiObject) {
+	public void AssembleReplaceInAssembleArea (LinkedList<OrigamiObject> replacedOrigamiObjects, OrigamiObject newOrigamiObject) {
 		foreach (OrigamiObject obj in replacedOrigamiObjects) {
 			this._assembleAreaObjects.Remove (obj);
 		}
@@ -146,12 +146,20 @@ public class Inventory {
 
 	}
 
+	public void AssembleReplaceInAssembleArea (OrigamiObject replacedOrigamiObject1, OrigamiObject replacedOrigamiObject2, OrigamiObject newOrigamiObject) {
+		this._assembleAreaObjects.Remove (replacedOrigamiObject1);
+		this._assembleAreaObjects.Remove (replacedOrigamiObject2);
+		this._assembleAreaObjects.AddLast (newOrigamiObject);
+		this.nbObjects -= 1;
+
+	}
+
 	/// <summary>
 	/// Remove replacedOrigamiObject and add the newOrigamiObjects. Use this function when you disassemble objects.
 	/// </summary>
 	/// <param name="replacedOrigamiObject">Replaced origami object.</param>
 	/// <param name="newOrigamiObject">LinkedListNode of new origami objects</param>
-	public void DisassembleReplaceInSelectableArea (LinkedList<OrigamiObject> newOrigamiObjects, OrigamiObject replacedOrigamiObject) {
+	public void DisassembleReplaceInAssembleArea (LinkedList<OrigamiObject> newOrigamiObjects, OrigamiObject replacedOrigamiObject) {
 		this._assembleAreaObjects.Remove (replacedOrigamiObject);
 		foreach (OrigamiObject obj in newOrigamiObjects) {
 			this._assembleAreaObjects.AddLast (obj);

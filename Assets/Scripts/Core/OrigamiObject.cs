@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class OrigamiObject : MonoBehaviour {
 
 	private AnchorPoint[] anchorPoints;
+	public LinkedList<AnchorPoint> connectedAnchors;
 	public Material uncoloredMaterial;
 
 	private Material finalMaterial;
@@ -13,6 +14,9 @@ public class OrigamiObject : MonoBehaviour {
 	// Use this for initialization
 	public virtual void Start () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
+		this.connectedAnchors = new LinkedList<AnchorPoint> ();
+
+		this.CheckErrorsInAnchorPoints ();
 
 		MeshRenderer meshRenderer = this.GetComponent<MeshRenderer> ();
 		this.finalMaterial = meshRenderer.material;
@@ -82,7 +86,41 @@ public class OrigamiObject : MonoBehaviour {
 		}
 	}
 
-	public virtual Vector3 GetBounds () {
-		return this.origamiRenderer.bounds.extents;
+	public virtual Bounds GetBounds () {
+		return this.origamiRenderer.bounds;
+	}
+
+	private bool CheckErrorsInAnchorPoints(){
+		bool valid = true;
+		foreach(AnchorPoint anchor in this.anchorPoints){
+			if (Vector3.Dot (anchor.normal, anchor.directionUp) != 0) {
+				Debug.Log ("Les directions du point d'abncrage "+anchor.gameObject.name+ " dans " + anchor.transform.parent.name + " ne sont pas perpendiculaires.");
+				valid = false;
+			}
+		}
+		return valid;
+	}
+
+	public virtual void OnDrawGizmos() {
+//		foreach (AnchorPoint anchor in this.anchorPoints) {
+//			var start = anchor.transform.position;
+//			float lengthFacotr = 0.5f;
+//			Matrix4x4 rotation = Matrix4x4.TRS (Vector3.zero, this.transform.rotation, Vector3.one);
+//			Gizmos.color = Color.red;
+//			Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4(anchor.normal.normalized) * lengthFacotr);
+//			Gizmos.color = Color.green;
+//			Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4(anchor.directionUp.normalized) * lengthFacotr);
+//		}
+		if (!(this is AssembledOrigamiObject)) {
+			foreach (AnchorPoint anchor in this.GetComponentsInChildren<AnchorPoint>()) {
+				var start = anchor.transform.position;
+				float lengthFacotr = 0.5f;
+				Matrix4x4 rotation = Matrix4x4.TRS (Vector3.zero, this.transform.rotation, Vector3.one);
+				Gizmos.color = Color.red;
+				Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4 (anchor.normal.normalized) * lengthFacotr);
+				Gizmos.color = Color.green;
+				Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4 (anchor.directionUp.normalized) * lengthFacotr);
+			}
+		}
 	}
 }
