@@ -289,6 +289,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	void RemoveOfAssembleArea(GameObject objToRemove){
+		// objToRemove must be an AssembleRotater
 		int slotIndex=0;
 		bool done = false;
 		while (!done && slotIndex < this.player.inventorySize) {
@@ -390,29 +391,29 @@ public class InventoryGUI : MonoBehaviour {
 
 		if (object1.GetComponentInParent<AssembledOrigamiObject> ()) {
 			object1 = object1.GetComponentInParent<AssembledOrigamiObject> ().transform;
-			Debug.Log ("1 is assembled");
+			//Debug.Log ("1 is assembled");
 			object1Assembled = true;
 		}
 		if (object2.GetComponentInParent<AssembledOrigamiObject> ()) {
 			object1 = object2.GetComponentInParent<AssembledOrigamiObject> ().transform;
-			Debug.Log ("2 is assembled");
+			//Debug.Log ("2 is assembled");
 			object2Assembled = true;
 		}
 			
-		Matrix4x4 transforMatrix1 = Matrix4x4.TRS (Vector3.zero, simpleObject1.rotation, Vector3.one);
-		Matrix4x4 transforMatrix2 = Matrix4x4.TRS (Vector3.zero, simpleObject2.rotation, Vector3.one);
+		Matrix4x4 transforMatrix1 = Matrix4x4.TRS (Vector3.zero, this.selectedAnchor.transform.rotation, Vector3.one);
+		Matrix4x4 transforMatrix2 = Matrix4x4.TRS (Vector3.zero, anchor.transform.rotation, Vector3.one);
 
 		Vector3 realNormal1 = transforMatrix1.MultiplyPoint3x4 (this.selectedAnchor.normal.normalized);
 		Vector3 realNormal2 = transforMatrix2.MultiplyPoint3x4 (anchor.normal.normalized);
 
-		if (object1Assembled) {
+		if (true) {
 			object1.parent.rotation = Quaternion.FromToRotation (realNormal1, -realNormal2) * object1.parent.rotation;
 		} else {
 			object1.parent.rotation = Quaternion.FromToRotation (this.selectedAnchor.normal.normalized, -realNormal2);
 		}
 
-		transforMatrix1 = Matrix4x4.TRS (Vector3.zero, simpleObject1.rotation, Vector3.one);
-		transforMatrix2 = Matrix4x4.TRS (Vector3.zero, simpleObject2.rotation, Vector3.one);
+		transforMatrix1 = Matrix4x4.TRS (Vector3.zero, this.selectedAnchor.transform.rotation, Vector3.one);
+		transforMatrix2 = Matrix4x4.TRS (Vector3.zero, anchor.transform.rotation, Vector3.one);
 
 		Vector3 realUp1 = transforMatrix1.MultiplyPoint3x4 (this.selectedAnchor.directionUp.normalized);
 		Vector3 realUp2 = transforMatrix2.MultiplyPoint3x4 (anchor.directionUp.normalized);
@@ -436,9 +437,12 @@ public class InventoryGUI : MonoBehaviour {
 		this.selectedAnchor = null;
 
 		Vector3[] oldPositions = new Vector3[assembled.transform.childCount];
+		Vector3 barycenter = Vector3.zero;
 		for(int i = 0 ; i< assembled.transform.childCount ; ++i){
 			oldPositions [i] = assembled.transform.GetChild (i).position;
+			barycenter += assembled.transform.GetChild (i).position / assembled.transform.childCount;
 		}
+		assembled.transform.parent.position = barycenter;
 		assembled.transform.localPosition = Vector3.zero;
 		for(int i = 0 ; i< assembled.transform.childCount ; ++i){
 			assembled.transform.GetChild (i).position = oldPositions [i];
@@ -468,16 +472,19 @@ public class InventoryGUI : MonoBehaviour {
 			LinkedList<OrigamiObject> disassembled = assembled.Disassemble ();
 			this.inventory.DisassembleReplaceInAssembleArea (disassembled, assembled);
 
+			Vector3 oldScale = oldRotater.transform.localScale;
 			oldRotater.transform.localScale = Vector3.one;
 			foreach (OrigamiObject origami in disassembled) {
 				// Create a rotater
 				GameObject newRotater = (GameObject)Instantiate (this.assembleRotater);
 				newRotater.transform.SetParent (this.assembleArea.transform, false);
 				newRotater.transform.position = origami.transform.position;
+				newRotater.transform.rotation = origami.transform.rotation;
 
 				// Put the object in this rotater
-				//origami.transform.localPosition = Vector3.zero;
 				origami.transform.SetParent (newRotater.transform, true);
+				origami.transform.localPosition = Vector3.zero;
+				origami.transform.localRotation = Quaternion.identity;
 
 				// Show the anchors
 				origami.ShowAnchorPoints();
@@ -487,12 +494,13 @@ public class InventoryGUI : MonoBehaviour {
 				float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 				float scaleFactor = this.assembleSize / maxBound;
 				newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
+				newRotater.transform.localScale = oldScale;
 
 				foreach (AnchorPoint anchor in origami.connectedAnchors) {
-					Matrix4x4 transforMatrix = Matrix4x4.TRS (Vector3.zero, origami.transform.rotation, Vector3.one);
+					Matrix4x4 transforMatrix = Matrix4x4.TRS (Vector3.zero, anchor.transform.rotation, Vector3.one);
 					Vector3 realNormal = transforMatrix.MultiplyPoint3x4 (anchor.normal.normalized);
 
-					newRotater.transform.position -= realNormal;
+					newRotater.transform.position += realNormal;
 				}
 				origami.connectedAnchors.Clear ();
 
@@ -507,6 +515,12 @@ public class InventoryGUI : MonoBehaviour {
 			}
 			this.assembleObjs.Remove (oldRotater.transform);
 			Destroy (oldRotater.gameObject);
+		}
+	}
+
+	public void GatherAllAssemble(){
+		foreach(RotateByDragging assRot in this.assembleArea.GetComponentsInChildren<RotateByDragging>()){
+			this.RemoveOfAssembleArea(assRot.gameObject);
 		}
 	}
 
