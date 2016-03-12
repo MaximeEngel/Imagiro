@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour {
@@ -115,6 +116,49 @@ public class GameController : MonoBehaviour {
 		if(this.inventoryGUI)
 		if (Input.GetButtonUp ("Secondary")) {
 			this.inventoryGUI.RemovePointedObjectOfAssembleArea();
+		}
+
+		if (this.VRMode) {
+			// Manage gamepad input because ui trigger works only with mouse click
+			PointerEventData pointerEventData = new PointerEventData (EventSystem.current);
+			pointerEventData.position = new Vector2 (Screen.width / 2, Screen.height / 2);
+			pointerEventData.delta = Vector2.zero;
+			List<RaycastResult> raycastResults = new List<RaycastResult> ();
+			EventSystem.current.RaycastAll (pointerEventData, raycastResults);
+			if (raycastResults.Count > 0) {
+				if (Input.GetButtonUp ("Interact")) {
+					if (raycastResults [0].gameObject.name == "AssembleArea") {
+						this.inventoryGUI.StopRotating ();
+					}
+				}
+				if (Input.GetButtonDown ("Interact")) {
+					if (raycastResults [0].gameObject.tag == "InventorySlot") {
+						raycastResults [0].gameObject.GetComponent<InventorySlot> ().Select ();
+					} else if (raycastResults [0].gameObject.name == "AssembleArea") {
+						this.inventoryGUI.StartRotating ();
+					}
+				}
+				if (Input.GetButtonDown ("ManageObject")) {
+					if (raycastResults [0].gameObject.tag == "InventorySlot") {
+						raycastResults [0].gameObject.GetComponentInChildren<DraggableZone> ().Select ();
+					}
+				}
+				if (Input.GetButtonUp ("ManageObject")) {
+
+					if (raycastResults [0].gameObject.tag == "InventorySlot") {
+						raycastResults [0].gameObject.GetComponent<InventorySlot> ().Drop ();
+					} else {
+						switch (raycastResults [0].gameObject.name) {
+						case "AssembleArea":
+							this.inventoryGUI.ReleaseObjectInAssembleWindow ();
+							break;
+						case "SlotList":
+							this.inventoryGUI.ReleaseObjectNowhere ();
+							break;
+						}
+					}
+				}
+			}
 		}
 	}
 }

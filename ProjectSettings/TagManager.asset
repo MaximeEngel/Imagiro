@@ -9,6 +9,7 @@ TagManager:
   - TargetObject
   - ValidatedOrigamiObject
   - InteractiveObject
+  - InventorySlot
   layers:
   - Default
   - TransparentFX

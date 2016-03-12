@@ -9,14 +9,24 @@ public class RotateByDragging : MonoBehaviour {
 	public float rotateSpeed;
 	public float rescaleSpeed;
 
+	private GameController gameController;
+
+	public void Start() {
+		this.gameController = GameObject.Find ("GameController").GetComponent<GameController> ();
+	}
+
 	public void setDrag(bool drag){
 		this._dragging = drag;
 	}
 
 	void Update () {
-		if (this._dragging) {
+		if (this._dragging) {			
 			float h = this.rotateSpeed * Input.GetAxis ("Mouse X");
 			float v = this.rotateSpeed * Input.GetAxis ("Mouse Y");
+			if (gameController.VRMode) {
+				h = this.rotateSpeed * Input.GetAxis ("Horizontal");
+				v = this.rotateSpeed * Input.GetAxis ("Vertical");
+			}
 
 			this.transform.RotateAround (this.transform.position,Vector3.up,-h);
 			this.transform.RotateAround (this.transform.position,Vector3.right,v);

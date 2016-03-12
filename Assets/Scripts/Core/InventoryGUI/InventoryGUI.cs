@@ -7,6 +7,7 @@ public class InventoryGUI : MonoBehaviour {
 	public Player player;
 	// Where the object are stored when the inventory is closed
 	public GameObject playerHand;
+	public GameController gameController;
 
 	public Transform heldObjectContainer;
 
@@ -63,7 +64,13 @@ public class InventoryGUI : MonoBehaviour {
 	void Update(){
 		if (this.isDragging) {
 			// Interpolate screen coordinates to match world coordinates 
-			Vector3 worldPointer = this.inventoryCamera.ScreenToWorldPoint (new Vector3(Input.mousePosition.x,Input.mousePosition.y,inventoryCanvas.planeDistance));
+			float x = Input.mousePosition.x;
+			float y = Input.mousePosition.y;
+			if (gameController.VRMode) {
+				x = Screen.width / 2;
+				y = Screen.height / 2;
+			}
+			Vector3 worldPointer = this.inventoryCamera.ScreenToWorldPoint (new Vector3(x, y,inventoryCanvas.planeDistance));
 
 			this._draggedSlot.transform.position = worldPointer;
 		}
@@ -278,7 +285,12 @@ public class InventoryGUI : MonoBehaviour {
 	public void RemovePointedObjectOfAssembleArea(){
 		GameObject objToRemove = null;
 		RaycastHit hit;
-		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
+		Vector3 startPosRay = Input.mousePosition;
+		if (gameController.VRMode) {
+			startPosRay.x = Screen.width / 2;
+			startPosRay.y = Screen.height / 2;
+		}
+		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (startPosRay), out hit)) {
 			if (hit.collider.transform.GetComponentInParent<RotateByDragging> ()) {
 				objToRemove = hit.collider.transform.GetComponentInParent<RotateByDragging> ().gameObject;
 			}
@@ -337,7 +349,12 @@ public class InventoryGUI : MonoBehaviour {
 
 	public void StartRotating(){
 		RaycastHit hit;
-		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
+		Vector3 startPosRay = Input.mousePosition;
+		if (gameController.VRMode) {
+			startPosRay.x = Screen.width / 2;
+			startPosRay.y = Screen.height / 2;
+		}
+		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (startPosRay), out hit)) {
 			if(hit.collider.transform.GetComponentInParent<RotateByDragging> ())
 				hit.collider.transform.parent.GetComponentInParent<RotateByDragging> ().setDrag (true);
 		}
@@ -351,7 +368,12 @@ public class InventoryGUI : MonoBehaviour {
 
 	public void SelectAnchorPoint(){
 		RaycastHit hit;
-		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (Input.mousePosition), out hit)) {
+		Vector3 startPosRay = Input.mousePosition;
+		if (gameController.VRMode) {
+			startPosRay.x = Screen.width / 2;
+			startPosRay.y = Screen.height / 2;
+		}
+		if (Physics.Raycast (this.inventoryCamera.ScreenPointToRay (startPosRay), out hit)) {
 			if (hit.collider.GetComponent<AnchorPoint> ()) {
 				AnchorPoint pointedAnchor = hit.collider.GetComponent<AnchorPoint> ();
 				if (this.selectedAnchor == null) {
