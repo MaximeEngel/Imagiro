@@ -38,6 +38,11 @@ public class InventorySlot : MonoBehaviour {
 		}
 	}
 
+	public void OnMouseDrag() {
+		Select ();
+		Debug.Log ("print!!);");
+	}
+
 	public void Deselect(){
 		this.GetComponent<Image> ().color = Color.black;
 	}
