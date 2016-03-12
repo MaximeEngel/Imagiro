@@ -115,7 +115,7 @@ public class OrigamiObject : MonoBehaviour {
 			foreach (AnchorPoint anchor in this.GetComponentsInChildren<AnchorPoint>()) {
 				var start = anchor.transform.position;
 				float lengthFacotr = 0.5f;
-				Matrix4x4 rotation = Matrix4x4.TRS (Vector3.zero, this.transform.rotation, Vector3.one);
+				Matrix4x4 rotation = Matrix4x4.TRS (Vector3.zero, anchor.transform.rotation, Vector3.one);
 				Gizmos.color = Color.red;
 				Gizmos.DrawLine (start, start + rotation.MultiplyPoint3x4 (anchor.normal.normalized) * lengthFacotr);
 				Gizmos.color = Color.green;
