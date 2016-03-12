@@ -134,11 +134,11 @@ Material:
       data:
         first:
           name: _InnerDiameter
-        second: 1.5
+        second: 0.1
       data:
         first:
           name: _OuterDiameter
-        second: 2
+        second: 0.15
       data:
         first:
           name: _DistanceInMeters

@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour {
 			this.canvasInventoryTransform.gameObject.SetActive (true);
 			this.inventoryGUI.Open ();
 			this.player.StayStill ();
+			Debug.Log ("test");
 			if (this.VRMode) {
 				float r = Vector3.Distance (this.inventoryCamera.transform.position, this.canvasInventoryTransform.position);
 				float alpha = Mathf.Deg2Rad * this.inventoryCamera.transform.rotation.eulerAngles.y;
@@ -96,6 +97,7 @@ public class GameController : MonoBehaviour {
 				Vector3 newPos = new Vector3 (x, y, z);
 				this.canvasInventoryTransform.position = newPos;
 				this.canvasInventoryTransform.rotation = Quaternion.AngleAxis (this.inventoryCamera.transform.rotation.eulerAngles.y, new Vector3 (0, 1, 0));
+				Debug.Log ("test2");
 			}
 		}
 		else {
