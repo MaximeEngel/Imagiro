@@ -218,9 +218,9 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: f
+    positiveButton: joystick button 0
     altNegativeButton: 
-    altPositiveButton: joystick button 2
+    altPositiveButton: f
     gravity: 0
     dead: 0
     sensitivity: 0.1

@@ -757,6 +757,14 @@ Prefab:
       propertyPath: m_TagString
       value: InventorySlot
       objectReference: {fileID: 0}
+    - target: {fileID: 117090, guid: df9b7c0a7615f2142bacff62ecc90858, type: 2}
+      propertyPath: m_Name
+      value: TextDetach
+      objectReference: {fileID: 0}
+    - target: {fileID: 142898, guid: df9b7c0a7615f2142bacff62ecc90858, type: 2}
+      propertyPath: m_Name
+      value: TextGather
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: df9b7c0a7615f2142bacff62ecc90858, type: 2}
   m_IsPrefabParent: 0

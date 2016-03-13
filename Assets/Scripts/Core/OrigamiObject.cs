@@ -45,6 +45,7 @@ public class OrigamiObject : MonoBehaviour {
 
 	public virtual OrigamiObject Add(OrigamiObject origamiObject) {
 		if (origamiObject != null) {
+			Debug.Log (origamiObject.GetType ());
 			if (origamiObject.GetType () == typeof(AssembledOrigamiObject)) {
 				return origamiObject.Add (this);
 			} else {				

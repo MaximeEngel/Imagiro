@@ -69,6 +69,9 @@ public class InventoryGUI : MonoBehaviour {
 			if (gameController.VRMode) {
 				x = Screen.width / 2;
 				y = Screen.height / 2;
+				// Select just by gazing Do not work ask to Robin
+				// StopRotating ();
+				// StartRotating ();
 			}
 			Vector3 worldPointer = this.inventoryCamera.ScreenToWorldPoint (new Vector3(x, y,inventoryCanvas.planeDistance));
 
@@ -348,6 +351,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void StartRotating(){
+		Debug.Log ("Start");
 		RaycastHit hit;
 		Vector3 startPosRay = Input.mousePosition;
 		if (gameController.VRMode) {
@@ -361,6 +365,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void StopRotating(){
+		Debug.Log ("Stop");
 		foreach(Transform t in this.assembleObjs){
 			t.GetComponent<RotateByDragging> ().setDrag (false);
 		}

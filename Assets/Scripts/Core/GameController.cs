@@ -13,12 +13,15 @@ public class GameController : MonoBehaviour {
 	private bool inGame;
 	private bool inInventory;
 	private Transform canvasInventoryTransform;
-	private GameObject canvasContainer;
 	private GameObject inventoryCamera;
 	private Vector3 initialCanvasPos;
 
 	// Use this for initialization
 	void Start () {
+		this.inGame = true;
+		this.inInventory = false;
+		this.canvasInventoryTransform = GameObject.Find("Canvas").transform;
+		this.inventoryCamera = GameObject.Find ("InventoryCamera");
 
 		if (this.VRMode) {
 			GameObject c = GameObject.FindGameObjectWithTag ("MainCamera");
@@ -28,14 +31,11 @@ public class GameController : MonoBehaviour {
 			GameObject eventSystem = GameObject.Find ("EventSystem");
 			eventSystem.GetComponent<StandaloneInputModule> ().enabled = false;
 			eventSystem.AddComponent<GazeInputModule> ();
+			this.canvasInventoryTransform.Translate (0.0f, 0.0f, -3f);
 		}
 
-		this.inGame = true;
-		this.inInventory = false;
-		this.canvasInventoryTransform = GameObject.Find("Canvas").transform;
 		this.initialCanvasPos = this.canvasInventoryTransform.position;
 		this.canvasInventoryTransform.gameObject.SetActive (false);
-		this.inventoryCamera = GameObject.Find ("InventoryCamera");
 	}
 	
 	// Update is called once per frame
@@ -87,7 +87,6 @@ public class GameController : MonoBehaviour {
 			this.canvasInventoryTransform.gameObject.SetActive (true);
 			this.inventoryGUI.Open ();
 			this.player.StayStill ();
-			Debug.Log ("test");
 			if (this.VRMode) {
 				float r = Vector3.Distance (this.inventoryCamera.transform.position, this.canvasInventoryTransform.position);
 				float alpha = Mathf.Deg2Rad * this.inventoryCamera.transform.rotation.eulerAngles.y;
@@ -98,7 +97,6 @@ public class GameController : MonoBehaviour {
 				Vector3 newPos = new Vector3 (x, y, z);
 				this.canvasInventoryTransform.position = newPos;
 				this.canvasInventoryTransform.rotation = Quaternion.AngleAxis (this.inventoryCamera.transform.rotation.eulerAngles.y, new Vector3 (0, 1, 0));
-				Debug.Log ("test2");
 			}
 		}
 		else {
@@ -127,20 +125,32 @@ public class GameController : MonoBehaviour {
 			EventSystem.current.RaycastAll (pointerEventData, raycastResults);
 			if (raycastResults.Count > 0) {
 				if (Input.GetButtonUp ("Interact")) {
-					if (raycastResults [0].gameObject.name == "AssembleArea") {
-						this.inventoryGUI.StopRotating ();
+					if (raycastResults [0].gameObject.tag == "InventorySlot") {
+						raycastResults [0].gameObject.GetComponent<InventorySlot> ().Select ();
+					} else {
+						switch (raycastResults [0].gameObject.name) {
+						case "AssembleArea":
+							this.inventoryGUI.StopRotating ();
+							break;
+						case "TextGather":
+							this.inventoryGUI.GatherAllAssemble ();
+							break;
+						case "TextDetach":
+							this.inventoryGUI.DetachAllAssembled ();
+							break;
+						}
 					}
 				}
 				if (Input.GetButtonDown ("Interact")) {
-					if (raycastResults [0].gameObject.tag == "InventorySlot") {
-						raycastResults [0].gameObject.GetComponent<InventorySlot> ().Select ();
-					} else if (raycastResults [0].gameObject.name == "AssembleArea") {
+					if (raycastResults [0].gameObject.name == "AssembleArea") {
 						this.inventoryGUI.StartRotating ();
 					}
 				}
 				if (Input.GetButtonDown ("ManageObject")) {
 					if (raycastResults [0].gameObject.tag == "InventorySlot") {
 						raycastResults [0].gameObject.GetComponentInChildren<DraggableZone> ().Select ();
+					} else if (raycastResults [0].gameObject.name == "AssembleArea") {
+						this.inventoryGUI.SelectAnchorPoint ();
 					}
 				}
 				if (Input.GetButtonUp ("ManageObject")) {
