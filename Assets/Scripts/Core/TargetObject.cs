@@ -28,7 +28,7 @@ public class TargetObject : MonoBehaviour {
 
 	public bool Put(OrigamiObject origamiObject){
 		AnchorPoint baseAnchorPoint = origamiObject.GetBaseAnchorPoint ();
-		if (baseAnchorPoint != null && validBaseObject == origamiObject) {
+		if (baseAnchorPoint != null && validBaseObject == baseAnchorPoint.transform.parent.GetComponent<OrigamiBaseObject> ()) {
 			this._isActivated = true;
 			for (int i = 0; i < actions.Length; ++i) {
 				ObjectAction action = actions [i];

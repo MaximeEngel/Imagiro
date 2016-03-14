@@ -101,4 +101,10 @@ public class OrigamiObject : MonoBehaviour {
 		}
 		return valid;
 	}
+
+	public void UnlinkAllAnchors() {
+		foreach (AnchorPoint anchorPoint in this.anchorPoints) {
+			anchorPoint.Unlink ();
+		}
+	}
 }

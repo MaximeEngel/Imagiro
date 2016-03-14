@@ -30,21 +30,20 @@ public class AssembledOrigamiObject : OrigamiObject {
 			if (!origamiObject.IsFinalObject ()) {
 				return false;
 			}
-
-			Debug.Log ("true object of assemble");
 		}
-		Debug.Log ("final true object of assemble");
 		return true;
 	}
 
 	public override OrigamiObject Add (OrigamiObject origamiObject)
 	{
 		if (origamiObject != null) {
-			LinkedList<OrigamiObject> origamiObjectsToAdd;
+			LinkedList<OrigamiObject> origamiObjectsToAdd = new LinkedList<OrigamiObject> ();
 			if (origamiObject.GetType () == typeof(AssembledOrigamiObject)) {
-				origamiObjectsToAdd = origamiObject.Disassemble ();
+				foreach (OrigamiObject origObj in this.origamiObjects) {
+					origamiObjectsToAdd.AddLast (origObj);
+				}
+				this.destroy = true;
 			} else {
-				origamiObjectsToAdd = new LinkedList<OrigamiObject> ();
 				origamiObjectsToAdd.AddLast (origamiObject);
 			}
 			foreach (OrigamiObject origamiObjectToAdd in origamiObjectsToAdd) {
@@ -62,6 +61,7 @@ public class AssembledOrigamiObject : OrigamiObject {
 	{
 		foreach (OrigamiObject origamiObject in this.origamiObjects) {
 			origamiObject.transform.parent = this.transform.parent;
+			origamiObject.UnlinkAllAnchors ();
 		}
 		this.destroy = true;
 		return this.origamiObjects;

@@ -30,10 +30,14 @@ public class AnchorPoint : MonoBehaviour {
 
 	public void LinkTo(AnchorPoint anchorPoint) {
 		this._linkedTo = anchorPoint;
+		anchorPoint._linkedTo = this;
 	}
 
 	public void Unlink() {
-		this._linkedTo = null;
+		if (this._linkedTo != null) {
+			this._linkedTo._linkedTo = null;
+			this._linkedTo = null;
+		}
 	}
 
 	public bool isWellLinked() {

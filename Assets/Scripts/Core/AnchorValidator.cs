@@ -17,7 +17,7 @@ public class AnchorValidator
 
 		// Must be put in a proper file
 		string[] lines = new string[] {
-			"OrigamiBaseObject.otherPoint-OrigamiObject.AnchorPoint"
+			"OrigamiBaseObject.AnchorPoint2-OrigamiObject.AnchorPoint"
 		};
 			
 		foreach (string line in lines) {
@@ -110,25 +110,23 @@ public class AnchorValidator
 	}
 
 	public bool Validate(string object1, string anchor1, string object2Anchor2 = null) {
+		Debug.Log (object1 + " _ " + anchor1 + " :  " + object2Anchor2);
 		Dictionary<string, HashSet<string>> objectAnchors;
-		Debug.Log ("Debug 1 " + !this.connections.TryGetValue (object1, out objectAnchors));
 		if (!this.connections.TryGetValue (object1, out objectAnchors)) {
 			return object2Anchor2 == null;
 		}
 
 		HashSet<string> validOtherObjectAnchors;
-		Debug.Log ("Debug 2 " + !objectAnchors.TryGetValue (anchor1, out validOtherObjectAnchors));
 		if (!objectAnchors.TryGetValue (anchor1, out validOtherObjectAnchors)) {
+			Debug.Log ("return " + object2Anchor2 == null);
 			return object2Anchor2 == null;
 		}
 
 		bool res = validOtherObjectAnchors.Contains (object2Anchor2);
-		Debug.Log ("Debug 3 " + res);
 		// In case of | connection, be linked to null is not necessary valid, we have to check other connections anf found one valid and not null.
 		if (res && object2Anchor2 == null) {
 			res = NullOrConnectionValidation (validOtherObjectAnchors);
 		}
-		Debug.Log ("Debug final " + res);
 		return res;
 	}
 

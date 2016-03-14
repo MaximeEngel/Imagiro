@@ -133,6 +133,7 @@ public class Player : MonoBehaviour {
 			} else {
 				RaycastHit hit;
 				if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.interactionDistance)) {
+					Debug.Log (hit.collider.gameObject.tag);
 					if (hit.collider.gameObject.tag == "TargetObject") {
 						TargetObject targetObject = hit.collider.gameObject.GetComponent<TargetObject> ();
 						if (targetObject.Put (selectedObject)) {
