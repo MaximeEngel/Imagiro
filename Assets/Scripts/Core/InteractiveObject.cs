@@ -6,6 +6,7 @@ public class InteractiveObject : MonoBehaviour {
 	public ObjectStateArray[] objectStates;
 	public bool loop = true;
 	public bool reverseLoop = true;
+	public int initialState = 0;
 
 	private int state;
 	private int step;
@@ -13,7 +14,7 @@ public class InteractiveObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.state = 0;
+		this.state = this.initialState;
 		this.step = 1;
 		this.nbState = objectStates.Length;
 	}

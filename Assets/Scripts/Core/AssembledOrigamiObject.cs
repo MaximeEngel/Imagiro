@@ -37,10 +37,19 @@ public class AssembledOrigamiObject : OrigamiObject {
 	public override OrigamiObject Add (OrigamiObject origamiObject)
 	{
 		if (origamiObject != null) {
-			this.origamiObjects.AddLast (origamiObject);
-			origamiObject.transform.parent = this.transform;
-			if (origamiObject.GetBaseAnchorPoint () != null) {
-				this.origamiBaseObject = origamiObject;
+			LinkedList<OrigamiObject> origamiObjectsToAdd;
+			if (origamiObject.GetType () == typeof(AssembledOrigamiObject)) {
+				origamiObjectsToAdd = origamiObject.Disassemble ();
+			} else {
+				origamiObjectsToAdd = new LinkedList<OrigamiObject> ();
+				origamiObjectsToAdd.AddLast (origamiObject);
+			}
+			foreach (OrigamiObject origamiObjectToAdd in origamiObjectsToAdd) {
+				this.origamiObjects.AddLast (origamiObjectToAdd);
+				origamiObjectToAdd.transform.parent = this.transform;
+				if (origamiObjectToAdd.GetBaseAnchorPoint () != null) {
+					this.origamiBaseObject = origamiObject;
+				}
 			}
 		}
 		return this;
