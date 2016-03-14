@@ -468,15 +468,32 @@ public class InventoryGUI : MonoBehaviour {
 
 		this.inventory.AssembleReplaceInAssembleArea(object1.GetComponent<OrigamiObject> (), object2.GetComponent<OrigamiObject> (), assembled);
 		AssembledOrigamiObject realAssembled = (AssembledOrigamiObject)assembled;
-		if (oldRotater1.childCount == 0) {
+
+		/*if (oldRotater1.childCount <= 0) {
 			this.assembleObjs.Remove (oldRotater1);
 			Destroy (oldRotater1.gameObject);
-		} else if (oldRotater2.childCount == 0) {
+		} else if (oldRotater2.GetChild(0) <= 0) {
 			this.assembleObjs.Remove (oldRotater2);
 			Destroy (oldRotater2.gameObject);
 		} else {
-			Debug.Log ("ERROR ASSEMBLING");
+			Debug.Log ("ERROR ASSEMBLING "+"("+oldRotater1.GetChild(0).childCount+" ; "+oldRotater2.GetChild(0).childCount+")");
+		}*/
+
+		if (oldRotater1.childCount <= 0) {
+			this.assembleObjs.Remove (oldRotater1);
+			Destroy (oldRotater1.gameObject);
+		} else if (oldRotater1.GetChild (0).childCount == 0) {
+			this.assembleObjs.Remove (oldRotater1);
+			Destroy (oldRotater1.gameObject);
 		}
+		if (oldRotater2.childCount <= 0) {
+			this.assembleObjs.Remove (oldRotater2);
+			Destroy (oldRotater2.gameObject);
+		} else if (oldRotater2.GetChild (0).childCount == 0) {
+			this.assembleObjs.Remove (oldRotater2);
+			Destroy (oldRotater2.gameObject);
+		}
+
 		this.selectedAnchor.Deselect ();
 		this.selectedAnchor = null;
 
