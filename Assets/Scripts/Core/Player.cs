@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	public int inventorySize = 20;
 	public float interactionDistance = 0.5f;
 	public float crouchFactor = 0.5f;
+	public float jumpForce = 1.0f;
 	public bool swim = false;
 
 	private Vector3 moveDirection;
@@ -166,5 +167,16 @@ public class Player : MonoBehaviour {
 		scale.y /= crouchFactor;
 		this.transform.localScale = scale;
 		this.crouch = false;
+	}
+
+	public void Jump(){
+		if (!swim) {
+			Vector3 velocity = this.rigidBody.velocity;
+			//Debug.Log (velocity.y);
+			if (Mathf.Abs(velocity.y) < 0.0001) {
+				velocity += Vector3.up * jumpForce;
+				this.rigidBody.velocity = velocity;
+			}
+		}
 	}
 }

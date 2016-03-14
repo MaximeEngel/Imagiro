@@ -78,6 +78,9 @@ public class GameController : MonoBehaviour {
 		if (Input.GetButtonUp ("Crouch")) {
 			player.StandUp ();
 		}
+		if (Input.GetButtonDown ("Jump")) {
+			player.Jump ();
+		}
 	}
 
 	private void ToggleInventory(){
