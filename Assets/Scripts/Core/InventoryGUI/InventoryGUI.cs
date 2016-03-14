@@ -310,6 +310,14 @@ public class InventoryGUI : MonoBehaviour {
 		while (!done && slotIndex < this.player.inventorySize) {
 			if (this.inventorySlots [slotIndex].childCount == 0) {
 				objToRemove.transform.localScale = Vector3.one;
+
+				foreach (AnchorPoint anchor in objToRemove.transform.GetComponentsInChildren<AnchorPoint>()) {
+					if (anchor == this.selectedAnchor) {
+						this.selectedAnchor.Deselect ();
+						this.selectedAnchor = null;
+					}
+				}
+
 				this.assembleObjs.Remove (objToRemove.transform);
 
 				// Check if the object to remove is the biggest of the assemble window to resize the remaining objects
@@ -351,7 +359,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void StartRotating(){
-		Debug.Log ("Start");
+		// Debug.Log ("Start");
 		RaycastHit hit;
 		Vector3 startPosRay = Input.mousePosition;
 		if (gameController.VRMode) {
@@ -365,7 +373,7 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void StopRotating(){
-		Debug.Log ("Stop");
+		// Debug.Log ("Stop");
 		foreach(Transform t in this.assembleObjs){
 			t.GetComponent<RotateByDragging> ().setDrag (false);
 		}
@@ -422,7 +430,7 @@ public class InventoryGUI : MonoBehaviour {
 			object1Assembled = true;
 		}
 		if (object2.GetComponentInParent<AssembledOrigamiObject> ()) {
-			object1 = object2.GetComponentInParent<AssembledOrigamiObject> ().transform;
+			object2 = object2.GetComponentInParent<AssembledOrigamiObject> ().transform;
 			//Debug.Log ("2 is assembled");
 			object2Assembled = true;
 		}
@@ -452,14 +460,23 @@ public class InventoryGUI : MonoBehaviour {
 
 		object1.parent.position = object2.parent.position + realAnchorPos2 - realAnchorPos1;
 			
-		GameObject oldRotater = object2.GetComponentInParent<RotateByDragging>().gameObject;
+		Transform oldRotater1 = object1.GetComponentInParent<RotateByDragging>().transform;
+		Transform oldRotater2 = object2.GetComponentInParent<RotateByDragging>().transform;
 
 		this.selectedAnchor.LinkTo (anchor);
 		OrigamiObject assembled = object1.GetComponent<OrigamiObject> ().Add (object2.GetComponent<OrigamiObject> ());
+
 		this.inventory.AssembleReplaceInAssembleArea(object1.GetComponent<OrigamiObject> (), object2.GetComponent<OrigamiObject> (), assembled);
 		AssembledOrigamiObject realAssembled = (AssembledOrigamiObject)assembled;
-		this.assembleObjs.Remove (oldRotater.transform);
-		Destroy (oldRotater);
+		if (oldRotater1.childCount == 0) {
+			this.assembleObjs.Remove (oldRotater1);
+			Destroy (oldRotater1.gameObject);
+		} else if (oldRotater2.childCount == 0) {
+			this.assembleObjs.Remove (oldRotater2);
+			Destroy (oldRotater2.gameObject);
+		} else {
+			Debug.Log ("ERROR ASSEMBLING");
+		}
 		this.selectedAnchor.Deselect ();
 		this.selectedAnchor = null;
 
