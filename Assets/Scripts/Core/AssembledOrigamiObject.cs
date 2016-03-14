@@ -30,7 +30,10 @@ public class AssembledOrigamiObject : OrigamiObject {
 			if (!origamiObject.IsFinalObject ()) {
 				return false;
 			}
+
+			Debug.Log ("true object of assemble");
 		}
+		Debug.Log ("final true object of assemble");
 		return true;
 	}
 

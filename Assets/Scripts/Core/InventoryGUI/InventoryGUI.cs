@@ -80,7 +80,6 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	public void Open(){
-		this.ReleaseHeldObject ();
 		this.GatherObjects ();
 	}
 
@@ -239,7 +238,8 @@ public class InventoryGUI : MonoBehaviour {
 				//origamiGameObject.layer = (0);
 				SetLayerRecursively(origamiGameObject,0);
 
-				if (origami.transform.parent.parent.parent.GetComponent<InventorySlot> () == this.selectedSlot) {
+				if (origami.GetComponentInParent<InventorySlot> () == this.selectedSlot) {
+					SetLayerRecursively (origamiGameObject,5);
 					this.inventory.selectByIndex (this.selectedSlot.slotIndex);
 				} else {
 					//Move the OrigamiObject to the player's hand
@@ -272,18 +272,18 @@ public class InventoryGUI : MonoBehaviour {
 		}
 	}
 
-	void SetHeldObject(GameObject origami){
-		origami.transform.parent = this.heldObjectContainer;
-		origami.transform.localPosition = Vector3.zero;
-		origami.transform.localRotation = Quaternion.identity;
-		//origami.layer = (5);
-		SetLayerRecursively (origami,5);
-	}
-
-	void ReleaseHeldObject(){
-		//if(this.heldObjectContainer.childCount > 0)
-			
-	}
+//	void SetHeldObject(GameObject origami){
+//		origami.transform.parent = this.heldObjectContainer;
+//		origami.transform.localPosition = Vector3.zero;
+//		origami.transform.localRotation = Quaternion.identity;
+//		//origami.layer = (5);
+//		SetLayerRecursively (origami,5);
+//	}
+//
+//	void ReleaseHeldObject(){
+//		//if(this.heldObjectContainer.childCount > 0)
+//			
+//	}
 
 	public void RemovePointedObjectOfAssembleArea(){
 		GameObject objToRemove = null;
