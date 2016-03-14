@@ -17,14 +17,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: {x: -.0166759491, y: .451395035, z: 1.89999998}
-        inSlope: {x: 0, y: 0, z: -1.92499995}
-        outSlope: {x: 0, y: 0, z: -1.92499995}
+        value: {x: -.0166759491, y: .451395035, z: 2.31999993}
+        inSlope: {x: 0, y: 0, z: -4.1500001}
+        outSlope: {x: 0, y: 0, z: -4.1500001}
         tangentMode: 0
-      - time: 2
-        value: {x: -.0166759491, y: .451395035, z: -1.95000005}
-        inSlope: {x: 0, y: 0, z: -1.92499995}
-        outSlope: {x: 0, y: 0, z: -1.92499995}
+      - time: 1
+        value: {x: -.0166759491, y: .451395035, z: -1.83000004}
+        inSlope: {x: 0, y: 0, z: -4.1500001}
+        outSlope: {x: 0, y: 0, z: -4.1500001}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -49,7 +49,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: 2
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -71,12 +71,12 @@ AnimationClip:
         value: -.0166759491
         inSlope: 0
         outSlope: 0
-        tangentMode: 1
-      - time: 2
+        tangentMode: 10
+      - time: 1
         value: -.0166759491
         inSlope: 0
         outSlope: 0
-        tangentMode: 1
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalPosition.x
@@ -90,12 +90,12 @@ AnimationClip:
         value: .451395035
         inSlope: 0
         outSlope: 0
-        tangentMode: 1
-      - time: 2
+        tangentMode: 10
+      - time: 1
         value: .451395035
         inSlope: 0
         outSlope: 0
-        tangentMode: 1
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalPosition.y
@@ -106,15 +106,15 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: 1.89999998
-        inSlope: -1.92499995
-        outSlope: -1.92499995
-        tangentMode: 1
-      - time: 2
-        value: -1.95000005
-        inSlope: -1.92499995
-        outSlope: -1.92499995
-        tangentMode: 1
+        value: 2.31999993
+        inSlope: -4.1500001
+        outSlope: -4.1500001
+        tangentMode: 10
+      - time: 1
+        value: -1.83000004
+        inSlope: -4.1500001
+        outSlope: -4.1500001
+        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalPosition.z
