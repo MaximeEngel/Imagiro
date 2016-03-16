@@ -65,7 +65,6 @@ public class AnchorValidator
 				}
 			}
 		}
-		Debug.Log (connect);
 	}
 
 	private void Add(string[] objectAnchor, string object2anchor) {	

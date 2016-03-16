@@ -53,6 +53,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardPointer {
   // before distance multiplication.
   private float reticleInnerDiameter = 0.0f;
   private float reticleOuterDiameter = 0.0f;
+  public GameObject gazedObject = null;
 
   void Start () {
     CreateReticleVertices();
@@ -92,6 +93,8 @@ public class CardboardReticle : MonoBehaviour, ICardboardPointer {
   /// point of the ray sent from the camera on the object.
   public void OnGazeStart(Camera camera, GameObject targetObject, Vector3 intersectionPosition) {
     SetGazeTarget(intersectionPosition);
+		this.gazedObject = targetObject;
+	
   }
 
   /// Called every frame the user is still looking at a valid GameObject. This
@@ -115,6 +118,7 @@ public class CardboardReticle : MonoBehaviour, ICardboardPointer {
     reticleDistanceInMeters = kReticleDistanceMax;
     reticleInnerAngle = kReticleMinInnerAngle;
     reticleOuterAngle = kReticleMinOuterAngle;
+		this.gazedObject = null;
   }
 
   /// Called when the Cardboard trigger is initiated. This is practically when

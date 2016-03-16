@@ -59,7 +59,6 @@ public class Cardboard : MonoBehaviour {
   /// Generate a Cardboard instance.  Takes no action if one already exists.
   public static void Create() {
     if (sdk == null && UnityEngine.Object.FindObjectOfType<Cardboard>() == null) {
-      Debug.Log("Creating Cardboard object");
       var go = new GameObject("Cardboard", typeof(Cardboard));
       go.transform.localPosition = Vector3.zero;
       // sdk will be set by Cardboard.Awake().

@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class menu : MonoBehaviour {
+public class Menu : MonoBehaviour {
 
 	public RectTransform mainMenu;
 	public RectTransform levelSelection;
