@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 	public float crouchFactor = 0.5f;
 	public float jumpForce = 1.0f;
 	public bool swim = false;
+	public Transform startPositionFromNextRoom;
 
 	private Vector3 moveDirection;
 	private Rigidbody rigidBody;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour {
 	private float midOrientationX;
 	private OrigamiObject heldObject;
 	private bool crouch;
+	private DataScene dataScene;
 
 	// Use this for initialization
 	void Start () {
@@ -32,8 +34,15 @@ public class Player : MonoBehaviour {
 		this.interact = false;
 		this.drop = false;
 		this.crouch = false;
-
 		this.midOrientationX = (this.maxOrientationX + this.minOrientationX) / 2;
+
+		GameObject objectDataScene = GameObject.Find ("DataScene");
+		if (objectDataScene != null) {
+			dataScene = objectDataScene.GetComponent<DataScene> ();
+			if (dataScene.finishStart && startPositionFromNextRoom != null) {
+				this.transform.position = startPositionFromNextRoom.position;
+			}
+		}
 	}
 
 	void FixedUpdate () {
