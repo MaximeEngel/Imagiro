@@ -17,7 +17,18 @@ public class AnchorValidator
 
 		// Must be put in a proper file
 		string[] lines = new string[] {
-			"OrigamiBaseObject.AnchorPoint2-OrigamiObject.AnchorPoint"
+			"OrigamiBaseObject.AnchorPoint2-OrigamiObject.AnchorPoint",
+
+			"perle.AnchorPoint-shellBottom1.AnchorPoint",
+
+			"wheel_part1.AnchorPoint-wheel_part2.AnchorPoint",
+			"wheelstick.AnchorPoint1-wheel_part1.AnchorPointstick|wheel_part2.AnchorPointstick",
+
+			"woodcode1.AnchorPoint-woodcode2.AnchorPoint",
+			"woodcode2.AnchorPoint2-woodcode3.AnchorPoint2",
+			"woodcode3.AnchorPoint3-woodcode4.AnchorPoint3",
+			"woodcode1.AnchorPointbase-tronc.AnchorPoint",
+
 		};
 			
 		foreach (string line in lines) {
