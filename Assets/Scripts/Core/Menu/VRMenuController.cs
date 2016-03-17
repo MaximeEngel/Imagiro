@@ -41,7 +41,7 @@ public class VRMenuController : MonoBehaviour {
 					break;
 				default:
 					if (VRRecticle.gazedObject.name.StartsWith ("TextLevel")) {		
-						int levelInd = Int32.Parse (VRRecticle.gazedObject.name.Substring (9));
+						int levelInd = Int32.Parse (VRRecticle.gazedObject.name.Substring (9)) - 1;
 						menu.StartLevel(levelInd);
 					}
 					break;
