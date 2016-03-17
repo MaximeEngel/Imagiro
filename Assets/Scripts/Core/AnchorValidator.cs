@@ -17,7 +17,8 @@ public class AnchorValidator
 
 		// Must be put in a proper file
 		string[] lines = new string[] {
-			"OrigamiBaseObject.AnchorPoint2-OrigamiObject.AnchorPoint"
+			"OrigamiBase_coco.anchor_branche_d&OrigamiBase_coco.anchor_branche_g-OrigamiObject_epouvantail_g.anchor_branche_coco&OrigamiObject_epouvantail_d.anchor_branche_coco",
+			"OrigamiBase_coco.anchor_pipe-origamiObj_Pipe.anchor_pipe"
 		};
 			
 		foreach (string line in lines) {
