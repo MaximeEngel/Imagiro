@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: WallsUnderwater
+  m_Name: Rock_ile_support
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _NORMALMAP
+  m_ShaderKeywords: _DETAIL_MULX2 _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -19,9 +19,9 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 0.05, y: 0.05}
-          m_Offset: {x: 0, y: 0}
+          m_Texture: {fileID: 2800000, guid: ffc1bb4ba5a63f54aa4b992745a27b53, type: 3}
+          m_Scale: {x: -0.05, y: -0.02}
+          m_Offset: {x: 0.87, y: 0}
       data:
         first:
           name: _BumpMap
@@ -33,21 +33,21 @@ Material:
         first:
           name: _DetailNormalMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: ffc1bb4ba5a63f54aa4b992745a27b53, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _ParallaxMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: ffc1bb4ba5a63f54aa4b992745a27b53, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _OcclusionMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: ffc1bb4ba5a63f54aa4b992745a27b53, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -55,8 +55,8 @@ Material:
           name: _EmissionMap
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 0.05, y: 0.05}
-          m_Offset: {x: 0, y: 0}
+          m_Scale: {x: -0.05, y: -0.02}
+          m_Offset: {x: 0.87, y: 0}
       data:
         first:
           name: _DetailMask
@@ -69,8 +69,8 @@ Material:
           name: _DetailAlbedoMap
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+          m_Scale: {x: -0.16, y: -0.35}
+          m_Offset: {x: 1, y: 1}
       data:
         first:
           name: _MetallicGlossMap
@@ -94,7 +94,7 @@ Material:
       data:
         first:
           name: _Parallax
-        second: 0.02
+        second: 0.005
       data:
         first:
           name: _ZWrite
@@ -110,7 +110,7 @@ Material:
       data:
         first:
           name: _OcclusionStrength
-        second: 1
+        second: 0
       data:
         first:
           name: _DetailNormalMapScale
@@ -126,7 +126,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0.94
+        second: 0.44
     m_Colors:
       data:
         first:
@@ -135,4 +135,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 0.72941166, b: 0.32352942, a: 1}
+        second: {r: 0.007352948, g: 0.004332721, b: 0.002973619, a: 1}

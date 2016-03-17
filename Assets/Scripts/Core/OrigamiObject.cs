@@ -22,7 +22,7 @@ public class OrigamiObject : MonoBehaviour {
 		this.finalMaterial = meshRenderer.material;
 		meshRenderer.material = this.uncoloredMaterial;
 
-		this.origamiRenderer = this.GetComponent<Renderer> ();
+		this.origamiRenderer = this.GetComponent<MeshRenderer> ();
 	}
 	
 	// Update is called once per frame
