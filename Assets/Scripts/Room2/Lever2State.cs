@@ -19,6 +19,7 @@ public class Lever2State : ObjectAction {
 	{
 		Debug.Log (numState + "Lever2");
 		StateLever2 = numState;
+
 	}
 
 	public override void InstantAction (int numState)

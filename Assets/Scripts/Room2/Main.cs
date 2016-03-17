@@ -13,12 +13,16 @@ public class Main : MonoBehaviour {
 	public int Lever1State;
 	public int Lever2State;
 
+	public ObjectAction CartTarget;
+
 	private int PointsCounter;
 
 	// Use this for initialization
 	void Start () {
 		Coal =  GameObject.Find("TargetObjectCoal").GetComponent<TargetObject>();
 		Rock =  GameObject.Find("TargetObjectRock").GetComponent<TargetObject>();
+
+		CartTarget = GameObject.Find("AnimationCart").GetComponent<ObjectAction>();
 
 		Red =  GameObject.Find("Red").GetComponent<Light>();
 		Green =  GameObject.Find("Green").GetComponent<Light>();
@@ -31,11 +35,15 @@ public class Main : MonoBehaviour {
 		Orange.GetComponent<Light>().enabled = false;
 
 		PointsCounter = 0;
+		GameObject.Find ("ExplosionLight").GetComponent<Alarm>().alarmOn = false;
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+
+
 		Lever1State = GameObject.Find ("StateLever1").GetComponent<Lever1State>().StateLever1;
 		Lever2State = GameObject.Find ("StateLever2").GetComponent<Lever2State>().StateLever2;
 
@@ -58,13 +66,17 @@ public class Main : MonoBehaviour {
 //
 //		}
 
-		if (Lever1State == 1) {
+		if (Lever1State == 1 && Lever2State == 1) {
 			PointsCounter = 1;
 		}
+		if(Lever1State == 0 || Lever1State == 2 || Lever2State == 0 ) {
+			PointsCounter = 0;
+		}
 
-		if (Coal.IsActivated && Rock.IsActivated) {
+		if (Coal.IsActivated && Rock.IsActivated && PointsCounter == 1) {
 			PointsCounter = 2;
 		}
+
 
 		if(PointsCounter == 1){//Only Orange is on
 					Red.GetComponent<Light>().enabled = false;
@@ -76,6 +88,10 @@ public class Main : MonoBehaviour {
 					Red.GetComponent<Light>().enabled = false;
 					Green.GetComponent<Light>().enabled = true;
 					Orange.GetComponent<Light>().enabled = false;
+			//Launching the WAGONET °^°
+			CartTarget.Action(1);
+
+
 		
 				}
 				else {//Only Red is on
@@ -84,6 +100,8 @@ public class Main : MonoBehaviour {
 					Orange.GetComponent<Light>().enabled = false;
 		
 				}
+
+
 
 
 		//print (Coal.name);
