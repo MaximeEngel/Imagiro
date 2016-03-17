@@ -262,7 +262,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11482192, guid: 77aa1d62022ecd846837c640944d9004, type: 2}
       propertyPath: actions.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 490616, guid: 77aa1d62022ecd846837c640944d9004, type: 2}
       propertyPath: m_LocalPosition.x
@@ -328,6 +328,10 @@ Prefab:
       propertyPath: validBaseObject
       value: 
       objectReference: {fileID: 917021608}
+    - target: {fileID: 11482192, guid: 77aa1d62022ecd846837c640944d9004, type: 2}
+      propertyPath: actions.Array.data[0]
+      value: 
+      objectReference: {fileID: 1667985901}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77aa1d62022ecd846837c640944d9004, type: 2}
   m_IsPrefabParent: 0
@@ -2849,6 +2853,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
+--- !u!1 &1667985899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1667985900}
+  - 114: {fileID: 1667985901}
+  m_Layer: 0
+  m_Name: remove_collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1667985900
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1667985899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 113665401}
+  m_RootOrder: 1
+--- !u!114 &1667985901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1667985899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b07ec7d969ddba4f828e0dbbf627e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCollider: {fileID: 1085915202}
 --- !u!1001 &1669007301
 Prefab:
   m_ObjectHideFlags: 0
@@ -4346,7 +4390,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 478068, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.452
+      value: 0.738
       objectReference: {fileID: 0}
     - target: {fileID: 478068, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4406,7 +4450,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11482866, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
       propertyPath: jumpForce
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e948da3a9ffaf345a90c66bcc6704f7, type: 2}
