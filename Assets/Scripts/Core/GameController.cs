@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour {
 			GameObject eventSystem = GameObject.Find ("EventSystem");
 			eventSystem.GetComponent<StandaloneInputModule> ().enabled = false;
 			eventSystem.AddComponent<GazeInputModule> ();
+			canvasInventoryTransform.gameObject.GetComponent<Canvas> ().renderMode = RenderMode.WorldSpace;
 			this.canvasInventoryTransform.Translate (0.0f, 0.0f, -3f);
 		}
 
@@ -132,9 +133,6 @@ public class GameController : MonoBehaviour {
 						raycastResults [0].gameObject.GetComponent<InventorySlot> ().Select ();
 					} else {
 						switch (raycastResults [0].gameObject.name) {
-						case "AssembleArea":
-							this.inventoryGUI.StopRotating ();
-							break;
 						case "TextGather":
 							this.inventoryGUI.GatherAllAssemble ();
 							break;
@@ -142,11 +140,6 @@ public class GameController : MonoBehaviour {
 							this.inventoryGUI.DetachAllAssembled ();
 							break;
 						}
-					}
-				}
-				if (Input.GetButtonDown ("Interact")) {
-					if (raycastResults [0].gameObject.name == "AssembleArea") {
-						this.inventoryGUI.StartRotating ();
 					}
 				}
 				if (Input.GetButtonDown ("ManageObject")) {

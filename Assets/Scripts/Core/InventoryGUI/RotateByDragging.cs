@@ -20,6 +20,7 @@ public class RotateByDragging : MonoBehaviour {
 	}
 
 	void Update () {
+		Debug.Log (this._dragging);
 		if (this._dragging) {			
 			float h = this.rotateSpeed * Input.GetAxis ("Mouse X");
 			float v = this.rotateSpeed * Input.GetAxis ("Mouse Y");

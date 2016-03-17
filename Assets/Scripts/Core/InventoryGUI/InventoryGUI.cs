@@ -62,6 +62,11 @@ public class InventoryGUI : MonoBehaviour {
 	}
 
 	void Update(){
+		if (this.gameController.VRMode) {
+			StopRotating ();
+			StartRotating ();
+		}
+
 		if (this.isDragging) {
 			// Interpolate screen coordinates to match world coordinates 
 			float x = Input.mousePosition.x;

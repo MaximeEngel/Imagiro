@@ -2947,7 +2947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a164cc58f240ec43a5e8986e8053604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VRMode: 1
+  VRMode: 0
   cam: {fileID: 1199138413}
   eventSystem: {fileID: 1987409833}
   canv: {fileID: 276327223}
