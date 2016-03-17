@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 // See _ReadMe.txt for an overview
 [ExecuteInEditMode]
-public class CommandBufferBlurRefraction : MonoBehaviour
+public class CommandBufferBlurRefractions : MonoBehaviour //Was rename with a 's' at the end to avoid conflict
 {
 	public Shader m_BlurShader;
 	private Material m_Material;
