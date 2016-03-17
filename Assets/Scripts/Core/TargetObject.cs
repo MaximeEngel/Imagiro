@@ -40,7 +40,8 @@ public class TargetObject : MonoBehaviour {
 			if (this.makeInteractive) {
 				this.gameObject.tag = "InteractiveObject";
 			} 
-			origamiObject.tag = "ValidatedOrigamiObject";
+			origamiObject.SetValid ();
+			origamiObject.SetFinalMaterial ();
 
 			// Code here the animation to "assemble" targetPoint and anchorPoint
 

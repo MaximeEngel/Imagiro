@@ -34,6 +34,12 @@ public class AssembledOrigamiObject : OrigamiObject {
 		return true;
 	}
 
+	public override void SetValid () {
+		foreach (OrigamiObject origamiObject in this.origamiObjects) {
+			origamiObject.SetValid ();
+		}
+	}
+
 	public override OrigamiObject Add (OrigamiObject origamiObject)
 	{
 		if (origamiObject != null) {
