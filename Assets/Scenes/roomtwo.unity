@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ecca5599176af94fa956811c81a2160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uncoloredMaterial: {fileID: 2100000, guid: 0c8aeaf31cfcc7347a90d83c358a7cac, type: 2}
+  uncoloredMaterial: {fileID: 2100000, guid: 335e7a588abcafa44b0afb8387425d21, type: 2}
 --- !u!65 &322604650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2001,7 +2001,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 815b3a01839139a4b901bbd17b0b3dbe, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f4ce5e47c79b4af4aa498b6ddb193779, type: 2}
+      objectReference: {fileID: 2100000, guid: 71accbd12dfb62740b87391a77c91c88, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 815b3a01839139a4b901bbd17b0b3dbe, type: 3}
   m_IsPrefabParent: 0
@@ -3603,7 +3603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e234b4733733fc488e91ed8d06220cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uncoloredMaterial: {fileID: 2100000, guid: 2ed7e2d798bc84f409339afdb6eb68d5, type: 2}
+  uncoloredMaterial: {fileID: 2100000, guid: 335e7a588abcafa44b0afb8387425d21, type: 2}
   baseAnchorPoint: {fileID: 99011921}
 --- !u!65 &1114621069
 BoxCollider:
@@ -4173,7 +4173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ecca5599176af94fa956811c81a2160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uncoloredMaterial: {fileID: 2100000, guid: 0c8aeaf31cfcc7347a90d83c358a7cac, type: 2}
+  uncoloredMaterial: {fileID: 2100000, guid: 335e7a588abcafa44b0afb8387425d21, type: 2}
 --- !u!1001 &1435267588
 Prefab:
   m_ObjectHideFlags: 0
@@ -5721,7 +5721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ecca5599176af94fa956811c81a2160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uncoloredMaterial: {fileID: 2100000, guid: f4ce5e47c79b4af4aa498b6ddb193779, type: 2}
+  uncoloredMaterial: {fileID: 2100000, guid: 335e7a588abcafa44b0afb8387425d21, type: 2}
 --- !u!65 &1765561865
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7246,7 +7246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e234b4733733fc488e91ed8d06220cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uncoloredMaterial: {fileID: 2100000, guid: 0c8aeaf31cfcc7347a90d83c358a7cac, type: 2}
+  uncoloredMaterial: {fileID: 2100000, guid: 335e7a588abcafa44b0afb8387425d21, type: 2}
   baseAnchorPoint: {fileID: 1246353567}
 --- !u!65 &2126072465
 BoxCollider:
