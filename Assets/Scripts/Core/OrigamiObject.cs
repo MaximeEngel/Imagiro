@@ -41,7 +41,6 @@ public class OrigamiObject : MonoBehaviour {
 
 	public virtual void SetFinalMaterial () {
 		this.GetComponent<MeshRenderer> ().material = this.finalMaterial;
-		Debug.Log ("Final Material");
 	}
 
 	public virtual void SetValid () {

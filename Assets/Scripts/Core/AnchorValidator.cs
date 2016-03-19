@@ -109,7 +109,6 @@ public class AnchorValidator
 	}
 
 	public bool Validate(string object1, string anchor1, string object2Anchor2 = null) {
-		Debug.Log (object1 + " _ " + anchor1 + " :  " + object2Anchor2);
 		Dictionary<string, HashSet<string>> objectAnchors;
 		if (!this.connections.TryGetValue (object1, out objectAnchors)) {
 			return object2Anchor2 == null;
@@ -117,7 +116,6 @@ public class AnchorValidator
 
 		HashSet<string> validOtherObjectAnchors;
 		if (!objectAnchors.TryGetValue (anchor1, out validOtherObjectAnchors)) {
-			Debug.Log ("return " + object2Anchor2 == null);
 			return object2Anchor2 == null;
 		}
 

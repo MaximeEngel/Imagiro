@@ -24,6 +24,7 @@ public class Player : MonoBehaviour {
 	private OrigamiObject heldObject;
 	private bool crouch;
 	private DataScene dataScene;
+	public HelContiner heldObjectContiner;
 
 	// Use this for initialization
 	void Start () {
@@ -35,7 +36,8 @@ public class Player : MonoBehaviour {
 		this.drop = false;
 		this.crouch = false;
 		this.midOrientationX = (this.maxOrientationX + this.minOrientationX) / 2;
-
+		this.heldObjectContiner = GameObject.Find ("HeldObjectContiner").GetComponent<HelContiner> ();
+			
 		GameObject objectDataScene = GameObject.Find ("DataScene");
 		if (objectDataScene != null) {
 			dataScene = objectDataScene.GetComponent<DataScene> ();
@@ -138,15 +140,16 @@ public class Player : MonoBehaviour {
 			}
 
 			if (!selectedObject.IsFinalObject ()) {
-				// Disolve object here
+				this.heldObjectContiner.StartErrorState ();
 			} else {
 				RaycastHit hit;
 				if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.interactionDistance)) {
-					Debug.Log (hit.collider.gameObject.tag);
 					if (hit.collider.gameObject.tag == "TargetObject") {
 						TargetObject targetObject = hit.collider.gameObject.GetComponent<TargetObject> ();
 						if (targetObject.Put (selectedObject)) {
 							this._inventory.DropSelected ();
+						} else {
+							this.heldObjectContiner.StartErrorState ();
 						}
 					}
 				}
@@ -154,6 +157,7 @@ public class Player : MonoBehaviour {
 
 		}
 	}
+
 
 	/// <summary>
 	/// Draw the ray of interact action in the unity scene for debug purpose
