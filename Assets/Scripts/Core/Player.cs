@@ -5,7 +5,7 @@ public class Player : MonoBehaviour {
 
 	public float moveSpeed = 1.3f;
 	public float rotationSpeed = 0.5f;
-	public int inventorySize = 20;
+	public int inventorySize = 12;
 	public float interactionDistance = 0.5f;
 	public float crouchFactor = 0.5f;
 	public float jumpForce = 1.0f;
@@ -24,7 +24,9 @@ public class Player : MonoBehaviour {
 	private OrigamiObject heldObject;
 	private bool crouch;
 	private DataScene dataScene;
-	public HelContiner heldObjectContiner;
+	private HelContiner heldObjectContiner;
+
+	public GameObject[] initialObjects;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +46,10 @@ public class Player : MonoBehaviour {
 			if (dataScene.finishStart && startPositionFromNextRoom != null) {
 				this.transform.position = startPositionFromNextRoom.position;
 			}
+		}
+
+		for (int i = 0; i < this.initialObjects.Length; ++i) {
+			this._inventory.Collect (this.initialObjects [i].GetComponent<OrigamiObject> ());
 		}
 	}
 

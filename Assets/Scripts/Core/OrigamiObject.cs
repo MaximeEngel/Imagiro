@@ -12,7 +12,7 @@ public class OrigamiObject : MonoBehaviour {
 	private Renderer origamiRenderer;
 
 	// Use this for initialization
-	public virtual void Start () {
+	public virtual void Awake () {
 		this.anchorPoints = this.gameObject.GetComponentsInChildren<AnchorPoint> ();
 		this.connectedAnchors = new LinkedList<AnchorPoint> ();
 

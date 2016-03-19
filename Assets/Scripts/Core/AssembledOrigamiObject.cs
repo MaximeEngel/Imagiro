@@ -14,7 +14,7 @@ public class AssembledOrigamiObject : OrigamiObject {
 		this.destroy = false;
 	}
 
-	public override void Start () {
+	public void Start () {
 	}
 	
 	// Update is called once per frame
