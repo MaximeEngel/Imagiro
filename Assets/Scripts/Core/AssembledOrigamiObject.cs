@@ -113,7 +113,7 @@ public class AssembledOrigamiObject : OrigamiObject {
 	}
 
 	public void ComputeNewBounds() {
-		/*Collider thisCollider = this.gameObject.AddComponent<BoxCollider> ();
+		Collider thisCollider = this.gameObject.AddComponent<BoxCollider> ();
 		thisCollider = new Collider ();
 		bool firstEncapsulation = true;
 		//this.bounds = new Bounds (Vector3.zero, Vector3.zero);
@@ -131,7 +131,7 @@ public class AssembledOrigamiObject : OrigamiObject {
 				}
 			}
 		}
-		this.bounds = thisCollider.bounds;*/
+		this.bounds = thisCollider.bounds;
 	}
 
 //	public override void OnDrawGizmos(){
