@@ -15,7 +15,6 @@ public class Coal : ObjectAction {
 
 	public override void Action (int numState)
 	{
-		Debug.Log ("COUCOU");
 
 	}
 
