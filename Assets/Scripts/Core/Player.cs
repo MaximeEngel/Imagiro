@@ -63,9 +63,6 @@ public class Player : MonoBehaviour {
 		//Resets all the character's speeds to 0, to make sur they don't move while the inventory or the pause menu is open
 		this.moveDirection.x = 0;
 		this.moveDirection.z = 0;
-		//this.cameraOrientationX = 0;
-		//this.cameraOrientationZ = 0;
-		//this.rotateY = 0;
 	}
 
 	public void Move(float deltaX, float deltaZ) {
@@ -176,21 +173,26 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Crouch() {
-		Vector3 scale = this.transform.localScale;
-		scale.y *= crouchFactor;
-		this.transform.localScale = scale;
-		this.crouch = true;
+		if (Mathf.Abs (this.rigidBody.velocity.y) < 0.0001) {
+			Vector3 scale = this.transform.localScale;
+			scale.y *= crouchFactor;
+			this.transform.localScale = scale;
+			this.crouch = true;
+			StayStill ();
+		}
 	}
 
 	public void StandUp() {
-		Vector3 scale = this.transform.localScale;
-		scale.y /= crouchFactor;
-		this.transform.localScale = scale;
-		this.crouch = false;
+		if (this.crouch) {
+			Vector3 scale = this.transform.localScale;
+			scale.y /= crouchFactor;
+			this.transform.localScale = scale;
+			this.crouch = false;
+		}
 	}
 
 	public void Jump(){
-		if (!swim) {
+		if (!swim && !this.crouch) {
 			Vector3 velocity = this.rigidBody.velocity;
 			//Debug.Log (velocity.y);
 			if (Mathf.Abs(velocity.y) < 0.0001) {

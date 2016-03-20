@@ -39,7 +39,9 @@ public class RotateByDragging : MonoBehaviour {
 			else {
 				currentScale = Mathf.Lerp (currentScale, this.goalScale, Time.deltaTime * this.rescaleSpeed);
 			}
-			this.transform.localScale = Vector3.one * currentScale;
+			if (currentScale != Mathf.Infinity) {
+				this.transform.localScale = Vector3.one * currentScale;
+			}
 		}
 	}
 

@@ -134,15 +134,15 @@ Material:
       data:
         first:
           name: _InnerDiameter
-        second: 0.1
+        second: 2.55
       data:
         first:
           name: _OuterDiameter
-        second: 0.15
+        second: 3.8
       data:
         first:
           name: _DistanceInMeters
-        second: 2
+        second: 8.4
       data:
         first:
           name: _Border
@@ -155,4 +155,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.86764705, g: 0.792322, b: 0.185013, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 0.809}

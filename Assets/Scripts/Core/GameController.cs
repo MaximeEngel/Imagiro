@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour {
 			if (raycastResults.Count > 0) {
 				if (Input.GetButtonUp ("Interact")) {
 					if (raycastResults [0].gameObject.tag == "InventorySlot") {
-						raycastResults [0].gameObject.GetComponent<InventorySlot> ().Select ();
+						//raycastResults [0].gameObject.GetComponent<InventorySlot> ().Select ();
 					} else {
 						switch (raycastResults [0].gameObject.name) {
 						case "TextGather":

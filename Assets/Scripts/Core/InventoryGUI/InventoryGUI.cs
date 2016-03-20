@@ -119,6 +119,7 @@ public class InventoryGUI : MonoBehaviour {
 			//Resize the rotater
 			Vector3 origamiBounds = origamiObj.GetComponent<OrigamiObject> ().GetBounds().extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+			maxBound = maxBound == 0 ? 1 : maxBound;
 			float scaleFactor = this.assembleSize / maxBound;
 			newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 
@@ -198,8 +199,9 @@ public class InventoryGUI : MonoBehaviour {
 
 		Vector3 origamiBounds = origami.GetBounds().extents;
 		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+		maxBound = maxBound == 0 ? 1 : maxBound;
 		float scaleFactor = this.slotSize / maxBound;
-		currentSlot.localScale = scaleFactor*Vector3.one;
+		currentSlot.localScale = scaleFactor * Vector3.one;
 
 		currentSlot.GetComponent<InventoryIdleAnimation>().isRotating = true;
 
@@ -519,6 +521,7 @@ public class InventoryGUI : MonoBehaviour {
 		//Resize the rotater
 		Vector3 origamiBounds = assembled.GetComponent<OrigamiObject> ().GetBounds().extents;
 		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+		maxBound = maxBound == 0 ? 1 : maxBound;
 		float scaleFactor = this.assembleSize / maxBound;
 		assembled.transform.parent.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 
@@ -558,6 +561,7 @@ public class InventoryGUI : MonoBehaviour {
 				//Resize the rotater
 				Vector3 origamiBounds = origami.GetBounds().extents;
 				float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
+				maxBound = maxBound == 0 ? 1 : maxBound;
 				float scaleFactor = this.assembleSize / maxBound;
 				newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 				newRotater.transform.localScale = oldScale;
