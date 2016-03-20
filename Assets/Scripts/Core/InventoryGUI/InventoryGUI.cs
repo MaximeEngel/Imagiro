@@ -519,7 +519,7 @@ public class InventoryGUI : MonoBehaviour {
 		realAssembled.ComputeNewBounds ();
 
 		//Resize the rotater
-		Vector3 origamiBounds = assembled.GetComponent<OrigamiObject> ().GetBounds().extents;
+		Vector3 origamiBounds = realAssembled.GetBounds().extents;
 		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
 		maxBound = maxBound == 0 ? 1 : maxBound;
 		float scaleFactor = this.assembleSize / maxBound;

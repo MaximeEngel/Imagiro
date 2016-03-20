@@ -113,8 +113,8 @@ public class AssembledOrigamiObject : OrigamiObject {
 	}
 
 	public void ComputeNewBounds() {
-		Collider thisCollider = this.gameObject.AddComponent<BoxCollider> ();
-		thisCollider = new Collider ();
+		//Collider thisCollider = this.gameObject.AddComponent<BoxCollider> ();
+		Collider thisCollider = new Collider ();
 		bool firstEncapsulation = true;
 		//this.bounds = new Bounds (Vector3.zero, Vector3.zero);
 		foreach(OrigamiObject origami in this.GetComponentsInChildren<OrigamiObject>()){
