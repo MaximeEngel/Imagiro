@@ -33,6 +33,10 @@ public class GameController : MonoBehaviour {
 			eventSystem.AddComponent<GazeInputModule> ();
 			canvasInventoryTransform.gameObject.GetComponent<Canvas> ().renderMode = RenderMode.WorldSpace;
 			this.canvasInventoryTransform.Translate (0.0f, 0.0f, -3f);
+			GameObject offsetVR = GameObject.Find ("OffsetVR");
+			if (offsetVR != null) {
+				offsetVR.transform.Translate (0.28f, -0.37f, -0.03f);
+			}
 		}
 
 		this.initialCanvasPos = this.canvasInventoryTransform.position;
