@@ -19,7 +19,8 @@ public class AnchorValidator
 		string[] lines = new string[] {
 			"OrigamiBaseObject.AnchorPoint2-OrigamiObject.AnchorPoint",
 			"dynamite_core.Dynamite_AnchorPoint1-dynamite_meche.Meche_AnchorPoint1",
-			"Torch_Plate.Plate_AnchorPoint1&Torch_Plate.Plate_AnchorPoint4-Torch_Manche.Torch_AnchorPoint2&Torch_Cage.Cage_AnchorPoint3"
+			"Torch_Plate.Plate_AnchorPoint1&Torch_Plate.Plate_AnchorPoint4-Torch_Manche.Torch_AnchorPoint2&Torch_Cage.Cage_AnchorPoint3",
+			"key_base.Base_AnchorPoint1-key_square.Square_AnchorPoint2" , "key_square.Square_AnchorPoint1-key_round.Round_AnchorPoint1", "key_round.Round_AnchorPoint2-key_triangle.Triangle_AnchorPoint1"
 		};
 			
 		foreach (string line in lines) {
