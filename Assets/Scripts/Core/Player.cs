@@ -183,6 +183,7 @@ public class Player : MonoBehaviour {
 		if (!swim) {
 			Vector3 velocity = this.rigidBody.velocity;
 			//Debug.Log (velocity.y);
+			Debug.Log((Mathf.Abs(velocity.y) < 0.001 )+"  "+Mathf.Abs(velocity.y) );
 			if (Mathf.Abs(velocity.y) < 0.0001) {
 				velocity += Vector3.up * jumpForce;
 				this.rigidBody.velocity = velocity;

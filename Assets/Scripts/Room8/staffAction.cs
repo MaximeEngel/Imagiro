@@ -6,7 +6,7 @@ public class staffAction : ObjectAction {
 	public InteractiveObject baton2;
 	public InteractiveObject baton3;
 	public Collider myCollider;
-	public Animator stairs;
+	public ObjectAction stairs;
 
 	public override void Action (int numState)
 	{
@@ -21,10 +21,7 @@ public class staffAction : ObjectAction {
 		Invoke ("baton3Interact", timeOffset * 2);
 		baton3.InteractOn ();
 
-
-		if (baton1.State == 0 && baton2.State == 1 && baton3.State == 2) {
-			animationStairs ();
-		}
+		Invoke ("animationStairs", timeOffset * 3);
 	}
 
 	private void baton2Interact()
@@ -44,8 +41,11 @@ public class staffAction : ObjectAction {
 	}
 
 	public void animationStairs (){
-		myCollider.enabled = false;
-		stairs.SetInteger ("state", 1);
+		if (baton1.State == 2 && baton2.State == 1 && baton3.State == 0) {
+			Debug.Log ("oh no :(");
+			myCollider.enabled = false;
+			stairs.Action (1);
+		}
 	}
 		
 }
