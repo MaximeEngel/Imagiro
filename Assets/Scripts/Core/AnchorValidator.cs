@@ -18,8 +18,13 @@ public class AnchorValidator
 		// Must be put in a proper file
 		string[] lines = new string[] {
 			"OrigamiBaseObject.AnchorPoint2-OrigamiObject.AnchorPoint",
+
 			"dynamite_core.Dynamite_AnchorPoint1-dynamite_meche.Meche_AnchorPoint1",
-			"Torch_Plate.Plate_AnchorPoint1&Torch_Plate.Plate_AnchorPoint4-Torch_Manche.Torch_AnchorPoint2&Torch_Cage.Cage_AnchorPoint3"
+			"Torch_Plate.Plate_AnchorPoint1&Torch_Plate.Plate_AnchorPoint4-Torch_Manche.Torch_AnchorPoint2&Torch_Cage.Cage_AnchorPoint3",
+
+			"coude_periscope.AnchorPoint2-poignée1.AnchorPoint",
+			"coude_periscope.AnchorPoint3-poignée2.AnchorPoint",
+			"coude_periscope.AnchorPoint4-lentille.AnchorPoint",
 		};
 			
 		foreach (string line in lines) {
