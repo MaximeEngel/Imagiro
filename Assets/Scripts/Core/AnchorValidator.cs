@@ -19,7 +19,7 @@ public class AnchorValidator
 		string[] lines = new string[] {
 			"OrigamiBaseObject.AnchorPoint2-OrigamiObject.AnchorPoint",
 
-			"perle.AnchorPoint-shellBottom1.AnchorPoint",
+			//"perle.AnchorPoint-shellBottom1.AnchorPoint",
 
 			"wheel_part1.AnchorPoint-wheel_part2.AnchorPoint",
 			"wheelstick.AnchorPoint1-wheel_part1.AnchorPointstick|wheel_part2.AnchorPointstick",
@@ -27,7 +27,7 @@ public class AnchorValidator
 			"woodcode1.AnchorPoint-woodcode2.AnchorPoint",
 			"woodcode2.AnchorPoint2-woodcode3.AnchorPoint2",
 			"woodcode3.AnchorPoint3-woodcode4.AnchorPoint3",
-			"woodcode1.AnchorPointbase-tronc.AnchorPoint",
+			//"woodcode1.AnchorPointbase-tronc.AnchorPoint",
 
 		};
 			
