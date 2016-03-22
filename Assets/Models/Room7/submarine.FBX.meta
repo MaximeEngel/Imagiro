@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: 3f07bb93705488b4c9915e87def2d55c
+timeCreated: 1458316566
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: bouton control
+    100002: casier003
+    100004: casier1
+    100006: casier2
+    100008: "coude_periscope_rat\xE9"
+    100010: couvercle trou sol
+    100012: engrenage003
+    100014: engrenage004
+    100016: engrenage1
+    100018: engrenage2
+    100020: etagere 002
+    100022: etagere 1
+    100024: lentille
+    100026: Line001
+    100028: "mur d\xE9cale"
+    100030: murs
+    100032: murs 1
+    100034: panneau de control
+    100036: panneau de control 1
+    100038: "poign\xE9e002"
+    100040: "poign\xE9e1"
+    100042: porte engrenage1
+    100044: porte engrennage003
+    100046: porte engrennage004
+    100048: porte engrennage2
+    100050: porte trou mur
+    100052: portecasier003
+    100054: portecasier1
+    100056: portecasier2
+    100058: sol sureleve
+    100060: //RootNode
+    100062: support carte
+    100064: tabouret
+    100066: trou mur
+    100068: trou sol
+    100070: tube periscope
+    100072: voyant
+    100074: "\xE9tag\xE8re"
+    400000: bouton control
+    400002: casier003
+    400004: casier1
+    400006: casier2
+    400008: "coude_periscope_rat\xE9"
+    400010: couvercle trou sol
+    400012: engrenage003
+    400014: engrenage004
+    400016: engrenage1
+    400018: engrenage2
+    400020: etagere 002
+    400022: etagere 1
+    400024: lentille
+    400026: Line001
+    400028: "mur d\xE9cale"
+    400030: murs
+    400032: murs 1
+    400034: panneau de control
+    400036: panneau de control 1
+    400038: "poign\xE9e002"
+    400040: "poign\xE9e1"
+    400042: porte engrenage1
+    400044: porte engrennage003
+    400046: porte engrennage004
+    400048: porte engrennage2
+    400050: porte trou mur
+    400052: portecasier003
+    400054: portecasier1
+    400056: portecasier2
+    400058: sol sureleve
+    400060: //RootNode
+    400062: support carte
+    400064: tabouret
+    400066: trou mur
+    400068: trou sol
+    400070: tube periscope
+    400072: voyant
+    400074: "\xE9tag\xE8re"
+    2300000: bouton control
+    2300002: casier003
+    2300004: casier1
+    2300006: casier2
+    2300008: "coude_periscope_rat\xE9"
+    2300010: couvercle trou sol
+    2300012: engrenage003
+    2300014: engrenage004
+    2300016: engrenage1
+    2300018: engrenage2
+    2300020: etagere 002
+    2300022: etagere 1
+    2300024: lentille
+    2300026: "mur d\xE9cale"
+    2300028: murs 1
+    2300030: panneau de control 1
+    2300032: "poign\xE9e002"
+    2300034: "poign\xE9e1"
+    2300036: porte engrenage1
+    2300038: porte engrennage003
+    2300040: porte engrennage004
+    2300042: porte engrennage2
+    2300044: porte trou mur
+    2300046: portecasier003
+    2300048: portecasier1
+    2300050: portecasier2
+    2300052: sol sureleve
+    2300054: support carte
+    2300056: tabouret
+    2300058: trou mur
+    2300060: trou sol
+    2300062: tube periscope
+    2300064: voyant
+    3300000: bouton control
+    3300002: casier003
+    3300004: casier1
+    3300006: casier2
+    3300008: "coude_periscope_rat\xE9"
+    3300010: couvercle trou sol
+    3300012: engrenage003
+    3300014: engrenage004
+    3300016: engrenage1
+    3300018: engrenage2
+    3300020: etagere 002
+    3300022: etagere 1
+    3300024: lentille
+    3300026: "mur d\xE9cale"
+    3300028: murs 1
+    3300030: panneau de control 1
+    3300032: "poign\xE9e002"
+    3300034: "poign\xE9e1"
+    3300036: porte engrenage1
+    3300038: porte engrennage003
+    3300040: porte engrennage004
+    3300042: porte engrennage2
+    3300044: porte trou mur
+    3300046: portecasier003
+    3300048: portecasier1
+    3300050: portecasier2
+    3300052: sol sureleve
+    3300054: support carte
+    3300056: tabouret
+    3300058: trou mur
+    3300060: trou sol
+    3300062: tube periscope
+    3300064: voyant
+    4300000: voyant
+    4300002: tabouret
+    4300004: lentille
+    4300006: portecasier2
+    4300008: casier2
+    4300010: casier1
+    4300012: portecasier1
+    4300014: tube periscope
+    4300016: "poign\xE9e1"
+    4300018: "poign\xE9e002"
+    4300020: couvercle trou sol
+    4300022: trou sol
+    4300024: trou mur
+    4300026: porte trou mur
+    4300028: porte engrenage1
+    4300030: porte engrennage2
+    4300032: porte engrennage003
+    4300034: support carte
+    4300036: engrenage2
+    4300038: engrenage1
+    4300040: engrenage003
+    4300042: engrenage004
+    4300044: porte engrennage004
+    4300046: etagere 002
+    4300048: etagere 1
+    4300050: "mur d\xE9cale"
+    4300052: murs
+    4300054: sol sureleve
+    4300056: panneau de control
+    4300058: bouton control
+    4300060: "coude_periscope_rat\xE9"
+    4300062: casier003
+    4300064: portecasier003
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

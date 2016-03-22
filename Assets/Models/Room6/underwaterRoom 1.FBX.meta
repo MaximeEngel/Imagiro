@@ -1,0 +1,699 @@
+fileFormatVersion: 2
+guid: b85f677c2b1631940bf85e2a6caa57bd
+timeCreated: 1457621976
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ' sous-marin'
+    100002: algue 1
+    100004: algue 10
+    100006: algue 11
+    100008: algue 12
+    100010: algue 13
+    100012: algue 14
+    100014: algue 15
+    100016: algue 16
+    100018: algue 17
+    100020: algue 18
+    100022: algue 19
+    100024: algue 2
+    100026: algue 20
+    100028: algue 21
+    100030: algue 22
+    100032: algue 23
+    100034: algue 24
+    100036: algue 25
+    100038: algue 26
+    100040: algue 27
+    100042: algue 28
+    100044: algue 29
+    100046: algue 3
+    100048: algue 30
+    100050: algue 31
+    100052: algue 32
+    100054: algue 33
+    100056: algue 34
+    100058: algue 35
+    100060: algue 36
+    100062: algue 37
+    100064: algue 38
+    100066: algue 39
+    100068: algue 4
+    100070: algue 40
+    100072: algue 41
+    100074: algue 42
+    100076: algue 43
+    100078: algue 44
+    100080: algue 45
+    100082: algue 46
+    100084: algue 47
+    100086: algue 48
+    100088: algue 49
+    100090: algue 5
+    100092: algue 50
+    100094: algue 51
+    100096: algue 52
+    100098: algue 53
+    100100: algue 54
+    100102: algue 55
+    100104: algue 56
+    100106: algue 57
+    100108: algue 58
+    100110: algue 59
+    100112: algue 6
+    100114: algue 60
+    100116: algue 61
+    100118: algue 62
+    100120: algue 63
+    100122: algue 64
+    100124: algue 7
+    100126: algue 8
+    100128: algues
+    100130: barre cadena
+    100132: casier
+    100134: coraux 1
+    100136: coraux 2
+    100138: coraux 3
+    100140: coraux 4
+    100142: coraux 4 1
+    100144: coraux 5
+    100146: coraux 6
+    100148: coraux 7
+    100150: coraux 8
+    100152: cube galet
+    100154: Cylinder001
+    100156: "C\xF4ne galet"
+    100158: galet losange
+    100160: "galet \xE9toile"
+    100162: "h\xE9lice sous-marin"
+    100164: morceau code 1
+    100166: morceau code 2
+    100168: morceau code 3
+    100170: morceau code 4
+    100172: perle
+    100174: porte casier
+    100176: porte sousmarin
+    100178: "p\xE9riscope"
+    100180: rocher 1
+    100182: rocher 10
+    100184: rocher 11
+    100186: rocher 12
+    100188: rocher 13
+    100190: rocher 14
+    100192: rocher 15
+    100194: rocher 16
+    100196: rocher 17
+    100198: rocher 18
+    100200: rocher 19
+    100202: rocher 2
+    100204: rocher 20
+    100206: rocher 21
+    100208: rocher 22
+    100210: rocher 3
+    100212: rocher 5
+    100214: rocher 6
+    100216: rocher 7
+    100218: rocher 8
+    100220: rocher 9
+    100222: Room
+    100224: Room2
+    100226: Roue_Broken_Part1
+    100228: Roue_Broken_Part2
+    100230: Roue_Broken_Part3
+    100232: shellBottom
+    100234: shellBottom001
+    100236: shellTop
+    100238: shellTop001
+    100240: sous-marin
+    100242: tronc
+    100244: Tube016
+    100246: Tube017
+    100248: Tube018
+    100250: Tube019
+    100252: //RootNode
+    400000: ' sous-marin'
+    400002: algue 1
+    400004: algue 10
+    400006: algue 11
+    400008: algue 12
+    400010: algue 13
+    400012: algue 14
+    400014: algue 15
+    400016: algue 16
+    400018: algue 17
+    400020: algue 18
+    400022: algue 19
+    400024: algue 2
+    400026: algue 20
+    400028: algue 21
+    400030: algue 22
+    400032: algue 23
+    400034: algue 24
+    400036: algue 25
+    400038: algue 26
+    400040: algue 27
+    400042: algue 28
+    400044: algue 29
+    400046: algue 3
+    400048: algue 30
+    400050: algue 31
+    400052: algue 32
+    400054: algue 33
+    400056: algue 34
+    400058: algue 35
+    400060: algue 36
+    400062: algue 37
+    400064: algue 38
+    400066: algue 39
+    400068: algue 4
+    400070: algue 40
+    400072: algue 41
+    400074: algue 42
+    400076: algue 43
+    400078: algue 44
+    400080: algue 45
+    400082: algue 46
+    400084: algue 47
+    400086: algue 48
+    400088: algue 49
+    400090: algue 5
+    400092: algue 50
+    400094: algue 51
+    400096: algue 52
+    400098: algue 53
+    400100: algue 54
+    400102: algue 55
+    400104: algue 56
+    400106: algue 57
+    400108: algue 58
+    400110: algue 59
+    400112: algue 6
+    400114: algue 60
+    400116: algue 61
+    400118: algue 62
+    400120: algue 63
+    400122: algue 64
+    400124: algue 7
+    400126: algue 8
+    400128: algues
+    400130: barre cadena
+    400132: casier
+    400134: coraux 1
+    400136: coraux 2
+    400138: coraux 3
+    400140: coraux 4
+    400142: coraux 4 1
+    400144: coraux 5
+    400146: coraux 6
+    400148: coraux 7
+    400150: coraux 8
+    400152: cube galet
+    400154: Cylinder001
+    400156: "C\xF4ne galet"
+    400158: galet losange
+    400160: "galet \xE9toile"
+    400162: "h\xE9lice sous-marin"
+    400164: morceau code 1
+    400166: morceau code 2
+    400168: morceau code 3
+    400170: morceau code 4
+    400172: perle
+    400174: porte casier
+    400176: porte sousmarin
+    400178: "p\xE9riscope"
+    400180: rocher 1
+    400182: rocher 10
+    400184: rocher 11
+    400186: rocher 12
+    400188: rocher 13
+    400190: rocher 14
+    400192: rocher 15
+    400194: rocher 16
+    400196: rocher 17
+    400198: rocher 18
+    400200: rocher 19
+    400202: rocher 2
+    400204: rocher 20
+    400206: rocher 21
+    400208: rocher 22
+    400210: rocher 3
+    400212: rocher 5
+    400214: rocher 6
+    400216: rocher 7
+    400218: rocher 8
+    400220: rocher 9
+    400222: Room
+    400224: Room2
+    400226: Roue_Broken_Part1
+    400228: Roue_Broken_Part2
+    400230: Roue_Broken_Part3
+    400232: shellBottom
+    400234: shellBottom001
+    400236: shellTop
+    400238: shellTop001
+    400240: sous-marin
+    400242: tronc
+    400244: Tube016
+    400246: Tube017
+    400248: Tube018
+    400250: Tube019
+    400252: //RootNode
+    2300000: ' sous-marin'
+    2300002: algue 1
+    2300004: algue 10
+    2300006: algue 11
+    2300008: algue 12
+    2300010: algue 13
+    2300012: algue 14
+    2300014: algue 15
+    2300016: algue 16
+    2300018: algue 17
+    2300020: algue 18
+    2300022: algue 19
+    2300024: algue 2
+    2300026: algue 20
+    2300028: algue 21
+    2300030: algue 22
+    2300032: algue 23
+    2300034: algue 24
+    2300036: algue 25
+    2300038: algue 26
+    2300040: algue 27
+    2300042: algue 28
+    2300044: algue 29
+    2300046: algue 3
+    2300048: algue 30
+    2300050: algue 31
+    2300052: algue 32
+    2300054: algue 33
+    2300056: algue 34
+    2300058: algue 35
+    2300060: algue 36
+    2300062: algue 37
+    2300064: algue 38
+    2300066: algue 39
+    2300068: algue 4
+    2300070: algue 40
+    2300072: algue 41
+    2300074: algue 42
+    2300076: algue 43
+    2300078: algue 44
+    2300080: algue 45
+    2300082: algue 46
+    2300084: algue 47
+    2300086: algue 48
+    2300088: algue 49
+    2300090: algue 5
+    2300092: algue 50
+    2300094: algue 51
+    2300096: algue 52
+    2300098: algue 53
+    2300100: algue 54
+    2300102: algue 55
+    2300104: algue 56
+    2300106: algue 57
+    2300108: algue 58
+    2300110: algue 59
+    2300112: algue 6
+    2300114: algue 60
+    2300116: algue 61
+    2300118: algue 62
+    2300120: algue 63
+    2300122: algue 64
+    2300124: algue 7
+    2300126: algue 8
+    2300128: barre cadena
+    2300130: casier
+    2300132: coraux 1
+    2300134: coraux 2
+    2300136: coraux 3
+    2300138: coraux 4
+    2300140: coraux 4 1
+    2300142: coraux 5
+    2300144: coraux 6
+    2300146: coraux 7
+    2300148: coraux 8
+    2300150: cube galet
+    2300152: Cylinder001
+    2300154: "C\xF4ne galet"
+    2300156: galet losange
+    2300158: "galet \xE9toile"
+    2300160: "h\xE9lice sous-marin"
+    2300162: morceau code 1
+    2300164: morceau code 2
+    2300166: morceau code 3
+    2300168: morceau code 4
+    2300170: perle
+    2300172: porte casier
+    2300174: porte sousmarin
+    2300176: "p\xE9riscope"
+    2300178: rocher 1
+    2300180: rocher 10
+    2300182: rocher 11
+    2300184: rocher 12
+    2300186: rocher 13
+    2300188: rocher 14
+    2300190: rocher 15
+    2300192: rocher 16
+    2300194: rocher 17
+    2300196: rocher 18
+    2300198: rocher 19
+    2300200: rocher 2
+    2300202: rocher 20
+    2300204: rocher 21
+    2300206: rocher 22
+    2300208: rocher 3
+    2300210: rocher 5
+    2300212: rocher 6
+    2300214: rocher 7
+    2300216: rocher 8
+    2300218: rocher 9
+    2300220: Room
+    2300222: Room2
+    2300224: Roue_Broken_Part1
+    2300226: Roue_Broken_Part2
+    2300228: Roue_Broken_Part3
+    2300230: shellBottom
+    2300232: shellBottom001
+    2300234: shellTop
+    2300236: shellTop001
+    2300238: tronc
+    2300240: Tube016
+    2300242: Tube017
+    2300244: Tube018
+    2300246: Tube019
+    3300000: ' sous-marin'
+    3300002: algue 1
+    3300004: algue 10
+    3300006: algue 11
+    3300008: algue 12
+    3300010: algue 13
+    3300012: algue 14
+    3300014: algue 15
+    3300016: algue 16
+    3300018: algue 17
+    3300020: algue 18
+    3300022: algue 19
+    3300024: algue 2
+    3300026: algue 20
+    3300028: algue 21
+    3300030: algue 22
+    3300032: algue 23
+    3300034: algue 24
+    3300036: algue 25
+    3300038: algue 26
+    3300040: algue 27
+    3300042: algue 28
+    3300044: algue 29
+    3300046: algue 3
+    3300048: algue 30
+    3300050: algue 31
+    3300052: algue 32
+    3300054: algue 33
+    3300056: algue 34
+    3300058: algue 35
+    3300060: algue 36
+    3300062: algue 37
+    3300064: algue 38
+    3300066: algue 39
+    3300068: algue 4
+    3300070: algue 40
+    3300072: algue 41
+    3300074: algue 42
+    3300076: algue 43
+    3300078: algue 44
+    3300080: algue 45
+    3300082: algue 46
+    3300084: algue 47
+    3300086: algue 48
+    3300088: algue 49
+    3300090: algue 5
+    3300092: algue 50
+    3300094: algue 51
+    3300096: algue 52
+    3300098: algue 53
+    3300100: algue 54
+    3300102: algue 55
+    3300104: algue 56
+    3300106: algue 57
+    3300108: algue 58
+    3300110: algue 59
+    3300112: algue 6
+    3300114: algue 60
+    3300116: algue 61
+    3300118: algue 62
+    3300120: algue 63
+    3300122: algue 64
+    3300124: algue 7
+    3300126: algue 8
+    3300128: barre cadena
+    3300130: casier
+    3300132: coraux 1
+    3300134: coraux 2
+    3300136: coraux 3
+    3300138: coraux 4
+    3300140: coraux 4 1
+    3300142: coraux 5
+    3300144: coraux 6
+    3300146: coraux 7
+    3300148: coraux 8
+    3300150: cube galet
+    3300152: Cylinder001
+    3300154: "C\xF4ne galet"
+    3300156: galet losange
+    3300158: "galet \xE9toile"
+    3300160: "h\xE9lice sous-marin"
+    3300162: morceau code 1
+    3300164: morceau code 2
+    3300166: morceau code 3
+    3300168: morceau code 4
+    3300170: perle
+    3300172: porte casier
+    3300174: porte sousmarin
+    3300176: "p\xE9riscope"
+    3300178: rocher 1
+    3300180: rocher 10
+    3300182: rocher 11
+    3300184: rocher 12
+    3300186: rocher 13
+    3300188: rocher 14
+    3300190: rocher 15
+    3300192: rocher 16
+    3300194: rocher 17
+    3300196: rocher 18
+    3300198: rocher 19
+    3300200: rocher 2
+    3300202: rocher 20
+    3300204: rocher 21
+    3300206: rocher 22
+    3300208: rocher 3
+    3300210: rocher 5
+    3300212: rocher 6
+    3300214: rocher 7
+    3300216: rocher 8
+    3300218: rocher 9
+    3300220: Room
+    3300222: Room2
+    3300224: Roue_Broken_Part1
+    3300226: Roue_Broken_Part2
+    3300228: Roue_Broken_Part3
+    3300230: shellBottom
+    3300232: shellBottom001
+    3300234: shellTop
+    3300236: shellTop001
+    3300238: tronc
+    3300240: Tube016
+    3300242: Tube017
+    3300244: Tube018
+    3300246: Tube019
+    4300000: Room
+    4300002: casier
+    4300004: porte casier
+    4300006: tronc
+    4300008: morceau code 1
+    4300010: morceau code 4
+    4300012: morceau code 3
+    4300014: morceau code 2
+    4300016: Room2
+    4300018: shellTop
+    4300020: shellBottom
+    4300022: shellTop001
+    4300024: shellBottom001
+    4300026: cube galet
+    4300028: "galet \xE9toile"
+    4300030: galet losange
+    4300032: "C\xF4ne galet"
+    4300034: coraux 1
+    4300036: perle
+    4300038: coraux 2
+    4300040: coraux 3
+    4300042: coraux 4
+    4300044: coraux 4
+    4300046: coraux 5
+    4300048: coraux 6
+    4300050: coraux 7
+    4300052: coraux 8
+    4300054: algue 1
+    4300056: algue 2
+    4300058: algue 3
+    4300060: algue 4
+    4300062: algue 5
+    4300064: algue 6
+    4300066: algue 7
+    4300068: algue 8
+    4300070: algue 10
+    4300072: algue 11
+    4300074: algue 12
+    4300076: algue 13
+    4300078: algue 14
+    4300080: algue 15
+    4300082: algue 16
+    4300084: algue 17
+    4300086: algue 18
+    4300088: algue 19
+    4300090: algue 20
+    4300092: algue 21
+    4300094: algue 22
+    4300096: algue 23
+    4300098: algue 24
+    4300100: algue 25
+    4300102: algue 26
+    4300104: algue 27
+    4300106: algue 28
+    4300108: algue 29
+    4300110: algue 30
+    4300112: algue 31
+    4300114: algue 32
+    4300116: algue 33
+    4300118: algue 34
+    4300120: algue 35
+    4300122: algue 36
+    4300124: algue 37
+    4300126: algue 38
+    4300128: algue 39
+    4300130: algue 40
+    4300132: algue 41
+    4300134: algue 42
+    4300136: algue 43
+    4300138: algue 44
+    4300140: algue 45
+    4300142: algue 46
+    4300144: algue 47
+    4300146: algue 48
+    4300148: algue 49
+    4300150: algue 50
+    4300152: algue 51
+    4300154: algue 52
+    4300156: algue 53
+    4300158: algue 54
+    4300160: algue 55
+    4300162: algue 56
+    4300164: algue 57
+    4300166: algue 58
+    4300168: algue 59
+    4300170: algue 60
+    4300172: algue 61
+    4300174: algue 62
+    4300176: algue 63
+    4300178: algue 64
+    4300180: barre cadena
+    4300182: porte sousmarin
+    4300184: Tube016
+    4300186: Tube017
+    4300188: Tube018
+    4300190: Tube019
+    4300192: Cylinder001
+    4300194: "p\xE9riscope"
+    4300196: "h\xE9lice sous-marin"
+    4300198: ' sous-marin'
+    4300200: rocher 1
+    4300202: rocher 2
+    4300204: rocher 3
+    4300206: rocher 5
+    4300208: rocher 6
+    4300210: rocher 7
+    4300212: rocher 8
+    4300214: rocher 9
+    4300216: rocher 10
+    4300218: rocher 11
+    4300220: rocher 12
+    4300222: rocher 13
+    4300224: rocher 14
+    4300226: rocher 15
+    4300228: rocher 16
+    4300230: rocher 17
+    4300232: rocher 18
+    4300234: rocher 19
+    4300236: rocher 20
+    4300238: rocher 21
+    4300240: rocher 22
+    4300242: Roue_Broken_Part1
+    4300244: Roue_Broken_Part3
+    4300246: Roue_Broken_Part2
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
