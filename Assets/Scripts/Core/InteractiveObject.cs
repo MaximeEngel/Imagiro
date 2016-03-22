@@ -19,6 +19,12 @@ public class InteractiveObject : MonoBehaviour {
 		this.nbState = objectStates.Length;
 	}
 
+	public int State {
+		get {
+			return this.state;
+		}
+	}
+
 	public void InteractOn ()
 	{
 		if (objectStates.Length < 1) {

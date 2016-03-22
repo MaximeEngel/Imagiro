@@ -34,6 +34,11 @@ public class AnchorValidator
 			"woodcode2.AnchorPoint2-woodcode3.AnchorPoint2",
 			"woodcode3.AnchorPoint3-woodcode4.AnchorPoint3",
 			//"woodcode1.AnchorPointbase-tronc.AnchorPoint",
+
+			"OrigamiBase_coco.anchor_branche_d&OrigamiBase_coco.anchor_branche_g-OrigamiObject_epouvantail_g.anchor_branche_coco&OrigamiObject_epouvantail_d.anchor_branche_coco",
+			"OrigamiBase_coco.anchor_pipe-origamiObj_Pipe.anchor_pipe",
+			"OrigamiObject_mask_bouche.AnchorPoint-OrigamiBase_mask_tete.AnchorPoint",
+
 		};
 			
 		foreach (string line in lines) {
