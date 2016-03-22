@@ -25,6 +25,7 @@ public class InventoryGUI : MonoBehaviour {
 	private GameObject _draggedSlot;
 	public InventorySlot selectedSlot;
 	private AnchorPoint selectedAnchor;
+	private float undefinedScale = 0.3f;
 
 	public GameObject assembleRotater;
 
@@ -119,7 +120,7 @@ public class InventoryGUI : MonoBehaviour {
 			//Resize the rotater
 			Vector3 origamiBounds = origamiObj.GetComponent<OrigamiObject> ().GetBounds().extents;
 			float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
-			maxBound = maxBound == 0 ? 1 : maxBound;
+			maxBound = maxBound == 0 ? undefinedScale : maxBound;
 			float scaleFactor = this.assembleSize / maxBound;
 			newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 
@@ -199,7 +200,7 @@ public class InventoryGUI : MonoBehaviour {
 
 		Vector3 origamiBounds = origami.GetBounds().extents;
 		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
-		maxBound = maxBound == 0 ? 1 : maxBound;
+		maxBound = maxBound == 0 ? undefinedScale : maxBound;
 		float scaleFactor = this.slotSize / maxBound;
 		currentSlot.localScale = scaleFactor * Vector3.one;
 
@@ -521,7 +522,7 @@ public class InventoryGUI : MonoBehaviour {
 		//Resize the rotater
 		Vector3 origamiBounds = realAssembled.GetBounds().extents;
 		float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
-		maxBound = maxBound == 0 ? 1 : maxBound;
+		maxBound = maxBound == 0 ? undefinedScale : maxBound;
 		float scaleFactor = this.assembleSize / maxBound;
 		assembled.transform.parent.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 
@@ -561,7 +562,7 @@ public class InventoryGUI : MonoBehaviour {
 				//Resize the rotater
 				Vector3 origamiBounds = origami.GetBounds().extents;
 				float maxBound = Mathf.Max (origamiBounds.x, origamiBounds.y, origamiBounds.z);
-				maxBound = maxBound == 0 ? 1 : maxBound;
+				maxBound = maxBound == 0 ? undefinedScale : maxBound;
 				float scaleFactor = this.assembleSize / maxBound;
 				newRotater.GetComponent<RotateByDragging> ().maxScale = scaleFactor;
 				newRotater.transform.localScale = oldScale;
