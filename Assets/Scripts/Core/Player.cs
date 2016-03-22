@@ -174,9 +174,9 @@ public class Player : MonoBehaviour {
 
 	public void Crouch() {
 		if (Mathf.Abs (this.rigidBody.velocity.y) < 0.0001) {
-			Vector3 scale = this.transform.localScale;
-			scale.y *= crouchFactor;
-			this.transform.localScale = scale;
+			Vector3 pos = eyeCamera.transform.localPosition;
+			pos.y *= crouchFactor;
+			eyeCamera.transform.localPosition = pos;
 			this.crouch = true;
 			StayStill ();
 		}
@@ -184,9 +184,9 @@ public class Player : MonoBehaviour {
 
 	public void StandUp() {
 		if (this.crouch) {
-			Vector3 scale = this.transform.localScale;
-			scale.y /= crouchFactor;
-			this.transform.localScale = scale;
+			Vector3 pos = eyeCamera.transform.localPosition;
+			pos.y /= crouchFactor;
+			eyeCamera.transform.localPosition = pos;
 			this.crouch = false;
 		}
 	}
@@ -195,7 +195,6 @@ public class Player : MonoBehaviour {
 		if (!swim && !this.crouch) {
 			Vector3 velocity = this.rigidBody.velocity;
 			//Debug.Log (velocity.y);
-			Debug.Log((Mathf.Abs(velocity.y) < 0.001 )+"  "+Mathf.Abs(velocity.y) );
 			if (Mathf.Abs(velocity.y) < 0.0001) {
 				velocity += Vector3.up * jumpForce;
 				this.rigidBody.velocity = velocity;

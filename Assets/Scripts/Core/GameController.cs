@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
 		this.inInventory = false;
 		this.canvasInventoryTransform = GameObject.Find("Canvas").transform;
 		this.inventoryCamera = GameObject.Find ("InventoryCamera");
+		Cursor.visible = false;
 
 		if (this.VRMode) {
 			GameObject c = GameObject.FindGameObjectWithTag ("MainCamera");
@@ -92,6 +93,7 @@ public class GameController : MonoBehaviour {
 		this.inGame = !this.inGame;
 		this.inInventory = !this.inInventory;
 		if (this.inInventory) {
+			Cursor.visible = true;
 			this.canvasInventoryTransform.gameObject.SetActive (true);
 			this.inventoryGUI.Open ();
 			this.player.StayStill ();
@@ -108,6 +110,7 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		else {
+			Cursor.visible = false;
 			this.inventoryGUI.Close ();	
 			if (this.VRMode) {
 				this.canvasInventoryTransform.position = this.initialCanvasPos;
