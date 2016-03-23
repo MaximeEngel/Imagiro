@@ -146,17 +146,18 @@ public class GameController : MonoBehaviour {
 						case "TextDetach":
 							this.inventoryGUI.DetachAllAssembled ();
 							break;
+						case "AssembleArea":
+							this.inventoryGUI.SelectAnchorPoint ();
+							break;
 						}
 					}
 				}
-				if (Input.GetButtonDown ("ManageObject")) {
+				if (Input.GetButtonDown ("Jump")) {
 					if (raycastResults [0].gameObject.tag == "InventorySlot") {
 						raycastResults [0].gameObject.GetComponentInChildren<DraggableZone> ().Select ();
-					} else if (raycastResults [0].gameObject.name == "AssembleArea") {
-						this.inventoryGUI.SelectAnchorPoint ();
 					}
 				}
-				if (Input.GetButtonUp ("ManageObject")) {
+				if (Input.GetButtonUp ("Jump")) {
 
 					if (raycastResults [0].gameObject.tag == "InventorySlot") {
 						raycastResults [0].gameObject.GetComponent<InventorySlot> ().Drop ();

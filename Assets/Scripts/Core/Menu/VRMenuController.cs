@@ -31,6 +31,9 @@ public class VRMenuController : MonoBehaviour {
 			if (Input.GetButtonDown("Interact")) {
 				switch(VRRecticle.gazedObject.name) {
 				case "TextPlay":
+					menu.GoToHelpScreen ();
+					break;
+				case "RealPlayText":
 					menu.StartGame ();
 					break;
 				case "TextSelection":
