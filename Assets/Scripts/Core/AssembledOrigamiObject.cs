@@ -107,9 +107,9 @@ public class AssembledOrigamiObject : OrigamiObject {
 //			bounds += origamiObject.GetBounds ();
 //		}
 
-		Bounds newBounds = new Bounds (this.bounds.center - this.transform.position, this.bounds.extents/2);
+		//Bounds newBounds = new Bounds (this.bounds.center - this.transform.position, this.bounds.extents);
 
-		return newBounds;
+		return bounds;
 	}
 
 	public void ComputeNewBounds() {
@@ -124,9 +124,18 @@ public class AssembledOrigamiObject : OrigamiObject {
 					//toEncapsulate.
 					if (firstEncapsulation) {
 						thisCollider = origami.GetComponent<Collider> ();
+						Vector3 theseExtents = thisCollider.bounds.extents;
+						theseExtents.x *= origami.transform.lossyScale.x;
+						theseExtents.y *= origami.transform.lossyScale.y;
+						theseExtents.z *= origami.transform.lossyScale.z;
 						firstEncapsulation = false;
 					} else {
-						thisCollider.bounds.Encapsulate (origami.GetComponent<Collider> ().bounds);
+						//thisCollider.bounds.Encapsulate (origami.GetComponent<Collider> ().bounds);
+						Vector3 theseExtents = thisCollider.bounds.extents;
+						theseExtents.x *= origami.transform.lossyScale.x;
+						theseExtents.y *= origami.transform.lossyScale.y;
+						theseExtents.z *= origami.transform.lossyScale.z;
+						theseExtents = Vector3.Max (theseExtents, origami.GetComponent<Collider> ().bounds.extents);
 					}
 				}
 			}
