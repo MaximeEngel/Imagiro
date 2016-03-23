@@ -107,9 +107,9 @@ public class AssembledOrigamiObject : OrigamiObject {
 //			bounds += origamiObject.GetBounds ();
 //		}
 
-		Bounds newBounds = new Bounds (this.bounds.center - this.transform.position, this.bounds.extents);
+		//Bounds newBounds = new Bounds (this.bounds.center - this.transform.position, this.bounds.extents);
 
-		return newBounds;
+		return bounds;
 	}
 
 	public void ComputeNewBounds() {
