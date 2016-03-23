@@ -16,6 +16,12 @@ public class Menu : MonoBehaviour {
 		levelSelection.gameObject.SetActive (false);
 		helpPanel.gameObject.SetActive (false);
 	}
+
+	void Update () {
+		if (Input.GetButtonDown("Escape")) {
+			Application.Quit ();
+		}
+	}
 	
 	public void GoToLevelSelection(){
 		mainMenu.gameObject.SetActive (false);

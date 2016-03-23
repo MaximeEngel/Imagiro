@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -56,8 +57,8 @@ public class GameController : MonoBehaviour {
 			ManageInventoryInput ();
 		}
 		if (Input.GetButtonDown("Escape")) {
-			Debug.Break ();
-			Application.Quit ();
+			Cursor.visible = true;
+			SceneManager.LoadScene ("mainMenu");
 		}
 	}
 

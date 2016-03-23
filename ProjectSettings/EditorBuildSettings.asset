@@ -13,3 +13,11 @@ EditorBuildSettings:
     path: Assets/Scenes/roomtwo.unity
   - enabled: 1
     path: Assets/Scenes/roomfour.unity
+  - enabled: 1
+    path: Assets/Scenes/Room1.unity
+  - enabled: 1
+    path: Assets/Scenes/room6.unity
+  - enabled: 1
+    path: Assets/Scenes/Room8.unity
+  - enabled: 1
+    path: Assets/Scenes/submarineRoom.unity
