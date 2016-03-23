@@ -39,6 +39,8 @@ public class AnchorValidator
 			"OrigamiBase_coco.anchor_pipe-origamiObj_Pipe.anchor_pipe",
 			"OrigamiObject_mask_bouche.AnchorPoint-OrigamiBase_mask_tete.AnchorPoint",
 
+			"couverture_livre.Anchor-pages_livre.Anchor",
+			"tete_clef.fond_trou&anneau_clef.fond_trou-tige_clef.bout1&tige_clef.bout2"
 		};
 			
 		foreach (string line in lines) {
