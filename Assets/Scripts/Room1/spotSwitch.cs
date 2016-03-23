@@ -3,9 +3,17 @@ using System.Collections;
 
 public class spotSwitch : ObjectAction {
 
+	public GameObject papier;
+	public Light light;
+
+	void Start(){
+		light.enabled = false;
+		papier.SetActive (false);
+	}
+
 	public override void Action (int numState){
-		Debug.Log ("Je suis dans la lumière");
-		this.GetComponent<Light> ().enabled = !this.GetComponent<Light> ().enabled;
+		light.enabled = !light.enabled;
+		this.papier.SetActive (light.enabled);
 	}
 
 	public override void InstantAction (int numState){
