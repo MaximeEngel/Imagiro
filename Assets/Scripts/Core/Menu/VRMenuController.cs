@@ -37,7 +37,7 @@ public class VRMenuController : MonoBehaviour {
 					menu.GoToLevelSelection ();
 					break;
 				case "TextBack":
-					menu.GoToLevelMainMenu ();
+					menu.GoToMainMenu ();
 					break;
 				default:
 					if (VRRecticle.gazedObject.name.StartsWith ("TextLevel")) {		

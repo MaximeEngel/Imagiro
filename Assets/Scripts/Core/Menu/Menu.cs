@@ -6,6 +6,7 @@ public class Menu : MonoBehaviour {
 
 	public RectTransform mainMenu;
 	public RectTransform levelSelection;
+	public RectTransform helpPanel;
 	public string startScene;
 	public string[] levels;
 
@@ -13,6 +14,7 @@ public class Menu : MonoBehaviour {
 	void Start () {
 		mainMenu.gameObject.SetActive (true);
 		levelSelection.gameObject.SetActive (false);
+		helpPanel.gameObject.SetActive (false);
 	}
 	
 	public void GoToLevelSelection(){
@@ -20,13 +22,19 @@ public class Menu : MonoBehaviour {
 		levelSelection.gameObject.SetActive (true);
 	}
 
-	public void GoToLevelMainMenu(){
+	public void GoToMainMenu(){
 		mainMenu.gameObject.SetActive (true);
 		levelSelection.gameObject.SetActive (false);
+		helpPanel.gameObject.SetActive (false);
 	}
 
 	public void StartGame(){
 		SceneManager.LoadScene (startScene);
+	}
+
+	public void GoToHelpScreen(){
+		mainMenu.gameObject.SetActive (false);
+		helpPanel.gameObject.SetActive (true);
 	}
 
 	public void StartLevel(int idx){
