@@ -1029,7 +1029,7 @@ MonoBehaviour:
   mainMenu: {fileID: 2033440184}
   levelSelection: {fileID: 2042514274}
   helpPanel: {fileID: 1656239038}
-  startScene: main
+  startScene: Room1
   levels:
   - Room1
   - roomtwo
@@ -7567,7 +7567,7 @@ GameObject:
   - 222: {fileID: 2070989153}
   - 114: {fileID: 2070989152}
   m_Layer: 5
-  m_Name: Text
+  m_Name: FirstPlayText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7656,7 +7656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a164cc58f240ec43a5e8986e8053604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VRMode: 0
+  VRMode: 1
   cam: {fileID: 1199138413}
   eventSystem: {fileID: 1987409833}
   canv: {fileID: 276327223}

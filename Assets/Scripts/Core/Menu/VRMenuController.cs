@@ -33,7 +33,7 @@ public class VRMenuController : MonoBehaviour {
 				case "TextPlay":
 					menu.GoToHelpScreen ();
 					break;
-				case "RealPlayText":
+				case "FirstPlayText":
 					menu.StartGame ();
 					break;
 				case "TextSelection":
