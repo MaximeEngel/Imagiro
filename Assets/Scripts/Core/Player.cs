@@ -144,6 +144,7 @@ public class Player : MonoBehaviour {
 
 			if (!selectedObject.IsFinalObject ()) {
 				this.heldObjectContiner.StartErrorState ();
+				Debug.Log ("non valide");
 			} else {
 				RaycastHit hit;
 				if (Physics.Raycast (this.eyeCamera.transform.position, this.eyeCamera.transform.forward, out hit, this.interactionDistance)) {

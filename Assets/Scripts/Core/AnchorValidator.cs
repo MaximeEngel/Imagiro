@@ -22,8 +22,7 @@ public class AnchorValidator
 			"dynamite_core.Dynamite_AnchorPoint1-dynamite_meche.Meche_AnchorPoint1",
 			"Torch_Plate.Plate_AnchorPoint1&Torch_Plate.Plate_AnchorPoint4-Torch_Manche.Torch_AnchorPoint2&Torch_Cage.Cage_AnchorPoint3",
 
-			"coude_periscope.AnchorPoint2-poignée1.AnchorPoint",
-			"coude_periscope.AnchorPoint3-poignée2.AnchorPoint",
+			"coude_periscope.AnchorPoint2&coude_periscope.AnchorPoint3-poignee_1.AnchorPoint&poignee_2.AnchorPoint",
 			"coude_periscope.AnchorPoint4-lentille.AnchorPoint",
 			//"perle.AnchorPoint-shellBottom1.AnchorPoint",
 
