@@ -50,7 +50,7 @@ public class treeAndWaterManager : MonoBehaviour {
 		_arePipesOn = false;
 		_arePipesOn = false;
 		exitWater1.SetActive (false);
-		exitWater1.SetActive (false);
+		exitWater2.SetActive (false);
 		tapWater.SetActive (false);
 		bentTree1.SetActive (true);
 		bentTree2.SetActive (true);
