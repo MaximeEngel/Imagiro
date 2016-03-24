@@ -5113,7 +5113,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400362, guid: 276d490e88015034b89c87f3a53302df, type: 2}
       propertyPath: sceneName
-      value: Room6
+      value: room6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 276d490e88015034b89c87f3a53302df, type: 2}

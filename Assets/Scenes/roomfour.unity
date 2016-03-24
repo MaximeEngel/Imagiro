@@ -4912,7 +4912,7 @@ Transform:
   - {fileID: 1996055089}
   - {fileID: 546308455}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!1 &1214460322 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: f4bdda2e80db5964085b921d15244f91, type: 3}
@@ -7166,7 +7166,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400362, guid: 276d490e88015034b89c87f3a53302df, type: 2}
       propertyPath: sceneName
-      value: room5
+      value: Room5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 276d490e88015034b89c87f3a53302df, type: 2}

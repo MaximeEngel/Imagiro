@@ -1033,9 +1033,9 @@ MonoBehaviour:
   levels:
   - Room1
   - roomtwo
-  - 
+  - room3
   - roomfour
-  - 
+  - Room5
   - room6
   - submarineRoom
   - Room8

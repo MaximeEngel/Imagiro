@@ -15,6 +15,7 @@ public class Menu : MonoBehaviour {
 		mainMenu.gameObject.SetActive (true);
 		levelSelection.gameObject.SetActive (false);
 		helpPanel.gameObject.SetActive (false);
+		Cursor.lockState = CursorLockMode.None;
 	}
 
 	void Update () {

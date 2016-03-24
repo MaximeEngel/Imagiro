@@ -3113,7 +3113,7 @@ Transform:
   - {fileID: 561027234}
   - {fileID: 1600056753}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!95 &806923072
 Animator:
   serializedVersion: 3
@@ -4272,48 +4272,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.3886582
   m_Center: {x: -0.0067327768, y: 0.0067324205, z: 0.01}
---- !u!1001 &1384441448
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 5.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 444578, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: dce7da28eca11e14ab06b50f7abe1b4f, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1394125823
 GameObject:
   m_ObjectHideFlags: 0
@@ -4341,7 +4299,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1488374127}
-  m_RootOrder: 24
+  m_RootOrder: 26
 --- !u!65 &1394125825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5630,6 +5588,10 @@ Prefab:
     - target: {fileID: 451076, guid: 276d490e88015034b89c87f3a53302df, type: 2}
       propertyPath: m_LocalScale.z
       value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400362, guid: 276d490e88015034b89c87f3a53302df, type: 2}
+      propertyPath: sceneName
+      value: submarineRoom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 276d490e88015034b89c87f3a53302df, type: 2}

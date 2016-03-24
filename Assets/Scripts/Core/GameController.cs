@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour {
 		this.canvasInventoryTransform = GameObject.Find("Canvas").transform;
 		this.inventoryCamera = GameObject.Find ("InventoryCamera");
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 
 		if (this.VRMode) {
 			GameObject c = GameObject.FindGameObjectWithTag ("MainCamera");
@@ -58,6 +59,7 @@ public class GameController : MonoBehaviour {
 		}
 		if (Input.GetButtonDown("Escape")) {
 			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
 			SceneManager.LoadScene ("mainMenu");
 		}
 	}
@@ -95,6 +97,7 @@ public class GameController : MonoBehaviour {
 		this.inInventory = !this.inInventory;
 		if (this.inInventory) {
 			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
 			this.canvasInventoryTransform.gameObject.SetActive (true);
 			this.inventoryGUI.Open ();
 			this.player.StayStill ();
@@ -112,6 +115,7 @@ public class GameController : MonoBehaviour {
 		}
 		else {
 			Cursor.visible = false;
+			Cursor.lockState = CursorLockMode.Locked;
 			this.inventoryGUI.Close ();	
 			if (this.VRMode) {
 				this.canvasInventoryTransform.position = this.initialCanvasPos;
