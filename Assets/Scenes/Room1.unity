@@ -2264,8 +2264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bcf35542c938b418d0ff7a2a62e63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  papier: {fileID: 0}
-  light: {fileID: 0}
+  papier: {fileID: 231469306}
+  myLight: {fileID: 968730933}
 --- !u!95 &992197085 stripped
 Animator:
   m_PrefabParentObject: {fileID: 9500000, guid: 815d5c1ea882a904b9591a1e8704f337,
@@ -4397,7 +4397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   papier: {fileID: 231469306}
-  light: {fileID: 1971644584}
+  myLight: {fileID: 1971644584}
 --- !u!1001 &2010508144
 Prefab:
   m_ObjectHideFlags: 0

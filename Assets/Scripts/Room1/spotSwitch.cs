@@ -4,16 +4,16 @@ using System.Collections;
 public class spotSwitch : ObjectAction {
 
 	public GameObject papier;
-	public Light light;
+	public Light myLight;
 
 	void Start(){
-		light.enabled = false;
+		myLight.enabled = false;
 		papier.SetActive (false);
 	}
 
 	public override void Action (int numState){
-		light.enabled = !light.enabled;
-		this.papier.SetActive (light.enabled);
+		myLight.enabled = !myLight.enabled;
+		this.papier.SetActive (myLight.enabled);
 	}
 
 	public override void InstantAction (int numState){
