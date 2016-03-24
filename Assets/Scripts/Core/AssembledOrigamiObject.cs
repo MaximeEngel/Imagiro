@@ -107,14 +107,21 @@ public class AssembledOrigamiObject : OrigamiObject {
 //			bounds += origamiObject.GetBounds ();
 //		}
 
-		//Bounds newBounds = new Bounds (this.bounds.center - this.transform.position, this.bounds.extents);
+		Vector3 newExtents = this.bounds.extents;
 
-		return bounds;
+//		newExtents.x *= this.transform.lossyScale.x;
+//		newExtents.y *= this.transform.lossyScale.y;
+//		newExtents.z *= this.transform.lossyScale.z;
+
+
+		Bounds newBounds = new Bounds (this.bounds.center - this.transform.position, newExtents);
+
+		return newBounds;
 	}
 
 	public void ComputeNewBounds() {
 		//Collider thisCollider = this.gameObject.AddComponent<BoxCollider> ();
-		Collider thisCollider = new Collider ();
+		Vector3 theseExtents = Vector3.zero;
 		bool firstEncapsulation = true;
 		//this.bounds = new Bounds (Vector3.zero, Vector3.zero);
 		foreach(OrigamiObject origami in this.GetComponentsInChildren<OrigamiObject>()){
@@ -123,24 +130,24 @@ public class AssembledOrigamiObject : OrigamiObject {
 					//Bounds toEncapsulate = origami.GetComponent<Collider> ().bounds;
 					//toEncapsulate.
 					if (firstEncapsulation) {
-						thisCollider = origami.GetComponent<Collider> ();
-						Vector3 theseExtents = thisCollider.bounds.extents;
-						theseExtents.x *= origami.transform.lossyScale.x;
-						theseExtents.y *= origami.transform.lossyScale.y;
-						theseExtents.z *= origami.transform.lossyScale.z;
+						Collider tempCollider = origami.GetComponent<Collider> ();
+						theseExtents = tempCollider.bounds.extents;
+//						theseExtents.x *= origami.transform.lossyScale.x;
+//						theseExtents.y *= origami.transform.lossyScale.y;
+//						theseExtents.z *= origami.transform.lossyScale.z;
 						firstEncapsulation = false;
 					} else {
 						//thisCollider.bounds.Encapsulate (origami.GetComponent<Collider> ().bounds);
-						Vector3 theseExtents = thisCollider.bounds.extents;
-						theseExtents.x *= origami.transform.lossyScale.x;
-						theseExtents.y *= origami.transform.lossyScale.y;
-						theseExtents.z *= origami.transform.lossyScale.z;
-						theseExtents = Vector3.Max (theseExtents, origami.GetComponent<Collider> ().bounds.extents);
+						Collider tempCollider = origami.GetComponent<Collider> ();
+//						theseExtents.x *= origami.transform.lossyScale.x;
+//						theseExtents.y *= origami.transform.lossyScale.y;
+//						theseExtents.z *= origami.transform.lossyScale.z;
+						theseExtents = Vector3.Max (theseExtents, tempCollider.bounds.extents);
 					}
 				}
 			}
 		}
-		this.bounds = thisCollider.bounds;
+		this.bounds = new Bounds(Vector3.zero, theseExtents);
 	}
 
 //	public override void OnDrawGizmos(){
