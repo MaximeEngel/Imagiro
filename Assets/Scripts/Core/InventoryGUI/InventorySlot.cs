@@ -23,11 +23,12 @@ public class InventorySlot : MonoBehaviour {
 	}
 
 	public void Drop(){
-		if (this.transform.GetChild (0).GetChild (0).childCount != 0) {
-			this.inventoryGUI.ReleaseObjectNowhere ();
-		}
-		else {
-			this.inventoryGUI.MoveDraggedObjectToSlot (this.slotIndex);
+		if (inventoryGUI.draggedSlot.GetComponentInChildren<OrigamiObject>()) {
+			if (this.transform.GetChild (0).GetChild (0).childCount != 0) {
+				this.inventoryGUI.ReleaseObjectNowhere ();
+			} else {
+				this.inventoryGUI.MoveDraggedObjectToSlot (this.slotIndex);
+			}
 		}
 	}
 
