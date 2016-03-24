@@ -40,7 +40,10 @@ public class AnchorValidator
 			"OrigamiObject_mask_bouche.AnchorPoint-OrigamiBase_mask_tete.AnchorPoint",
 
 			"couverture_livre.Anchor-pages_livre.Anchor",
-			"tete_clef.fond_trou&anneau_clef.fond_trou-tige_clef.bout1&tige_clef.bout2"
+			"tete_clef.fond_trou&anneau_clef.fond_trou-tige_clef.bout1&tige_clef.bout2",
+
+			"key_base.Base_AnchorPoint1-key_square.Square_AnchorPoint2" , "key_square.Square_AnchorPoint1-key_round.Round_AnchorPoint1", "key_round.Round_AnchorPoint2-key_triangle.Triangle_AnchorPoint1"
+
 		};
 			
 		foreach (string line in lines) {
