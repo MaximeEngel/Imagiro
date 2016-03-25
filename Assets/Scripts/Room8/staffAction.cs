@@ -42,7 +42,6 @@ public class staffAction : ObjectAction {
 
 	public void animationStairs (){
 		if (baton1.State == 2 && baton2.State == 1 && baton3.State == 0) {
-			Debug.Log ("oh no :(");
 			myCollider.enabled = false;
 			stairs.Action (1);
 		}
